@@ -1,0 +1,11 @@
+﻿  bullet.cpp
+  functions.cpp
+  localGame.cpp
+  movable.cpp
+  physical.cpp
+  player.cpp
+  Scharnhorst_client.cpp
+  ship.cpp
+  turret.cpp
+  Generating Code...
+  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\source\repos\Scharnhorst_client\Debug\Scharnhorst_client.exe
