@@ -6,7 +6,25 @@
 
 LocalGame::LocalGame()
 {
+	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
+
 	inSocket.bind(sf::Socket::AnyPort);
+
+	gameLoop();
+}
+
+void LocalGame::gameLoop()
+{
+	while (window->isOpen())
+	{
+		window->clear();
+
+		window->display();
+	}
+}
+
+void LocalGame::playerEvent()
+{
 }
 
 bool LocalGame::joinServer()
@@ -24,7 +42,7 @@ void LocalGame::printAdresses()
 {
 	std::cout << "TCP client working on: " << sf::IpAddress::getLocalAddress() << ':' << orderSocket.getLocalPort() << std::endl;
 	std::cout << "UDP client working on: " << sf::IpAddress::getLocalAddress() << ':' << inSocket.getLocalPort() << std::endl;
-	std::cout << "UDP server working on: " << serverAddress << ':' << serverUdpPort << std::endl;
+	std::cout << "UDP server working on: " << serverInfo.serverAddress << ':' << serverInfo.serverUdpPort << std::endl;
 }
 
 bool LocalGame::connectToServer(const std::string &adress)
@@ -98,9 +116,9 @@ bool LocalGame::connectToServer(const std::string &adress)
 			helloPacket >> message;
 			if (message == "HI_")
 			{
-				helloPacket >> serverUdpPort;
-				std::cout << "server responded with \"HI\" and port " << serverUdpPort << std::endl;
-				this->serverAddress = IP;
+				helloPacket >> serverInfo.serverUdpPort;
+				std::cout << "server responded with \"HI\" and port " << serverInfo.serverUdpPort << std::endl;
+				this->serverInfo.serverAddress = IP;
 				return true;
 			}
 		}
@@ -112,5 +130,29 @@ bool LocalGame::connectToServer(const std::string &adress)
 
 
 LocalGame::~LocalGame()
+{
+}
+
+void LocalGame::sendPlayerPosition()
+{
+}
+
+void LocalGame::sendAction()
+{
+}
+
+void LocalGame::sendMessage()
+{
+}
+
+void LocalGame::receivePlayerPosition()
+{
+}
+
+void LocalGame::receiveAction()
+{
+}
+
+void LocalGame::recieveMessage()
 {
 }
