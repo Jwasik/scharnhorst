@@ -4,7 +4,7 @@ class physical
 {
 protected:
 	sf::Vector2f position;
-	std::vector<std::shared_ptr<sf::Shape>> shapes;
+	sf::ConvexShape shape;
 
 public:
 	physical();
