@@ -15,22 +15,41 @@ LocalGame::LocalGame()
 
 void LocalGame::gameLoop()
 {
+	sf::Clock time;
+	time.restart();
+
+
 	while (window->isOpen())
 	{
+		sf::Time deltaTime = time.restart();
+		this->playerEvent(deltaTime);
+
+		this->receivePlayerPosition(); //odbiera pozycje graczy od serwera
+		this->sendPlayerPosition(); //wysy³a pozycje i dane gracza
+		this->receiveAction(); //odbiera informacje o strzale
+		this->sendAction(); //wysy³a informacje o strzale
+		this->recieveMessage(); //odbiera wiadomoœci TCP
+		this->sendMessage(); //wysy³a wiadomoœæ TCP
+
+
+
+
+
 		window->clear();
 
 		window->display();
 	}
 }
 
-void LocalGame::playerEvent()
+void LocalGame::playerEvent(const sf::Time &deltaTime)
 {
+
 }
 
 bool LocalGame::joinServer()
 {
 	std::string IP;
-	std::cout << "insert server IP and port" << std::endl;
+	std::cout << "type server IP and port" << std::endl;
 	std::cin >> IP;
 	orderSocket.setBlocking(false);
 

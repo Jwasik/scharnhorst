@@ -1,5 +1,6 @@
 #pragma once
 #include "includes.h"
+#include "player.h"
 
 class LocalGame
 {
@@ -16,8 +17,11 @@ private:
 		sf::VideoMode resolution = sf::VideoMode(800U,600U);
 
 	}gameInfo;
+
 	std::shared_ptr<sf::RenderWindow> window;
 
+	std::shared_ptr<Player> player;
+	std::vector<std::shared_ptr<Player>> otherPlayers;
 	sf::TcpSocket orderSocket;
 	sf::UdpSocket inSocket, outSocket;
 public:
@@ -26,9 +30,9 @@ public:
 	LocalGame();
 	~LocalGame();
 	void gameLoop();
-	void playerEvent(); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
+	void playerEvent(const sf::Time&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
 
-	void sendPlayerPosition(); //wysy³a pozycje gracza
+	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
 
