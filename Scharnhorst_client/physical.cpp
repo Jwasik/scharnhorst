@@ -4,21 +4,36 @@
 
 physical::physical()
 {
-	position = sf::Vector2f(0, 0);
+	setPosition(sf::Vector2f(0,0));
 }
 
 physical::physical(sf::Vector2f position)
 {
-	this->position = position;
+	setPosition(position);
 }
 
-void physical::setPosition(sf::Vector2f)
+void physical::setPosition(sf::Vector2f position)
 {
-
+	this->shape.setPosition(position);
 }
 
-void physical::setRotation(float)
+void physical::setRotation(float alpha)
 {
+	this->shape.setRotation(alpha);
+}
+sf::Vector2f physical::getPosition()
+{
+	return shape.getPosition();
+}
+
+float physical::getRotation()
+{
+	return shape.getRotation;
+}
+
+void physical::draw(sf::RenderWindow *window)
+{
+	window->draw(this->shape);
 }
 
 physical::~physical()
