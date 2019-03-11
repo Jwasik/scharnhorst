@@ -14,7 +14,6 @@ public:
 	physical(sf::Vector2f);
 	void setPosition(sf::Vector2f);
 	void setRotation(float);
-	virtual void draw(sf::RenderWindow*);
 	virtual sf::Vector2f getPosition();
 	virtual float getRotation();
 

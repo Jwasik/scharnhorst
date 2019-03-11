@@ -28,12 +28,7 @@ sf::Vector2f physical::getPosition()
 
 float physical::getRotation()
 {
-	return shape.getRotation;
-}
-
-void physical::draw(sf::RenderWindow *window)
-{
-	window->draw(this->shape);
+	return shape.getRotation();
 }
 
 physical::~physical()

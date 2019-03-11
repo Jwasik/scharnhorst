@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "movable.h"
 
+movable::movable()
+{
+
+}
 
 movable::movable(sf::Vector2f position)
 {

@@ -9,8 +9,6 @@ LocalGame::LocalGame()
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
 
 	inSocket.bind(sf::Socket::AnyPort);
-
-	gameLoop();
 }
 
 void LocalGame::gameLoop()
