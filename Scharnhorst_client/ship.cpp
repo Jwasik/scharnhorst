@@ -20,15 +20,11 @@ ship::~ship()
 {
 }
 
-void ship::calculateAccelerations()
-{
-	acceleration = (enginePower / mass)*(actualSpeed + maxSpeed)(actualSpeed - maxSpeed) * -1/ actualSpeed* actualSpeed;
-	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxTurnAcceleration)(actualSpeed - 1.5*maxTurnAcceleration)* -1 / actualSpeed * actualSpeed;
-}
 
 void ship::accelerate(int direction, double dtime) //{-1, 0, 1}
 {
-	calculateAccelerations();
+	acceleration = (enginePower / mass)*(actualSpeed + maxSpeed)(actualSpeed - maxSpeed) * -1 / actualSpeed * actualSpeed;
+
 	if (direction = -1)
 	{
 		actualSpeed = actualSpeed - dtime *(acceleration / 2/* <-- zabazpieczenie przed zapierdalaniem w ty³*/ + actualSpeed / 4);
@@ -36,16 +32,17 @@ void ship::accelerate(int direction, double dtime) //{-1, 0, 1}
 	else
 		if (direction = 0)
 		{
-			actualSpeed = actualSpeed - dtime *actualSpeed/4;
+			actualSpeed = actualSpeed - dtime *actualSpeed * direction;
 		}
 		else
-		actualSpeed = actualSpeed + dtime *acceleration;
+		actualSpeed = actualSpeed + dtime *acceleration*direction/4 ;
 
 }
 
 void ship::spin(bool direction, double dtime)
 {
-	calculateAccelerations();
+	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxTurnAcceleration)(actualSpeed - 1.5*maxTurnAcceleration)* -1 / actualSpeed * actualSpeed;
+
 	movable::rotate(dtime*turnAcceleration);
 }
 

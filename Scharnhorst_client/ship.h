@@ -4,7 +4,6 @@
 class ship : public movable
 {
 private:
-	void calculateAccelerations(); // zmienia akcelerancjê zaleznie od prêdkoœci, dziêki temu po przekroczeniu max nie bêdzie móg³ przyœpieszaæ a im bli¿ej jej tym mu trudniej 
 
 protected:
 	float width; // [m]
