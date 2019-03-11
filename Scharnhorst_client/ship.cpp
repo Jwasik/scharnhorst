@@ -26,30 +26,32 @@ void ship::calculateAccelerations()
 	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxTurnAcceleration)(actualSpeed - 1.5*maxTurnAcceleration)* -1 / actualSpeed * actualSpeed;
 }
 
-void ship::accelerate(int direction) //{-1, 0, 1}
+void ship::accelerate(int direction, double dtime) //{-1, 0, 1}
 {
+	calculateAccelerations();
 	if (direction = -1)
 	{
-		actualSpeed = actualSpeed - server::getDeltaTime()*(acceleration / 2/* <-- zabazpieczenie przed zapierdalaniem w ty³*/ + actualSpeed / 4);
+		actualSpeed = actualSpeed - dtime *(acceleration / 2/* <-- zabazpieczenie przed zapierdalaniem w ty³*/ + actualSpeed / 4);
 	}
 	else
 		if (direction = 0)
 		{
-			actualSpeed = actualSpeed - server::getDeltaTime()*actualSpeed/4;
+			actualSpeed = actualSpeed - dtime *actualSpeed/4;
 		}
 		else
-		actualSpeed = actualSpeed + server::getDeltaTime()*acceleration;
+		actualSpeed = actualSpeed + dtime *acceleration;
 
 }
 
-void ship::spin(bool direction)
+void ship::spin(bool direction, double dtime)
 {
-	movable::rotate(server::getDeltaTime()*turnAcceleration);
+	calculateAccelerations();
+	movable::rotate(dtime*turnAcceleration);
 }
 
-void ship::swim(sf::RenderWindow *window)
+void ship::swim(sf::RenderWindow *window, double dtime)
 {
-	float distance = actualSpeed * server::getDeltaTime() ;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
+	float distance = actualSpeed * dtime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	movable::move(sf::Vector2f(distance * sin(physical::getRotation()*PI / 180), - distance * cos(physical::getRotation()*PI / 180)));
 	physical::draw(window);
 }
