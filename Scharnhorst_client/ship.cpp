@@ -12,6 +12,7 @@ ship::ship()
 	actualSpeed = 0;
 	maxSpeed = 10;
 	mass = 1000;
+	force = enginePower / mass;
 }
 
 
@@ -19,23 +20,21 @@ ship::~ship()
 {
 }
 
-
-void ship::accelerate(int direction, double deltaTime) //{-1, 0, 1}
+float ship::calculateAcceleration()
 {
-	acceleration = (this->enginePower / this->mass) * (this->actualSpeed + this->maxSpeed)*(this->actualSpeed - this->maxSpeed) * -1 / this->actualSpeed * this->actualSpeed;
+	acceleration = force*gear*0.25f * (this->actualSpeed + this->maxSpeed)*(this->actualSpeed - this->maxSpeed) * -1 / this->actualSpeed * this->actualSpeed;
 
-	if (direction = -1)
-	{
-		actualSpeed = actualSpeed - deltaTime *(acceleration * 0.75f/* <-- zabazpieczenie przed zapierdalaniem w ty³*/ );
-	}
-	else if (direction = 0)
-	{
-			actualSpeed = actualSpeed - deltaTime *actualSpeed * direction;
-	}
-	else
-	actualSpeed = actualSpeed + deltaTime *acceleration*direction/4 ;
-
+	return acceleration;
 }
+
+void ship::accelerate( double deltaTime) //{-1, 0, 1}
+{
+	calculateAcceleration();
+	actualSpeed = actualSpeed + deltaTime *acceleration - actualSpeed/4 /* <-- opór wody*/;
+}
+
+
+
 
 void ship::spin(bool direction, double dtime)
 {
