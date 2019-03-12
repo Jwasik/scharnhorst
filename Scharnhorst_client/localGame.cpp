@@ -6,6 +6,7 @@
 
 LocalGame::LocalGame()
 {
+	player = std::make_shared<Player>("Karl", orderSocket);
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
 
 	inSocket.bind(sf::Socket::AnyPort);
@@ -16,10 +17,17 @@ void LocalGame::gameLoop()
 	sf::Clock time;
 	time.restart();
 
-
+	double deltaTime;
 	while (window->isOpen())
 	{
-		sf::Time deltaTime = time.restart();
+		deltaTime = time.restart().asSeconds()*stalaCzasowa;
+
+		this->player->doStuff(deltaTime);
+		for (auto & player : otherPlayers)
+		{
+			player->doStuff(deltaTime);
+		}
+		
 		this->playerEvent(deltaTime);
 
 		this->receivePlayerPosition(); //odbiera pozycje graczy od serwera
@@ -34,14 +42,50 @@ void LocalGame::gameLoop()
 
 
 		window->clear();
-
+		player->draw(*window);
+		for (auto & player : otherPlayers)
+		{
+			player->draw(*window);
+		}
 		window->display();
 	}
 }
 
-void LocalGame::playerEvent(const sf::Time &deltaTime)
+void LocalGame::playerEvent(const double &deltaTime)
 {
-
+	if (player == nullptr)return;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
+	{
+		if (this->isWClicked == 0)
+		{
+			player->getShip()->changeGear(1);
+			this->isWClicked = 1;
+		}
+	}
+	else
+	{
+		this->isWClicked = 0;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S))
+	{
+		if (this->isSClicked == 0)
+		{
+			player->getShip()->changeGear(0);
+			isSClicked = 1;
+		}
+	}
+	else
+	{
+		isSClicked = 0;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
+	{
+		player->getShip()->spin(0, deltaTime);
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
+	{
+		player->getShip()->spin(1, deltaTime);
+	}
 }
 
 bool LocalGame::joinServer()
@@ -133,6 +177,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 			helloPacket >> message;
 			if (message == "HI_")
 			{
+				this->serverInfo.serverAddress = orderSocket.getRemoteAddress();
 				helloPacket >> serverInfo.serverUdpPort;
 				std::cout << "server responded with \"HI\" and port " << serverInfo.serverUdpPort << std::endl;
 				this->serverInfo.serverAddress = IP;
@@ -152,6 +197,7 @@ LocalGame::~LocalGame()
 
 void LocalGame::sendPlayerPosition()
 {
+	this->player->sendPlayerPosition(outSocket, this->serverInfo.serverAddress, this->serverInfo.serverUdpPort);
 }
 
 void LocalGame::sendAction()

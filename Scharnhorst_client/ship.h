@@ -1,7 +1,7 @@
 #pragma once
 #include "includes.h"
 #include "movable.h"
-class ship : public movable
+class Ship : public movable
 {
 private:
 
@@ -28,10 +28,13 @@ public:
 
 
 	void accelerate(double);
-	void swim(sf::RenderWindow *, double); //przesówa i obraca statek raz na klatkê oraz go rysuje(dziêki physical::draw które w przysz³oœci zostanie zmieniona na bitmapê) 
+	void swim(double); //przesówa i obraca statek raz na klatkê oraz go rysuje(dziêki physical::draw które w przysz³oœci zostanie zmieniona na bitmapê) 
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
-	ship();
-	~ship();
+	void draw(sf::RenderWindow&);
+
+	std::string getType();
+	Ship();
+	~Ship();
 };
 

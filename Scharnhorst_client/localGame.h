@@ -4,13 +4,13 @@
 
 class LocalGame
 {
+	float stalaCzasowa = 3;
 private:
 	struct serverInformation
 	{
 		unsigned short serverUdpPort=0;
-		std::string serverAddress="";
+		sf::IpAddress serverAddress;
 		unsigned short playerCount = 0;
-		unsigned short playerId = 0;
 	}serverInfo;
 	struct gameInformation
 	{
@@ -26,11 +26,13 @@ private:
 	sf::UdpSocket inSocket, outSocket;
 public:
 	bool connectToServer(const std::string&);
+	bool isWClicked=0;
+	bool isSClicked=0;
 
 	LocalGame();
 	~LocalGame();
 	void gameLoop();
-	void playerEvent(const sf::Time&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
+	void playerEvent(const double&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
 
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void sendAction(); //wysy³a informacje o strzale

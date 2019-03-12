@@ -1,0 +1,2 @@
+POS id_gracza, x, y, kierunek_dzia³ //Wysy³a pozycje gracza //UDP
+PLA id_gracza, nazwa_gracza ,model_statku //tworzy nowego gracza, id=0 dla tworzenia nowego gracza który nie ma jeszcze id

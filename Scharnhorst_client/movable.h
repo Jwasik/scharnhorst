@@ -1,6 +1,6 @@
 #pragma once
 #include "physical.h"
-class movable :	public physical /*public sf::Drawable*/
+class movable :	public physical //,public sf::Drawable
 {
 protected:
 public:
