@@ -5,17 +5,19 @@
 
 class physical
 {
+
 protected:
-	sf::ConvexShape shape;
 
 
 public:
+	sf::ConvexShape shape;
+
 	physical();
 	physical(sf::Vector2f);
 	void setPosition(sf::Vector2f);
 	void setRotation(float);
-	virtual sf::Vector2f getPosition();
-	virtual float getRotation();
+	sf::Vector2f getPosition();
+	float getRotation();
 
 
 	~physical();

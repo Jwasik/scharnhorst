@@ -5,13 +5,14 @@
 
 ship::ship()
 {
-	turnAcceleration = 0.5;
-	enginePower = 1000;
+	gear = 0;
+	maxTurnAcceleration = 1.5;
+	enginePower = 500;
 	width = 10;
 	length = 10;
 	actualSpeed = 0;
 	maxSpeed = 10;
-	mass = 1000;
+	mass = 100;
 	force = enginePower / mass;
 }
 
@@ -22,7 +23,7 @@ ship::~ship()
 
 float ship::calculateAcceleration()
 {
-	acceleration = force*gear*0.25f * (this->actualSpeed + this->maxSpeed)*(this->actualSpeed - this->maxSpeed) * -1 / this->actualSpeed * this->actualSpeed;
+	acceleration = force*gear*0.25f * (this->actualSpeed + this->maxSpeed)*(this->actualSpeed - this->maxSpeed) * -1 / (this->maxSpeed * this->maxSpeed);
 
 	return acceleration;
 }
@@ -30,7 +31,21 @@ float ship::calculateAcceleration()
 void ship::accelerate( double deltaTime) //{-1, 0, 1}
 {
 	calculateAcceleration();
-	actualSpeed = actualSpeed + deltaTime *acceleration - actualSpeed/4 /* <-- opór wody*/;
+	if (gear == 0)
+	{
+		actualSpeed = actualSpeed * 0.75f/* <-- opór wody*/;
+
+	}
+	else
+	{
+		if (gear == -1)
+		{
+			if(actualSpeed < 0)
+				actualSpeed = actualSpeed + deltaTime * acceleration - (actualSpeed * 0.25f) /* <-- opór wody*/;
+
+		}
+	}
+	actualSpeed = actualSpeed + deltaTime *acceleration;
 }
 
 
@@ -38,25 +53,30 @@ void ship::accelerate( double deltaTime) //{-1, 0, 1}
 
 void ship::spin(bool direction, double dtime)
 {
-	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxTurnAcceleration)*(actualSpeed - 1.5*maxTurnAcceleration)* -1 / actualSpeed * actualSpeed;
+	
+	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxSpeed)*(actualSpeed - 1.5*maxSpeed)* -1 / (maxSpeed * maxSpeed);
+	if (direction == 1)
 	this->rotate(dtime*turnAcceleration);
+	else
+		this->rotate(-1 * dtime*turnAcceleration);
 }
 
 void ship::changeGear(bool change)
 {
-	if (change == 0 && gear > -1)
+	if ((change == 0) && (gear > -1))
 	{
-		this->gear--;
+		gear--;
 	}
-	else if(change == 1 && gear < 4)
+	else if((change == 1) && (gear < 4))
 	{
-		this->gear++;
+		gear++;
 	}
 	// w przeciwnym razie nic siê nie zmieni
 }
 
-void ship::swim(sf::RenderWindow &window, double deltaTime)
+void ship::swim(sf::RenderWindow *window, double deltaTime)
 {
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), - distance * cos(this->getRotation()*PI / 180)));
+	window->draw(shape);
 }
