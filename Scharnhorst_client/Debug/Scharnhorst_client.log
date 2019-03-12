@@ -1,13 +1,2 @@
-﻿  ship.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(55): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(58): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(67): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(68): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(95): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(96): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
+﻿  localGame.cpp
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
