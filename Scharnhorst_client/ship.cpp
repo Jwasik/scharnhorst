@@ -19,12 +19,12 @@ Ship::Ship()
 
 	this->type = "NONE";
 	this->gear = 0;
-	this->maxTurnAcceleration = 1.5;
-	this->enginePower = 500;
+	this->maxTurnAcceleration = 15;
+	this->enginePower = 200;
 	this->width = 10;
 	this->length = 10;
 	this->actualSpeed = 0;
-	this->maxSpeed = 10;
+	this->maxSpeed = 50;
 	this->mass = 100;
 	this->force = enginePower / mass;
 }
@@ -36,7 +36,15 @@ Ship::~Ship()
 
 float Ship::calculateAcceleration()
 {
-	acceleration = force*gear*0.25f * (this->actualSpeed + this->maxSpeed)*(this->actualSpeed - this->maxSpeed) * -1 / (this->maxSpeed * this->maxSpeed);
+	float temmaxSpeed = maxSpeed;
+
+	if (gear > 0)
+		 temmaxSpeed = maxSpeed * gear*0.25f;
+	
+
+	 acceleration = force*gear*0.25f * (this->actualSpeed  + temmaxSpeed)*(this->actualSpeed - temmaxSpeed) * -1 / (temmaxSpeed * temmaxSpeed);
+
+		 
 
 	return acceleration;
 }
@@ -46,16 +54,15 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 	calculateAcceleration();
 	if (gear == 0)
 	{
-		actualSpeed = actualSpeed * 0.75f/* <-- opór wody*/;
+		actualSpeed -= actualSpeed * 0.5f * deltaTime/* <-- opór wody*/;
 	}
 	else
 	{
-		if (gear == -1)
-		{
-			if(actualSpeed < 0)	actualSpeed = actualSpeed + deltaTime * acceleration - (actualSpeed * 0.25f) /* <-- opór wody*/;
-		}
+
+			if(actualSpeed > 0&&gear == -1)	actualSpeed = actualSpeed + deltaTime * acceleration - actualSpeed * 0.1f * deltaTime;
+
 	}
-	actualSpeed = actualSpeed + deltaTime *acceleration;
+	actualSpeed = actualSpeed + deltaTime * acceleration;
 }
 
 
@@ -63,8 +70,7 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 
 void Ship::spin(bool direction, double dtime)
 {
-	
-	turnAcceleration = maxTurnAcceleration * (actualSpeed + 0.5*maxSpeed)*(actualSpeed - 1.5*maxSpeed)* -1 / (maxSpeed * maxSpeed);
+	turnAcceleration = maxTurnAcceleration * (-(actualSpeed / maxSpeed * 1.5 - 0.85)*(actualSpeed / maxSpeed * 1.5 - 0.85) + 1);
 	if (direction == 1)this->rotate(dtime*turnAcceleration);
 	else this->rotate(-1 * dtime*turnAcceleration);
 }

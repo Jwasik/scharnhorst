@@ -4,7 +4,7 @@
 
 class LocalGame
 {
-	float stalaCzasowa = 3;
+	float stalaCzasowa = 1;
 private:
 	struct serverInformation
 	{

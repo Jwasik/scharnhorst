@@ -44,8 +44,7 @@ void LocalGame::gameLoop()
 		this->recieveMessage(); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
 
-
-
+		//std::cout << player->playerShip->actualSpeed << " " << deltaTime << std::endl;
 
 
 		window->clear();

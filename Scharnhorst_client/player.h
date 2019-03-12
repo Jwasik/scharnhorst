@@ -7,9 +7,9 @@ private:
 	float sightAngle = 0;
 	std::string playerName;
 	unsigned int playerId;
-	std::shared_ptr<Ship> playerShip;
 
 public:
+	std::shared_ptr<Ship> playerShip;
 
 	void createPlayer(sf::TcpSocket&);
 	void doStuff(double&);
