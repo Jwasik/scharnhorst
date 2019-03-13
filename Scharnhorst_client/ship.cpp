@@ -135,7 +135,8 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 
 void Ship::spin(bool direction, double dtime)
 {
-	turnAcceleration = maxTurnAcceleration * (-(actualSpeed / maxSpeed * 1.5 - 0.85)*(actualSpeed / maxSpeed * 1.5 - 0.85) + 1);
+	turnAcceleration = maxTurnAcceleration * sin(PI*0.85*(actualSpeed / maxSpeed));
+	//turnAcceleration = maxTurnAcceleration * (-(actualSpeed / maxSpeed * 1.5 - 0.85)*(actualSpeed / maxSpeed * 1.5 - 0.85) + 1);
 	if (direction == 1)this->rotate(dtime*turnAcceleration);
 	else this->rotate(-1 * dtime*turnAcceleration);
 }

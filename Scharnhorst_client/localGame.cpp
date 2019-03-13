@@ -43,7 +43,7 @@ void LocalGame::gameLoop()
 		this->recieveMessage(); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
 
-		std::cout << player->playerShip->actualSpeed << " " << player->playerShip->acceleration << std::endl;
+		//std::cout << player->playerShip->actualSpeed << " " << player->playerShip->acceleration << std::endl;
 
 
 		window->clear();
