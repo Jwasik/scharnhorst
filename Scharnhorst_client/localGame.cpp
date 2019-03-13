@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "localGame.h"
-
+#include <windows.h>
 
 
 
@@ -34,7 +34,6 @@ void LocalGame::gameLoop()
 		{
 			player->doStuff(deltaTime);
 		}
-		
 		this->playerEvent(deltaTime);
 
 		this->receivePlayerPosition(); //odbiera pozycje graczy od serwera
@@ -44,7 +43,7 @@ void LocalGame::gameLoop()
 		this->recieveMessage(); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
 
-		//std::cout << player->playerShip->actualSpeed << " " << deltaTime << std::endl;
+		std::cout << player->playerShip->actualSpeed << " " << player->playerShip->acceleration << std::endl;
 
 
 		window->clear();
@@ -54,6 +53,7 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 		window->display();
+
 	}
 }
 

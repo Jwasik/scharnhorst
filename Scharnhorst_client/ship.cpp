@@ -19,14 +19,17 @@ Ship::Ship()
 
 	this->type = "NONE";
 	this->gear = 0;
-	this->maxTurnAcceleration = 15;
-	this->enginePower = 200;
+	this->maxTurnAcceleration = 80;
+	this->enginePower = 117680000;
 	this->width = 10;
 	this->length = 10;
 	this->actualSpeed = 0;
-	this->maxSpeed = 50;
-	this->mass = 100;
-	this->force = enginePower / mass;
+	this->maxSpeed = 160.25;
+	this->mass = 38900000;
+	this->acceleration = enginePower / mass;
+
+	shipStaticPressure = acceleration/(maxSpeed*maxSpeed);
+
 }
 
 
@@ -36,9 +39,13 @@ Ship::~Ship()
 
 float Ship::calculateAcceleration()
 {
-	float temmaxSpeed = maxSpeed;
+	waterRezistance = shipStaticPressure * actualSpeed*actualSpeed;
 
-	if (gear > 0)
+
+
+	/*float temmaxSpeed = maxSpeed;
+
+	/*if (gear > 0)
 		 temmaxSpeed = maxSpeed * gear*0.25f;
 	
 
@@ -46,15 +53,73 @@ float Ship::calculateAcceleration()
 
 		 
 
-	return acceleration;
+	return acceleration;*/
+	return waterRezistance;
 }
 
 void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 {
 	calculateAcceleration();
-	if (gear == 0)
+
+	if (actualSpeed > 0)
 	{
-		actualSpeed -= actualSpeed * 0.5f * deltaTime/* <-- opór wody*/;
+		actualSpeed -= waterRezistance * deltaTime;
+	}
+	else
+	{
+		actualSpeed += waterRezistance*deltaTime;
+	}
+
+	if (gear != 0)
+	{
+		actualSpeed += acceleration * gear*0.25 * deltaTime;
+	}
+
+
+	/*if (gear == 0)
+	{
+		/*if (actualSpeed == 0)return;
+		if (abs(actualSpeed) - waterRezistance * deltaTime < waterRezistance*deltaTime)actualSpeed = 0;*/
+		/*if (actualSpeed > 0)
+		{
+			actualSpeed = actualSpeed - waterRezistance*deltaTime;
+		}
+		else
+		{
+			actualSpeed = actualSpeed + waterRezistance*deltaTime;
+		}
+
+	}
+	else
+	{
+		if (gear > 0)
+		{
+			if (actualSpeed >= 0)
+			{
+				actualSpeed = actualSpeed + (force - waterRezistance)*deltaTime;
+			}
+			else
+			{
+				actualSpeed = actualSpeed + (force + waterRezistance)*deltaTime;
+			}
+		}
+		else
+		{
+			if (actualSpeed >= 0)
+			{
+				actualSpeed = actualSpeed - (force - waterRezistance)*deltaTime;
+			}
+			else
+			{
+				actualSpeed = actualSpeed - (force + waterRezistance)*deltaTime;
+			}
+		}
+
+	}
+	
+	/*if (gear == 0)
+	{
+		actualSpeed -= actualSpeed * 0.5f * deltaTime/* <-- opór wody;
 	}
 	else
 	{
@@ -62,7 +127,7 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 			if(actualSpeed > 0&&gear == -1)	actualSpeed = actualSpeed + deltaTime * acceleration - actualSpeed * 0.1f * deltaTime;
 
 	}
-	actualSpeed = actualSpeed + deltaTime * acceleration;
+	actualSpeed = actualSpeed + deltaTime * acceleration;*/
 }
 
 
