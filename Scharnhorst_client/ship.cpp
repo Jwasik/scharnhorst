@@ -10,17 +10,22 @@ std::string Ship::getType()
 
 Ship::Ship()
 {
-	shape.setPointCount(3);
-	shape.setPoint(0, sf::Vector2f(32, 0));
-	shape.setPoint(1, sf::Vector2f(0, 64));
-	shape.setPoint(2, sf::Vector2f(64, 64));
-	shape.setOrigin(sf::Vector2f(32,32));
+	shape.setPointCount(7);
+	shape.setPoint(0, sf::Vector2f(48, 0));
+	shape.setPoint(1, sf::Vector2f(16, 64));
+	shape.setPoint(2, sf::Vector2f(0, 192));
+	shape.setPoint(3, sf::Vector2f(16, 336));
+	shape.setPoint(4, sf::Vector2f(80, 336));
+	shape.setPoint(5, sf::Vector2f(96, 192));
+	shape.setPoint(6, sf::Vector2f(80, 64));
+	shape.setOrigin(sf::Vector2f(48,168));
 	shape.move(shape.getOrigin());
+	shape.move(sf::Vector2f(128,512));
 
 	this->type = "NONE";
 	this->gear = 0;
 	this->maxTurnAcceleration = 8;
-	this->enginePower = 11768000;
+	this->enginePower = 117680000;
 	this->width = 10;
 	this->length = 10;
 	this->actualSpeed = 0;
@@ -40,20 +45,6 @@ Ship::~Ship()
 float Ship::calculateAcceleration()
 {
 	waterRezistance = shipStaticPressure * actualSpeed*actualSpeed;
-
-
-
-	/*float temmaxSpeed = maxSpeed;
-
-	/*if (gear > 0)
-		 temmaxSpeed = maxSpeed * gear*0.25f;
-	
-
-	 acceleration = force*gear*0.25f * (this->actualSpeed  + temmaxSpeed)*(this->actualSpeed - temmaxSpeed) * -1 / (temmaxSpeed * temmaxSpeed);
-
-		 
-
-	return acceleration;*/
 	return waterRezistance;
 }
 

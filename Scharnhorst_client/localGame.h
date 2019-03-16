@@ -1,6 +1,7 @@
 #pragma once
 #include "includes.h"
 #include "player.h"
+#include <string>
 
 class LocalGame
 {
@@ -34,12 +35,15 @@ public:
 	void gameLoop();
 	void playerEvent(const double&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
 
+	std::shared_ptr<Player> getPlayerById(unsigned int);
+
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
 
-	void receivePlayerPosition(); //odbiera pozycje graczy od serwera
-	void receiveAction(); //odbiera informacje o strzale
+	void receiveNewPlayer(sf::Packet);
+	void receivePlayerPosition(sf::Packet); //odbiera pozycje graczy od serwera
+	void receiveAction(sf::Packet); //odbiera informacje o strzale
 	void recieveMessage(); //odbiera wiadomoœci TCP
 
 

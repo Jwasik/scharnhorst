@@ -11,6 +11,7 @@ private:
 public:
 	std::shared_ptr<Ship> playerShip;
 
+	unsigned int getPlayerId();
 	void createPlayer(sf::TcpSocket&);
 	void doStuff(double&);
 	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress&, unsigned short&);

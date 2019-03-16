@@ -2,6 +2,11 @@
 #include "player.h"
 
 
+unsigned int Player::getPlayerId()
+{
+	return this->playerId;
+}
+
 void Player::createPlayer(sf::TcpSocket &socket)
 {
 	sf::Packet packet;

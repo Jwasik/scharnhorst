@@ -10,6 +10,7 @@ LocalGame::LocalGame()
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
 
 	inSocket.bind(sf::Socket::AnyPort);
+	inSocket.setBlocking(false);
 }
 
 void LocalGame::gameLoop()
@@ -36,15 +37,10 @@ void LocalGame::gameLoop()
 		}
 		this->playerEvent(deltaTime);
 
-		this->receivePlayerPosition(); //odbiera pozycje graczy od serwera
 		this->sendPlayerPosition(); //wysy³a pozycje i dane gracza
-		this->receiveAction(); //odbiera informacje o strzale
 		this->sendAction(); //wysy³a informacje o strzale
 		this->recieveMessage(); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
-
-		//std::cout << player->playerShip->actualSpeed << " " << player->playerShip->acceleration << std::endl;
-
 
 		window->clear();
 		player->draw(*window);
@@ -53,7 +49,7 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 		window->display();
-
+		system("cls");
 	}
 }
 
@@ -92,6 +88,17 @@ void LocalGame::playerEvent(const double &deltaTime)
 	{
 		player->getShip()->spin(1, deltaTime);
 	}
+}
+
+std::shared_ptr<Player> LocalGame::getPlayerById(unsigned int searchedId)
+{
+	auto x = 
+	std::find_if(otherPlayers.begin(), otherPlayers.end(), [&searchedId](std::shared_ptr<Player> &player) {return player->getPlayerId()==searchedId; });
+	if (x != otherPlayers.end())
+	{
+		return *x;
+	}
+	else return nullptr;
 }
 
 bool LocalGame::joinServer()
@@ -214,14 +221,60 @@ void LocalGame::sendMessage()
 {
 }
 
-void LocalGame::receivePlayerPosition()
+void LocalGame::receiveNewPlayer(sf::Packet)
 {
 }
 
-void LocalGame::receiveAction()
+void LocalGame::receivePlayerPosition(sf::Packet receivedPacket)
 {
+	unsigned int playerId;
+	float x, y, shipAngle, cannonAngle;
+	receivedPacket >> playerId;
+	receivedPacket >> x;
+	receivedPacket >> y;
+	receivedPacket >> shipAngle;
+	receivedPacket >> cannonAngle;
+	
+	auto player = this->getPlayerById(playerId);
+	if (player == nullptr)
+	{
+		receivedPacket.clear();
+		return;
+	}
+	else
+	{
+		player->getShip()->setPosition(sf::Vector2f(x,y));
+		player->getShip()->setRotation(shipAngle);
+		receivedPacket.clear();
+	}
+
+
+}
+
+void LocalGame::receiveAction(sf::Packet receivedPacket)
+{
+
 }
 
 void LocalGame::recieveMessage()
 {
+	sf::Packet receivedPacket;
+	receivedPacket.clear();
+	std::string order;
+
+	sf::Clock connectionClock;
+	connectionClock.restart();
+	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
+	{
+		inSocket.receive(receivedPacket, this->serverInfo.serverAddress, this->serverInfo.serverUdpPort);
+		if (receivedPacket >> order)
+		{
+			if (order == "POS")
+			{
+				receivePlayerPosition(receivedPacket);
+				continue;
+			}
+		}
+		else break;
+	}
 }
