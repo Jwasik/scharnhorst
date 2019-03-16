@@ -1,2 +1,5 @@
 ﻿  localGame.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(129): warning C4101: 'id': unreferenced local variable
+  Scharnhorst_client.cpp
+  Generating Code...
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

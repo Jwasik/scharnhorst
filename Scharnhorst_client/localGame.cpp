@@ -6,7 +6,7 @@
 
 LocalGame::LocalGame()
 {
-	player = std::make_shared<Player>("Karl", orderSocket);
+	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
 
 	inSocket.bind(sf::Socket::AnyPort);
@@ -108,8 +108,43 @@ bool LocalGame::joinServer()
 	std::cin >> IP;
 	orderSocket.setBlocking(false);
 
-	return connectToServer(IP);
+	if (connectToServer(IP) == false)return 0;
+	
+	sf::Packet newPlayerPacket;
+	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << 1;
+	
+	orderSocket.send(newPlayerPacket);
+	newPlayerPacket.clear();
 
+	sf::Clock connectionClock;
+	connectionClock.restart();
+	std::string receivedMessage;
+	while (connectionClock.getElapsedTime().asSeconds() < 10)
+	{
+		orderSocket.receive(newPlayerPacket);
+		if (newPlayerPacket >> receivedMessage)
+		{
+			if (receivedMessage == "PLJ")
+			{
+				unsigned int id;
+				float x, y, angle=0;
+				player = std::make_shared<Player>(this->playerName);
+				newPlayerPacket >> x;
+				newPlayerPacket >> y;
+				newPlayerPacket >> angle;
+				player->getShip()->setPosition(sf::Vector2f(x,y));
+				player->getShip()->setRotation(angle);
+				std::cout << "joined game succesfully" << std::endl;
+				return 1;
+			}
+			else
+			{
+				receivedMessage.clear();
+			}
+		}
+	}
+	std::cout << "could not create new player on server" << std::endl;
+	return 0;
 }
 
 void LocalGame::printAdresses()

@@ -7,12 +7,11 @@ unsigned int Player::getPlayerId()
 	return this->playerId;
 }
 
-void Player::createPlayer(sf::TcpSocket &socket)
+void Player::setId(unsigned int newId)
 {
-	sf::Packet packet;
-	packet << "PLA" << 0 << playerName << this->getShip()->getType();
-	socket.send(packet);
+	this->playerId = newId;
 }
+
 
 void Player::doStuff(double &deltaTime)
 {
@@ -44,12 +43,10 @@ Player::Player()
 	playerShip = std::make_shared<Ship>();
 }
 
-Player::Player(std::string playerName, sf::TcpSocket &socket)
+Player::Player(std::string playerName)
 {
 	playerShip = std::make_shared<Ship>();
 	this->playerName = playerName;
-	sf::Packet packet;
-	packet << "PLA" << 0 << playerName << this->getShip()->getType();
 }
 
 

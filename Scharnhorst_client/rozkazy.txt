@@ -1,2 +1,9 @@
 POS id_gracza, x, y, kierunek_obrotu ,kierunek_dzia³ //Wysy³a pozycje gracza //UDP
+PPS ilosc_graczy ,id_gracza, x, y, kierunek_obrotu ,kierunek_dzia³ ... powtarza siê w kó³ko
 PLA id_gracza, nazwa_gracza ,model_statku //tworzy nowego gracza, id=0 dla tworzenia nowego gracza który nie ma jeszcze id
+PLJ id_gracza, x ,y ,kierunek_obrotu // potwierdza stworzenie gracza na serwerze i wysy³a jego now¹ pozycje
+
+id_gracza = unsigned int
+x,y = float
+kierunki = float
+model = unsigned int
