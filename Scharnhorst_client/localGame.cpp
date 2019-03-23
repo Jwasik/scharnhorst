@@ -126,15 +126,21 @@ bool LocalGame::joinServer()
 		{
 			if (receivedMessage == "PLJ")
 			{
-				unsigned int id;
+				std::string newPlayerName = "error";
+				unsigned int id = 0;
 				float x, y, angle=0;
-				player = std::make_shared<Player>(this->playerName);
+				newPlayerPacket >> id;
+				newPlayerPacket >> newPlayerName;
+				std::cout << "received PLJ : " << id << ' ' << newPlayerName << std::endl;
+				player = std::make_shared<Player>(id,newPlayerName);
 				newPlayerPacket >> x;
 				newPlayerPacket >> y;
 				newPlayerPacket >> angle;
+
 				player->getShip()->setPosition(sf::Vector2f(x,y));
 				player->getShip()->setRotation(angle);
 				std::cout << "joined game succesfully" << std::endl;
+				while (1);
 				return 1;
 			}
 			else
@@ -280,9 +286,9 @@ void LocalGame::receivePlayerPosition(sf::Packet receivedPacket)
 	{
 		player->getShip()->setPosition(sf::Vector2f(x,y));
 		player->getShip()->setRotation(shipAngle);
+		player->getShip()->setCannonRotation(cannonAngle);
 		receivedPacket.clear();
 	}
-
 
 }
 
@@ -295,18 +301,28 @@ void LocalGame::recieveMessage()
 {
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
-	std::string order;
+	std::string receivedMessage;
 
 	sf::Clock connectionClock;
 	connectionClock.restart();
 	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
 	{
 		inSocket.receive(receivedPacket, this->serverInfo.serverAddress, this->serverInfo.serverUdpPort);
-		if (receivedPacket >> order)
+		if (receivedPacket >> receivedMessage)
 		{
-			if (order == "POS")
+			if (receivedMessage == "POS")
 			{
 				receivePlayerPosition(receivedPacket);
+				continue;
+			}
+			if (receivedMessage == "PPS")
+			{
+				unsigned int count = 0;
+				receivedPacket >> count;
+				for (unsigned int i = 0; i < count; i++)
+				{
+					receivePlayerPosition(receivedPacket);
+				}
 				continue;
 			}
 		}

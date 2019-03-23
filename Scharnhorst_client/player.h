@@ -6,7 +6,7 @@ class Player
 private:
 	float sightAngle = 0;
 	std::string playerName;
-	unsigned int playerId=0;
+	unsigned int playerId;
 
 public:
 	std::shared_ptr<Ship> playerShip;
@@ -16,10 +16,11 @@ public:
 	void doStuff(double&);
 	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress&, unsigned short&);
 	void draw(sf::RenderWindow&);
+	sf::Packet preparePOSpacket();
 
 	std::shared_ptr<Ship>& getShip();
 	Player();
-	Player(std::string);
+	Player(unsigned int, std::string);
 	~Player();
 };
 

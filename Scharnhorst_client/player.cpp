@@ -13,6 +13,7 @@ void Player::setId(unsigned int newId)
 }
 
 
+
 void Player::doStuff(double &deltaTime)
 {
 	if (this->playerShip != nullptr)
@@ -24,13 +25,25 @@ void Player::doStuff(double &deltaTime)
 void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress &address, unsigned short &port)
 {
 	sf::Packet packet;
-	packet << "POS" << this->playerId << this->getShip()->getPosition().x << this->getShip()->getPosition().y << this->sightAngle; 
-	socket.send(packet,address,port);
+	packet << "POS" << this->playerId << this->getShip()->getPosition().x << this->getShip()->getPosition().y << this->sightAngle;
+	socket.send(packet, address, port);
 }
 
 void Player::draw(sf::RenderWindow &window)
 {
 	this->playerShip->draw(window);
+}
+
+sf::Packet Player::preparePOSpacket()
+{
+	sf::Packet sendingPacket;
+	sendingPacket.clear();
+	sendingPacket << this->playerId;
+	sendingPacket << this->getShip()->getPosition().x;
+	sendingPacket << this->getShip()->getPosition().y;
+	sendingPacket << this->getShip()->getRotation();
+	sendingPacket << this->getShip()->getCannonRotation();
+	return sendingPacket;
 }
 
 std::shared_ptr<Ship> & Player::getShip()
@@ -43,9 +56,10 @@ Player::Player()
 	playerShip = std::make_shared<Ship>();
 }
 
-Player::Player(std::string playerName)
+Player::Player(unsigned int id, std::string playerName)
 {
 	playerShip = std::make_shared<Ship>();
+	this->playerId = id;
 	this->playerName = playerName;
 }
 
