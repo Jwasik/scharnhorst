@@ -136,11 +136,11 @@ bool LocalGame::joinServer()
 				newPlayerPacket >> x;
 				newPlayerPacket >> y;
 				newPlayerPacket >> angle;
+				std::cout << "receiving player position : " << x << ' ' << y << std::endl;
 
 				player->getShip()->setPosition(sf::Vector2f(x,y));
 				player->getShip()->setRotation(angle);
 				std::cout << "joined game succesfully" << std::endl;
-				while (1);
 				return 1;
 			}
 			else
