@@ -1,2 +1,25 @@
-﻿  localGame.cpp
-  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
+﻿  pch.cpp
+  Scharnhorst_client.cpp
+  bullet.cpp
+  functions.cpp
+  localGame.cpp
+  movable.cpp
+  physical.cpp
+  player.cpp
+  ship.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(57): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(61): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(66): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(129): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(131): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(132): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(168): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(169): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+  turret.cpp
+  Generowanie kodu...
+  LINK : nie znaleziono elementu C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe ani nie został on skompilowany podczas ostatniego konsolidowania przyrostowego; zostanie wykonana pełna konsolidacja
+  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
