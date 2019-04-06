@@ -14,12 +14,14 @@ private:
 	sf::Vector2f MiceFromMiddle;
 	sf::Vector2f Center;
 	float zoom;
+	
 
 public:
 	sf::View view;
 	sf::Vector2f MicePosition;
+	float angle;
 
-
+	Camera();
 	Camera(sf::Vector2f);
 	void calculateMiceFromMiddle(sf::RenderWindow*);
 	void setCenter(sf::Vector2f);
@@ -30,4 +32,5 @@ public:
 	void setZoom(float);
 	void addZoom(float);
 	void set(sf::RenderWindow*);
+	void calculateAngle();
 };

@@ -13,7 +13,7 @@ protected:
 public:
 	sf::ConvexShape shape;
 
-	void draw(sf::RenderWindow&);
+	virtual void draw(sf::RenderWindow&);
 	physical();
 	physical(sf::Vector2f);
 	void setPosition(sf::Vector2f);

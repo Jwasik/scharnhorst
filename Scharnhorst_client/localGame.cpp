@@ -48,6 +48,7 @@ void LocalGame::gameLoop()
 		{
 			player->draw(*window);
 		}
+
 		window->display();
 		system("cls");
 	}

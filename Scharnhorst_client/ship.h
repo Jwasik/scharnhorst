@@ -1,12 +1,17 @@
 #pragma once
 #include "includes.h"
 #include "movable.h"
+#include "turret.h"
+#include "Camera.h"
+
 
 class Ship : public movable
 {
 private:
 
 public:
+	Camera mysz;
+
 	float width; // [m]
 	float length; // [m]
 	float maxSpeed; // [m/s]
@@ -23,13 +28,13 @@ public:
 	std::string type;
 	std::string name;
 	float calculateAcceleration();
-
+	std::vector <turret> turrets;
 
 
 public:
 	
 
-
+	void draw(sf::RenderWindow&);
 	void accelerate(double);
 	void swim(double); //przesówa i obraca statek raz na klatkê oraz go rysuje(dziêki physical::draw które w przysz³oœci zostanie zmieniona na bitmapê) 
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie

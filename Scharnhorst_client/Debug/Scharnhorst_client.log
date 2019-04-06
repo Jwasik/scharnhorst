@@ -1,20 +1,18 @@
 ﻿  Scharnhorst_client.cpp
   localGame.cpp
-  player.cpp
   ship.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(60): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(64): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(69): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(132): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(134): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(135): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(165): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(166): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(66): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(70): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(75): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(138): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(141): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(171): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(172): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
           with
           [
               T=float
           ]
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(181): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
   Generowanie kodu...
-movable.obj : error LNK2019: nierozpoznany zewnętrzny symbol "protected: float __thiscall movable::changeAngle(float,float)" (?changeAngle@movable@@IAEMMM@Z) przywołany w funkcji "public: void __thiscall movable::rotate(float)" (?rotate@movable@@QAEXM@Z)
-turret.obj : error LNK2001: nierozpoznany symbol zewnętrzny "protected: float __thiscall movable::changeAngle(float,float)" (?changeAngle@movable@@IAEMMM@Z)
-C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe : fatal error LNK1120: liczba nierozpoznanych elementów zewnętrznych: 1
+  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

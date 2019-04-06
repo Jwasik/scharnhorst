@@ -20,9 +20,9 @@ protected:
 
 
 public:
-	void updatePosition(float, float, sf::Vector2f);
+	void updatePosition(float nshipAngle, float nturretAngle, sf::Vector2f nshipOrigin);
 	turret();
-	turret(std::string , sf::Vector2f , float , float , float[], std::vector<sf::Vector2f> );
+	turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin);
 	~turret();
 };
 

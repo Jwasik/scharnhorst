@@ -5,6 +5,7 @@
 
 class LocalGame
 {
+
 	std::string playerName;
 	float stalaCzasowa = 1;
 private:

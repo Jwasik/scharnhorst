@@ -19,12 +19,19 @@ turret::turret()
 
 }
 
-turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, float nlockedArea[],
-	std::vector<sf::Vector2f> nbarrelPoints) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
-	angleFromShipOrigin(nangleFromShipOrigin), barrelPoints(nbarrelPoints)
+turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
+	angleFromShipOrigin(nangleFromShipOrigin)
 {
-	lockedArea[0] = nlockedArea[0];
-	lockedArea[1] = nlockedArea[1];
+	shape.setPointCount(3);
+	shape.setPoint(0, sf::Vector2f(0, -50));
+	shape.setPoint(1, sf::Vector2f(-20, 0));
+	shape.setPoint(2, sf::Vector2f(20, 0));
+	shape.setFillColor(sf::Color(255, 0, 0));
+
+	deleteOrigin();
+	lockedArea[0] = 0;
+	lockedArea[1] = 0;
+	
 
 }
 
@@ -33,9 +40,9 @@ void turret::updatePosition(float nshipAngle, float nturretAngle, sf::Vector2f n
 	shipOrigin = nshipOrigin;
 	shipAngle = nshipAngle;
 	turretAngle = nturretAngle;
-	float angleSum = changeAngle(shipAngle, angleFromShipOrigin);
-	position = sf::Vector2f(distanceFromShipOrigin*sin(angleSum), distanceFromShipOrigin*cos(angleSum)) + shipOrigin;
-
+	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(shipAngle)), -distanceFromShipOrigin*cos(stopnieNaRadiany(shipAngle))) + shipOrigin;
+	shape.setPosition(position);
+	shape.setRotation(turretAngle);
 
 }
 

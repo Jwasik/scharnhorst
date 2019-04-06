@@ -10,6 +10,8 @@ std::string Ship::getType()
 
 Ship::Ship()
 {
+
+	mysz = Camera(sf::Vector2f(800, 600));
 	shape.setPointCount(7);
 	shape.setPoint(0, sf::Vector2f(48, 0));
 	shape.setPoint(1, sf::Vector2f(16, 64));
@@ -21,8 +23,12 @@ Ship::Ship()
 	shape.setOrigin(sf::Vector2f(48,168));
 	shape.move(shape.getOrigin());
 	shape.move(sf::Vector2f(128,512));
-
 	deleteOrigin();
+
+	turrets.push_back(turret("test", sf::Vector2f(128, 512), 100, 0));
+	turrets.push_back(turret("test", sf::Vector2f(128, 512), 20, 0));
+	turrets.push_back(turret("test", sf::Vector2f(128, 512), -40, 0));
+	turrets.push_back(turret("test", sf::Vector2f(128, 512), -100, 0));
 
 
 	this->type = "NONE";
@@ -166,3 +172,17 @@ void Ship::swim(double deltaTime)
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), - distance * cos(this->getRotation()*PI / 180)));
 }
 
+void Ship::draw(sf::RenderWindow& window/*, float pó¿niej sam k¹t z kamery*/)
+{
+	mysz.calculateMiceFromMiddle(&window);
+	mysz.calculateAngle();
+	this->physical::draw(window);
+	std::cout << mysz.angle;
+	for (int i = 0; i < turrets.size(); i++)
+	{
+		
+		turrets[i].updatePosition(this->shape.getRotation(), mysz.angle, this->shape.getPosition());
+		window.draw(turrets[i].shape);
+	}
+	
+}
