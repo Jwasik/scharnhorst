@@ -31,6 +31,21 @@ float physical::getRotation()
 	return shape.getRotation();
 }
 
+void physical::draw(sf::RenderWindow &window)
+{
+	window.draw(this->shape);
+}
+
+void physical::deleteOrigin()
+{
+	for (int i = 0; i < shape.getPointCount(); i++)
+	{
+		shape.setPoint(i, shape.getPoint(i) - shape.getOrigin());
+	}
+	shape.setOrigin(sf::Vector2f(0, 0));
+}
+
 physical::~physical()
 {
 }
+

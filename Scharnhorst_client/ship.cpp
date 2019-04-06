@@ -22,6 +22,9 @@ Ship::Ship()
 	shape.move(shape.getOrigin());
 	shape.move(sf::Vector2f(128,512));
 
+	deleteOrigin();
+
+
 	this->type = "NONE";
 	this->gear = 0;
 	this->maxTurnAcceleration = 8;
@@ -126,7 +129,7 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 
 void Ship::spin(bool direction, double dtime)
 {
-	turnAcceleration = maxTurnAcceleration * sin(PI*0.85*(actualSpeed / maxSpeed));
+	turnAcceleration = maxTurnAcceleration * sin(PI*0.6*(actualSpeed / maxSpeed));
 	//turnAcceleration = maxTurnAcceleration * (-(actualSpeed / maxSpeed * 1.5 - 0.85)*(actualSpeed / maxSpeed * 1.5 - 0.85) + 1);
 	if (direction == 1)this->rotate(dtime*turnAcceleration);
 	else this->rotate(-1 * dtime*turnAcceleration);
@@ -137,20 +140,14 @@ void Ship::changeGear(bool change)
 	if ((change == 0) && (gear > -1))
 	{
 		gear--;
-		std::cout << "Actual gear: " << gear << std::endl;
 	}
 	else if((change == 1) && (gear < 4))
 	{
 		gear++;
-		std::cout << "Actual gear: " << gear << std::endl;//W warunkach ¿eby nie pokazywa³o za ka¿dym klikniêciem, tylko przy zmianie
 	}
 	// w przeciwnym razie nic siê nie zmieni
 }
 
-void Ship::draw(sf::RenderWindow &window)
-{
-	window.draw(this->shape);
-}
 
 void Ship::setCannonRotation(float angle)
 {
@@ -168,3 +165,4 @@ void Ship::swim(double deltaTime)
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), - distance * cos(this->getRotation()*PI / 180)));
 }
+

@@ -3,6 +3,7 @@
 class movable :	public physical //,public sf::Drawable
 {
 protected:
+	float changeAngle(float, float);
 public:
 	movable();
 	movable(sf::Vector2f);

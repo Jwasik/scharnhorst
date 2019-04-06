@@ -1,6 +1,7 @@
 #pragma once
 #include "includes.h"
 #include "movable.h"
+
 class Ship : public movable
 {
 private:
@@ -21,8 +22,9 @@ public:
 	float actualSpeed;// [m/s]	
 	std::string type;
 	std::string name;
-
 	float calculateAcceleration();
+
+
 
 public:
 	
@@ -32,7 +34,6 @@ public:
 	void swim(double); //przesówa i obraca statek raz na klatkê oraz go rysuje(dziêki physical::draw które w przysz³oœci zostanie zmieniona na bitmapê) 
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
-	void draw(sf::RenderWindow&);
 	void setCannonRotation(float);
 	float getCannonRotation();
 

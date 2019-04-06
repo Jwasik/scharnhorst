@@ -16,10 +16,9 @@ void movable::move(sf::Vector2f distance)
 	physical::setPosition(sf::Vector2f(physical::getPosition().x + distance.x, physical::getPosition().y + distance.y));
 }
 
-
-void movable::rotate(float alpha)
+float changeAngle(float a, float b)
 {
-	float tem = alpha + physical::getRotation();
+	float tem = a + b;
 	if (tem > 360)
 	{
 		tem = tem - 360;
@@ -29,7 +28,11 @@ void movable::rotate(float alpha)
 		{
 			tem = tem + 360;
 		}
-	physical::setRotation(tem);
+	return tem;
+}
+void movable::rotate(float alpha)
+{
+	physical::setRotation(changeAngle(alpha, physical::getRotation()));
 }
 
 

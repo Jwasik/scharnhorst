@@ -7,11 +7,13 @@ class physical
 {
 
 protected:
+	void deleteOrigin();
 
 
 public:
 	sf::ConvexShape shape;
 
+	void draw(sf::RenderWindow&);
 	physical();
 	physical(sf::Vector2f);
 	void setPosition(sf::Vector2f);
