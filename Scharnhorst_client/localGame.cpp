@@ -25,6 +25,16 @@ void LocalGame::gameLoop()
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
+
+			if (event.type == sf::Event::MouseWheelScrolled)
+			{
+				kamera.addZoom(event.mouseWheelScroll.delta / 10);
+
+			}
+		}
+
+		while (window->pollEvent(event))
+		{
 			if (event.type == sf::Event::Closed)
 				window->close();
 		}
