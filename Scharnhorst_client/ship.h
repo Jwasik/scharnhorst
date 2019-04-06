@@ -10,7 +10,6 @@ class Ship : public movable
 private:
 
 public:
-	Camera mysz;
 
 	float width; // [m]
 	float length; // [m]
@@ -40,6 +39,7 @@ public:
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
 	void setCannonRotation(float);
+	void setTurrets(float mousAngle);
 	float getCannonRotation();
 
 	std::string getType();

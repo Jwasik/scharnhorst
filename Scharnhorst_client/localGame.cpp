@@ -6,6 +6,7 @@
 
 LocalGame::LocalGame()
 {
+	kamera = Camera(sf::Vector2f(800, 600));
 	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
 
@@ -49,6 +50,9 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 
+		kamera.setView(*window, player->getShip()->getPosition(),8);
+		kamera.calculateAngle();
+		player->getShip()->setTurrets(kamera.angle);
 		window->display();
 		system("cls");
 	}

@@ -2,10 +2,12 @@
 #include "includes.h"
 #include "player.h"
 #include <string>
+#include "Camera.h"
+
 
 class LocalGame
 {
-
+	Camera kamera;
 	std::string playerName;
 	float stalaCzasowa = 1;
 private:
@@ -17,7 +19,7 @@ private:
 	}serverInfo;
 	struct gameInformation
 	{
-		sf::VideoMode resolution = sf::VideoMode(800U,600U);
+		sf::VideoMode resolution = sf::VideoMode(800U,600U); // jak zmieniasz zmieñ równierz kamera w localGame.cpp
 
 	}gameInfo;
 

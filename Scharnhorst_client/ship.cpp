@@ -11,7 +11,6 @@ std::string Ship::getType()
 Ship::Ship()
 {
 
-	mysz = Camera(sf::Vector2f(800, 600));
 	shape.setPointCount(7);
 	shape.setPoint(0, sf::Vector2f(48, 0));
 	shape.setPoint(1, sf::Vector2f(16, 64));
@@ -172,16 +171,23 @@ void Ship::swim(double deltaTime)
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), - distance * cos(this->getRotation()*PI / 180)));
 }
 
-void Ship::draw(sf::RenderWindow& window/*, float pó¿niej sam k¹t z kamery*/)
+void Ship::setTurrets(float mouseAngle)
 {
-	mysz.calculateMiceFromMiddle(&window);
-	mysz.calculateAngle();
-	this->physical::draw(window);
-	std::cout << mysz.angle;
 	for (int i = 0; i < turrets.size(); i++)
 	{
+
+		turrets[i].updatePosition(this->shape.getRotation(), mouseAngle, this->shape.getPosition());
 		
-		turrets[i].updatePosition(this->shape.getRotation(), mysz.angle, this->shape.getPosition());
+	}
+}
+
+void Ship::draw(sf::RenderWindow& window)
+{
+
+	this->physical::draw(window);
+	for (int i = 0; i < turrets.size(); i++)
+	{
+
 		window.draw(turrets[i].shape);
 	}
 	

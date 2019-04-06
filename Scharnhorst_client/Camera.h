@@ -33,4 +33,5 @@ public:
 	void addZoom(float);
 	void set(sf::RenderWindow*);
 	void calculateAngle();
+	void setView(sf::RenderWindow &window, sf::Vector2f playerPosition, float howLean);
 };

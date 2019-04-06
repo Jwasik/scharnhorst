@@ -86,3 +86,13 @@ void Camera::calculateAngle()
 				angle = angle + 270;
 			}
 }
+
+void Camera::setView(sf::RenderWindow &window, sf::Vector2f playerPosition, float howLean)
+{
+	this->calculateMiceFromMiddle(&window);
+	this->setCenter(playerPosition);
+	this->leanToMice(howLean);
+	this->calculateMicePosition();
+	this->changePosition();
+	this->set(&window);
+}
