@@ -1,2 +1,3 @@
-﻿  localGame.cpp
-  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
+﻿  movable.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(37): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
