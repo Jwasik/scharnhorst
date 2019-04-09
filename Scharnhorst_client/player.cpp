@@ -22,11 +22,10 @@ void Player::doStuff(double &deltaTime)
 	}
 }
 
-void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress &address, unsigned short &port)
+void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, unsigned short port)
 {
-	sf::Packet packet;
-	packet << "POS" << this->playerId << this->getShip()->getPosition().x << this->getShip()->getPosition().y << this->sightAngle;
-	socket.send(packet, address, port);
+	std::cout << "sending POS packet to "<< address<<':'<< port << std::endl;
+	socket.send(preparePOSpacket(), address, port);
 }
 
 void Player::draw(sf::RenderWindow &window)
@@ -34,10 +33,12 @@ void Player::draw(sf::RenderWindow &window)
 	this->playerShip->draw(window);
 }
 
-sf::Packet Player::preparePOSpacket()
+
+sf::Packet& Player::preparePOSpacket()
 {
 	sf::Packet sendingPacket;
 	sendingPacket.clear();
+	sendingPacket << "POS";
 	sendingPacket << this->playerId;
 	sendingPacket << this->getShip()->getPosition().x;
 	sendingPacket << this->getShip()->getPosition().y;
@@ -45,6 +46,7 @@ sf::Packet Player::preparePOSpacket()
 	sendingPacket << this->getShip()->getCannonRotation();
 	return sendingPacket;
 }
+
 
 std::shared_ptr<Ship> & Player::getShip()
 {

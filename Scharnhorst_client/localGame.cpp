@@ -22,6 +22,9 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen())
 	{
+		printAdresses();
+		system("pause");
+		deltaTime = time.restart().asSeconds()*stalaCzasowa;
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
@@ -29,7 +32,6 @@ void LocalGame::gameLoop()
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
 				kamera.addZoom(event.mouseWheelScroll.delta / 10);
-
 			}
 		}
 
@@ -39,7 +41,7 @@ void LocalGame::gameLoop()
 				window->close();
 		}
 
-		deltaTime = time.restart().asSeconds()*stalaCzasowa;
+
 
 		this->player->doStuff(deltaTime);
 		for (auto & player : otherPlayers)
@@ -50,7 +52,7 @@ void LocalGame::gameLoop()
 
 		this->sendPlayerPosition(); //wysy³a pozycje i dane gracza
 		this->sendAction(); //wysy³a informacje o strzale
-		this->recieveMessage(); //odbiera wiadomoœci TCP
+		this->recieveMessage(this->serverInfo.serverAddress,this->serverInfo.serverUdpPort); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
 
 		window->clear();
@@ -64,7 +66,6 @@ void LocalGame::gameLoop()
 		kamera.calculateAngle();
 		player->getShip()->setTurrets(kamera.angle);
 		window->display();
-		system("cls");
 	}
 }
 
@@ -312,7 +313,7 @@ void LocalGame::receiveAction(sf::Packet receivedPacket)
 
 }
 
-void LocalGame::recieveMessage()
+void LocalGame::recieveMessage(sf::IpAddress serverAddress, unsigned short serverUdpPort)
 {
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
@@ -322,7 +323,7 @@ void LocalGame::recieveMessage()
 	connectionClock.restart();
 	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
 	{
-		inSocket.receive(receivedPacket, this->serverInfo.serverAddress, this->serverInfo.serverUdpPort);
+		inSocket.receive(receivedPacket, serverAddress, serverUdpPort);
 		if (receivedPacket >> receivedMessage)
 		{
 			if (receivedMessage == "POS")

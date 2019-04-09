@@ -14,9 +14,9 @@ public:
 	unsigned int getPlayerId();
 	void setId(unsigned int);
 	void doStuff(double&);
-	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress&, unsigned short&);
+	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress, unsigned short);
 	void draw(sf::RenderWindow&);
-	sf::Packet preparePOSpacket();
+	sf::Packet& preparePOSpacket();
 
 	std::shared_ptr<Ship>& getShip();
 	Player();

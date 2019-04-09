@@ -48,7 +48,7 @@ public:
 	void receiveNewPlayer(sf::Packet);
 	void receivePlayerPosition(sf::Packet); //odbiera pozycje graczy od serwera
 	void receiveAction(sf::Packet); //odbiera informacje o strzale
-	void recieveMessage(); //odbiera wiadomoœci TCP
+	void recieveMessage(sf::IpAddress, unsigned short); //odbiera wiadomoœci TCP
 
 
 	bool joinServer();
