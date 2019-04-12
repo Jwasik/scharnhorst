@@ -45,10 +45,11 @@ public:
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
 
-	void receiveNewPlayer(sf::Packet);
-	void receivePlayerPosition(sf::Packet); //odbiera pozycje graczy od serwera
-	void receiveAction(sf::Packet); //odbiera informacje o strzale
-	void recieveMessage(sf::IpAddress, unsigned short); //odbiera wiadomoœci TCP
+
+	void receiveAction(); //odbiera pakiety TCP
+	void recieveMessages(); //obs³uguje odbieranie wiadomoœci UDP
+	//receiveMessage wywo³uje receivePlayersPositions
+	void receivePlayersPositions(); //odbiera pozycje graczy od serwera
 
 
 	bool joinServer();

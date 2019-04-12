@@ -16,11 +16,11 @@ public:
 	void doStuff(double&);
 	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress, unsigned short);
 	void draw(sf::RenderWindow&);
-	sf::Packet& preparePOSpacket();
 
 	std::shared_ptr<Ship>& getShip();
 	Player();
 	Player(unsigned int, std::string);
+	Player(unsigned int, std::string, std::string);
 	~Player();
 };
 

@@ -22,8 +22,6 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen())
 	{
-		printAdresses();
-		system("pause");
 		deltaTime = time.restart().asSeconds()*stalaCzasowa;
 		sf::Event event;
 		while (window->pollEvent(event))
@@ -51,8 +49,11 @@ void LocalGame::gameLoop()
 		this->playerEvent(deltaTime);
 
 		this->sendPlayerPosition(); //wysy³a pozycje i dane gracza
+
 		this->sendAction(); //wysy³a informacje o strzale
-		this->recieveMessage(this->serverInfo.serverAddress,this->serverInfo.serverUdpPort); //odbiera wiadomoœci TCP
+
+		this->receiveAction();//odbiera rozkazy TCP
+		this->recieveMessages(); //odbiera wiadomoœci TCP
 		this->sendMessage(); //wysy³a wiadomoœæ TCP
 
 		window->clear();
@@ -278,70 +279,90 @@ void LocalGame::sendMessage()
 {
 }
 
-void LocalGame::receiveNewPlayer(sf::Packet)
-{
-}
-
-void LocalGame::receivePlayerPosition(sf::Packet receivedPacket)
-{
-	unsigned int playerId;
-	float x, y, shipAngle, cannonAngle;
-	receivedPacket >> playerId;
-	receivedPacket >> x;
-	receivedPacket >> y;
-	receivedPacket >> shipAngle;
-	receivedPacket >> cannonAngle;
-	
-	auto player = this->getPlayerById(playerId);
-	if (player == nullptr)
-	{
-		receivedPacket.clear();
-		return;
-	}
-	else
-	{
-		player->getShip()->setPosition(sf::Vector2f(x,y));
-		player->getShip()->setRotation(shipAngle);
-		player->getShip()->setCannonRotation(cannonAngle);
-		receivedPacket.clear();
-	}
-
-}
-
-void LocalGame::receiveAction(sf::Packet receivedPacket)
-{
-
-}
-
-void LocalGame::recieveMessage(sf::IpAddress serverAddress, unsigned short serverUdpPort)
+void LocalGame::receivePlayersPositions()
 {
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
-	std::string receivedMessage;
+	sf::IpAddress IP;
+	unsigned short port;
+	if (this->inSocket.receive(receivedPacket, IP, port) != sf::Socket::Done)return;
 
+	std::string message;
+	if (receivedPacket >> message)
+	{
+		if (message == "PPS")
+		{
+			std::cout << "received PPS" << std::endl;
+			unsigned int playerId;
+			float x, y, shipAngle, cannonAngle;
+
+			unsigned int iterator;
+			receivedPacket >> iterator;
+			for (unsigned int i = 0; i < iterator; i++)
+			{
+				receivedPacket >> playerId;
+				receivedPacket >> x;
+				receivedPacket >> y;
+				receivedPacket >> shipAngle;
+				receivedPacket >> cannonAngle;
+
+				auto player = this->getPlayerById(playerId);
+				if (player == nullptr)
+				{
+					receivedPacket.clear();
+					return;
+				}
+				else
+				{
+					player->getShip()->setPosition(sf::Vector2f(x, y));
+					player->getShip()->setRotation(shipAngle);
+					player->getShip()->setCannonRotation(cannonAngle);
+					receivedPacket.clear();
+				}
+			}
+		}
+	}
+	else return;
+}
+
+void LocalGame::receiveAction()
+{
+	sf::Packet receivedPacket;
+	receivedPacket.clear();
+	if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
+	
+	std::string message;
+	if (receivedPacket >> message)
+	{
+		if (message == "PLA")
+		{
+			unsigned int playerId = 0;
+			std::string playerName, playerShip;
+
+			receivedPacket >> playerId;
+			receivedPacket >> playerName;
+			receivedPacket >> playerShip;
+
+			if (playerId == 0)return;
+			if (playerId == this->player->getPlayerId())return;
+			auto player = getPlayerById(playerId);
+			if (player != nullptr)return;
+
+			std::cout << "new player joined, all say HI to " << playerName << std::endl;
+			player = std::make_shared<Player>(playerId, playerName, playerShip);
+		}
+	}
+	else return;
+
+}
+
+void LocalGame::recieveMessages()
+{
 	sf::Clock connectionClock;
 	connectionClock.restart();
 	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
 	{
-		inSocket.receive(receivedPacket, serverAddress, serverUdpPort);
-		if (receivedPacket >> receivedMessage)
-		{
-			if (receivedMessage == "POS")
-			{
-				receivePlayerPosition(receivedPacket);
-				continue;
-			}
-			if (receivedMessage == "PPS")
-			{
-				unsigned int count = 0;
-				receivedPacket >> count;
-				for (unsigned int i = 0; i < count; i++)
-				{
-					receivePlayerPosition(receivedPacket);
-				}
-				continue;
-			}
-		}
-		else break;
+		receivePlayersPositions();
 	}
 }
+
