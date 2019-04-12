@@ -29,20 +29,44 @@ turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromS
 	shape.setFillColor(sf::Color(255, 0, 0));
 
 	deleteOrigin();
+	turretAngle = 0;
+	rotationSpeed = 3;
 	lockedArea[0] = 0;
 	lockedArea[1] = 0;
+	if(lockedArea[0] != lockedArea[1])
+		if (lockedArea[0] > lockedArea[1])
+		{
+			middleOfLockedArea = ((lockedArea[0] + lockedArea[1] + 360) / 2);
+			middleOfLockedArea = middleOfLockedArea % 360;
+		}
+		else
+		{
+			middleOfLockedArea = ((lockedArea[0] + lockedArea[1]) / 2);
+		}
 	
+		
 
 }
 
-void turret::updatePosition(float nshipAngle, float nturretAngle, sf::Vector2f nshipOrigin)
+void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin)
 {
 	shipOrigin = nshipOrigin;
 	shipAngle = nshipAngle;
-	turretAngle = nturretAngle;
 	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(shipAngle)), -distanceFromShipOrigin*cos(stopnieNaRadiany(shipAngle))) + shipOrigin;
 	shape.setPosition(position);
-	shape.setRotation(turretAngle);
+	
+	if (howManyDegreeFrom(middleOfLockedArea, turretAngle) < howManyDegreeFrom(middleOfLockedArea, mousAngle))
+	{
+		shape.setRotation(turretAngle + rotationSpeed);
+	}
+	else
+	{
+		shape.setRotation(turretAngle - rotationSpeed);
+	}
+	
+
+
+	
 
 }
 

@@ -37,6 +37,17 @@ float movable::stopnieNaRadiany(float s)
 	return (s / 180.0) * M_PI;
 }
 
+float movable::howManyDegreeFrom(float a, float b)
+{
+	float tem = b - a;
+	if (tem < 0)
+	{
+		return tem + 360;
+	}
+	else
+		return tem;
+}
+
 void movable::rotate(float alpha)
 {
 	physical::setRotation(changeAngle(alpha, physical::getRotation()));
