@@ -8,7 +8,7 @@ LocalGame::LocalGame()
 {
 	kamera = Camera(sf::Vector2f(800, 600));
 	this->playerName = "Karl";
-	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution,"Scharnhorst");
+	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
@@ -63,9 +63,9 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 
-		kamera.setView(*window, player->getShip()->getPosition(),8);
+		kamera.setView(*window, player->getShip()->getPosition(), 8);
 		kamera.calculateAngle();
-		player->getShip()->setTurrets(kamera.angle);
+		player->getShip()->setTurrets(kamera.angle, deltaTime);
 		window->display();
 	}
 }
@@ -109,8 +109,8 @@ void LocalGame::playerEvent(const double &deltaTime)
 
 std::shared_ptr<Player> LocalGame::getPlayerById(unsigned int searchedId)
 {
-	auto x = 
-	std::find_if(otherPlayers.begin(), otherPlayers.end(), [&searchedId](std::shared_ptr<Player> &player) {return player->getPlayerId()==searchedId; });
+	auto x =
+		std::find_if(otherPlayers.begin(), otherPlayers.end(), [&searchedId](std::shared_ptr<Player> &player) {return player->getPlayerId() == searchedId; });
 	if (x != otherPlayers.end())
 	{
 		return *x;
@@ -126,10 +126,10 @@ bool LocalGame::joinServer()
 	orderSocket.setBlocking(false);
 
 	if (connectToServer(IP) == false)return 0;
-	
+
 	sf::Packet newPlayerPacket;
 	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << 1;
-	
+
 	orderSocket.send(newPlayerPacket);
 	newPlayerPacket.clear();
 
@@ -145,17 +145,17 @@ bool LocalGame::joinServer()
 			{
 				std::string newPlayerName = "error";
 				unsigned int id = 0;
-				float x, y, angle=0;
+				float x, y, angle = 0;
 				newPlayerPacket >> id;
 				newPlayerPacket >> newPlayerName;
 				std::cout << "received PLJ : " << id << ' ' << newPlayerName << std::endl;
-				player = std::make_shared<Player>(id,newPlayerName);
+				player = std::make_shared<Player>(id, newPlayerName);
 				newPlayerPacket >> x;
 				newPlayerPacket >> y;
 				newPlayerPacket >> angle;
 				std::cout << "receiving player position : " << x << ' ' << y << std::endl;
 
-				player->getShip()->setPosition(sf::Vector2f(x,y));
+				player->getShip()->setPosition(sf::Vector2f(x, y));
 				player->getShip()->setRotation(angle);
 				std::cout << "joined game succesfully" << std::endl;
 				return 1;
@@ -219,7 +219,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 	sf::Socket::Status status;
 	do
 	{
-		status =orderSocket.connect(sf::IpAddress(IP), portNum);
+		status = orderSocket.connect(sf::IpAddress(IP), portNum);
 		if (connectionClock.getElapsedTime().asMilliseconds() > 3000)
 		{
 			std::cout << "max time elapsed" << std::endl;
@@ -227,7 +227,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 		}
 	} while (status == sf::TcpSocket::Status::Error);
 
-	
+
 	//-----------------------------------------------------------
 
 	sf::Packet helloPacket;
@@ -330,7 +330,7 @@ void LocalGame::receiveAction()
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
 	if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
-	
+
 	std::string message;
 	if (receivedPacket >> message)
 	{

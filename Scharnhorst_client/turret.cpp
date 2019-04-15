@@ -15,12 +15,12 @@ turret::turret()
 	lockedArea[0] = 0;
 	lockedArea[1] = 0;
 
-	
+
 
 }
 
 turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
-	angleFromShipOrigin(nangleFromShipOrigin)
+angleFromShipOrigin(nangleFromShipOrigin)
 {
 	shape.setPointCount(3);
 	shape.setPoint(0, sf::Vector2f(0, -50));
@@ -33,7 +33,8 @@ turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromS
 	rotationSpeed = 3;
 	lockedArea[0] = 0;
 	lockedArea[1] = 0;
-	if(lockedArea[0] != lockedArea[1])
+
+	if (lockedArea[0] != lockedArea[1])
 		if (lockedArea[0] > lockedArea[1])
 		{
 			middleOfLockedArea = ((lockedArea[0] + lockedArea[1] + 360) / 2);
@@ -43,30 +44,46 @@ turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromS
 		{
 			middleOfLockedArea = ((lockedArea[0] + lockedArea[1]) / 2);
 		}
-	
-		
+
+
 
 }
 
-void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin)
+void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin, float dTime)
 {
+	float howManyDegreeToTurret = howManyDegreeFrom(middleOfLockedArea, turretAngle);
+	float howManyDegreeToMouse = howManyDegreeFrom(middleOfLockedArea, mousAngle);
+
 	shipOrigin = nshipOrigin;
 	shipAngle = nshipAngle;
-	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(shipAngle)), -distanceFromShipOrigin*cos(stopnieNaRadiany(shipAngle))) + shipOrigin;
+	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(shipAngle)), -distanceFromShipOrigin * cos(stopnieNaRadiany(shipAngle))) + shipOrigin;
 	shape.setPosition(position);
-	
-	if (howManyDegreeFrom(middleOfLockedArea, turretAngle) < howManyDegreeFrom(middleOfLockedArea, mousAngle))
+
+	if (turretAngle != mousAngle)
 	{
-		shape.setRotation(turretAngle + rotationSpeed);
+		if (howManyDegreeToTurret < howManyDegreeToMouse)
+		{
+			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
+			{
+				shape.setRotation(mousAngle);
+			}
+			else
+				shape.setRotation(turretAngle + rotationSpeed * dTime);
+
+		}
+		else
+		{
+			if ((howManyDegreeToTurret - howManyDegreeToMouse) < rotationSpeed*dTime)
+			{
+				shape.setRotation(mousAngle);
+			}
+			else
+				shape.setRotation(turretAngle - rotationSpeed * dTime);
+		}
 	}
-	else
-	{
-		shape.setRotation(turretAngle - rotationSpeed);
-	}
-	
 
 
-	
+
 
 }
 
