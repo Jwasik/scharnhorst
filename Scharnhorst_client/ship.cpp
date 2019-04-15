@@ -19,15 +19,15 @@ Ship::Ship()
 	shape.setPoint(4, sf::Vector2f(80, 336));
 	shape.setPoint(5, sf::Vector2f(96, 192));
 	shape.setPoint(6, sf::Vector2f(80, 64));
-	shape.setOrigin(sf::Vector2f(48,168));
+	shape.setOrigin(sf::Vector2f(48, 168));
 	shape.move(shape.getOrigin());
-	shape.move(sf::Vector2f(128,512));
+	shape.move(sf::Vector2f(128, 512));
 	deleteOrigin();
 
-	turrets.push_back(turret("test", sf::Vector2f(128, 512), 100, 0));
-	turrets.push_back(turret("test", sf::Vector2f(128, 512), 20, 0));
-	turrets.push_back(turret("test", sf::Vector2f(128, 512), -40, 0));
-	turrets.push_back(turret("test", sf::Vector2f(128, 512), -100, 0));
+	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), 100, 0)));
+	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), 20, 0)));
+	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), -40, 0)));
+	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), -100, 0)));
 
 
 	this->type = "NONE";
@@ -41,7 +41,7 @@ Ship::Ship()
 	this->mass = 38900000;
 	this->acceleration = enginePower / mass;
 
-	shipStaticPressure = acceleration/(maxSpeed*maxSpeed);
+	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 
 }
 
@@ -56,7 +56,7 @@ float Ship::calculateAcceleration()
 	return waterRezistance;
 }
 
-void Ship::accelerate( double deltaTime) //{-1, 0, 1}
+void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 {
 	calculateAcceleration();
 
@@ -66,7 +66,7 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 	}
 	else
 	{
-		actualSpeed += waterRezistance*deltaTime;
+		actualSpeed += waterRezistance * deltaTime;
 	}
 
 	if (gear != 0)
@@ -115,7 +115,7 @@ void Ship::accelerate( double deltaTime) //{-1, 0, 1}
 		}
 
 	}
-	
+
 	/*if (gear == 0)
 	{
 		actualSpeed -= actualSpeed * 0.5f * deltaTime/* <-- opór wody;
@@ -146,7 +146,7 @@ void Ship::changeGear(bool change)
 	{
 		gear--;
 	}
-	else if((change == 1) && (gear < 4))
+	else if ((change == 1) && (gear < 4))
 	{
 		gear++;
 	}
@@ -156,28 +156,33 @@ void Ship::changeGear(bool change)
 
 void Ship::setCannonRotation(float angle)
 {
-	//Obrót dzia³
+	for (int i = 0; i < turrets.size(); i++)
+	{
+
+		turrets[i]->shape.setRotation(angle);
+
+	}
 }
 
-float Ship::getCannonRotation()//do zrobienia
+float Ship::getCannonRotation()
 {
-	return 0;
+	return turrets[0]->turretAngle;
 }
 
 void Ship::swim(double deltaTime)
 {
 	this->accelerate(deltaTime);
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
-	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), - distance * cos(this->getRotation()*PI / 180)));
+	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
 }
 
-void Ship::setTurrets(float mouseAngle)
+void Ship::setTurrets(float mouseAngle, float dTime)
 {
 	for (int i = 0; i < turrets.size(); i++)
 	{
 
-		turrets[i].updatePosition(this->shape.getRotation(), mouseAngle, this->shape.getPosition());
-		
+		turrets[i]->updatePosition(this->shape.getRotation(), mouseAngle, this->shape.getPosition(), dTime);
+
 	}
 }
 
@@ -188,7 +193,7 @@ void Ship::draw(sf::RenderWindow& window)
 	for (int i = 0; i < turrets.size(); i++)
 	{
 
-		window.draw(turrets[i].shape);
+		window.draw(turrets[i]->shape);
 	}
-	
+
 }

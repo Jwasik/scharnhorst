@@ -27,11 +27,11 @@ public:
 	std::string type;
 	std::string name;
 	float calculateAcceleration();
-	std::vector <turret> turrets;
+	std::vector<std::shared_ptr<turret>> turrets;
 
 
 public:
-	
+
 
 	void draw(sf::RenderWindow&);
 	void accelerate(double);
@@ -39,7 +39,7 @@ public:
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
 	void setCannonRotation(float);
-	void setTurrets(float mousAngle);
+	void setTurrets(float mousAngle, float dTime);
 	float getCannonRotation();
 
 	std::string getType();
