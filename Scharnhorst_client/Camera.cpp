@@ -31,9 +31,9 @@ void Camera::changePosition()
 	view.setCenter(Center + lean);
 }
 
-void Camera::leanToMice(float degree)
+void Camera::leanToMice(float howMuch)
 {
-	lean = sf::Vector2f(MiceFromMiddle.x / degree / zoom, MiceFromMiddle.y / degree / zoom);
+	lean = sf::Vector2f(MiceFromMiddle.x / howMuch / zoom, MiceFromMiddle.y / howMuch / zoom);
 }
 
 void Camera::leanTo(sf::Vector2f how)
@@ -65,6 +65,7 @@ void Camera::set(sf::RenderWindow *window)
 
 void Camera::calculateAngle()
 {
+
 	angle = (atan(MiceFromMiddle.y / MiceFromMiddle.x) / PI * 180);//k¹t pomiêdzi pionowym promieniem a promieniem do punktu MiceFromMiddle.x, MiceFromMiddle.y
 
 	if (MiceFromMiddle.x >= 0 && MiceFromMiddle.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
@@ -87,12 +88,18 @@ void Camera::calculateAngle()
 			}
 }
 
-void Camera::setView(sf::RenderWindow &window, sf::Vector2f playerPosition, float howLean)
+void Camera::calculateView(sf::RenderWindow &window, sf::Vector2f playerPosition, float howLean)
 {
 	this->calculateMiceFromMiddle(&window);
+	this->calculateAngle();
 	this->setCenter(playerPosition);
 	this->leanToMice(howLean);
 	this->calculateMicePosition();
+
+}
+
+void Camera::setView(sf::RenderWindow &window)
+{
 	this->changePosition();
 	this->set(&window);
 }

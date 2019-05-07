@@ -9,6 +9,8 @@ LocalGame::LocalGame()
 	kamera = Camera(sf::Vector2f(800, 600));
 	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	//player = std::make_shared<Player>(123456789, "maciej");
+
 
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
@@ -22,11 +24,11 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen())
 	{
+
 		deltaTime = time.restart().asSeconds()*stalaCzasowa;
 		sf::Event event;
 		while (window->pollEvent(event))
 		{
-
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
 				kamera.addZoom(event.mouseWheelScroll.delta / 10);
@@ -42,10 +44,12 @@ void LocalGame::gameLoop()
 
 
 		this->player->doStuff(deltaTime);
+
 		for (auto & player : otherPlayers)
 		{
 			player->doStuff(deltaTime);
 		}
+
 		this->playerEvent(deltaTime);
 
 		this->sendPlayerPosition(); //wysy³a pozycje i dane gracza
@@ -63,8 +67,8 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 
-		kamera.setView(*window, player->getShip()->getPosition(), 8);
-		kamera.calculateAngle();
+		kamera.calculateView(*window, player->getShip()->getPosition(), 8);
+		kamera.setView(*window);
 		player->getShip()->setTurrets(kamera.angle, deltaTime);
 		window->display();
 	}

@@ -30,9 +30,9 @@ angleFromShipOrigin(nangleFromShipOrigin)
 
 	deleteOrigin();
 	turretAngle = 0;
-	rotationSpeed = 3;
-	lockedArea[0] = 0;
-	lockedArea[1] = 0;
+	rotationSpeed = 30;
+	lockedArea[0] = 100;
+	lockedArea[1] = 260;
 
 	if (lockedArea[0] != lockedArea[1])
 		if (lockedArea[0] > lockedArea[1])
@@ -44,6 +44,8 @@ angleFromShipOrigin(nangleFromShipOrigin)
 		{
 			middleOfLockedArea = ((lockedArea[0] + lockedArea[1]) / 2);
 		}
+	else
+		middleOfLockedArea = 0;
 
 
 
@@ -51,8 +53,13 @@ angleFromShipOrigin(nangleFromShipOrigin)
 
 void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin, float dTime)
 {
+	this->shape.setRotation(mousAngle);
+	
 	float howManyDegreeToTurret = howManyDegreeFrom(middleOfLockedArea, turretAngle);
 	float howManyDegreeToMouse = howManyDegreeFrom(middleOfLockedArea, mousAngle);
+	std::cout  << std::endl;
+
+
 
 	shipOrigin = nshipOrigin;
 	shipAngle = nshipAngle;
@@ -65,24 +72,39 @@ void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 		{
 			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
 			{
-				shape.setRotation(mousAngle);
 			}
 			else
-				shape.setRotation(turretAngle + rotationSpeed * dTime);
+			{
+				turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
+				if (turretAngle > lockedArea[0] && turretAngle < lockedArea[1])
+				{
+					turretAngle = movable::changeAngle(turretAngle, -1*rotationSpeed * dTime);
+				}
+				shape.setRotation(turretAngle);
+
+			}
 
 		}
 		else
 		{
 			if ((howManyDegreeToTurret - howManyDegreeToMouse) < rotationSpeed*dTime)
 			{
-				shape.setRotation(mousAngle);
 			}
 			else
-				shape.setRotation(turretAngle - rotationSpeed * dTime);
+			{
+				turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
+				if (turretAngle > lockedArea[0] && turretAngle < lockedArea[1])
+				{
+					turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
+				}
+
+				shape.setRotation(turretAngle);
+
+			}
 		}
 	}
 
-
+	
 
 
 }

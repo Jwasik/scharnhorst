@@ -1,55 +1,6 @@
-﻿  pch.cpp
-  Camera.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
-          with
-          [
-              T=int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(68): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-  Scharnhorst_client.cpp
-  bullet.cpp
-  functions.cpp
-  localGame.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(68): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-  movable.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(37): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
-  physical.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(41): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  player.cpp
-  ship.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(65): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(69): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(74): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(137): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(139): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(159): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(175): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(176): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
-          with
-          [
-              T=float
-          ]
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(181): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(193): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  turret.cpp
+﻿  turret.cpp
 c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(40): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
 c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(45): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(54): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(55): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-  Generowanie kodu...
-  LINK : nie znaleziono elementu C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe ani nie został on skompilowany podczas ostatniego konsolidowania przyrostowego; zostanie wykonana pełna konsolidacja
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(58): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(59): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
   Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
