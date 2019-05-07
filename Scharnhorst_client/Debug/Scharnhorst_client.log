@@ -1,6 +1,7 @@
 ﻿  turret.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(40): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(45): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(58): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(59): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(42): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(47): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(62): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(63): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(119): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
   Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

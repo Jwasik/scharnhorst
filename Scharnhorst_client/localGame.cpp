@@ -9,7 +9,7 @@ LocalGame::LocalGame()
 	kamera = Camera(sf::Vector2f(800, 600));
 	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
-	//player = std::make_shared<Player>(123456789, "maciej");
+	player = std::make_shared<Player>(123456789, "maciej");
 
 
 	inSocket.bind(sf::Socket::AnyPort);
