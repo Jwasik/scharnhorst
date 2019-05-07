@@ -61,7 +61,9 @@ void LocalGame::gameLoop()
 		for (auto & player : otherPlayers)
 		{
 			player->draw(*window);
+			std::cout << player->getShip()->getPosition().x << ' ' << player->getShip()->getPosition().y << std::endl;
 		}
+
 
 		kamera.setView(*window, player->getShip()->getPosition(),8);
 		kamera.calculateAngle();
@@ -321,6 +323,24 @@ void LocalGame::receivePlayersPositions()
 				}
 			}
 		}
+		if (message == "POS")
+		{
+				unsigned int id;
+				sf::Vector2f position;
+				float angle;
+				float cannonAngle;
+				receivedPacket >> id;
+				receivedPacket >> position.x;
+				receivedPacket >> position.y;
+				receivedPacket >> angle;
+				receivedPacket >> cannonAngle;
+
+				auto player = this->getPlayerById(id);
+				if (player == nullptr)return;
+				player->getShip()->setPosition(position);
+				player->getShip()->setRotation(angle);
+				player->getShip()->setCannonRotation(cannonAngle);
+		}
 	}
 	else return;
 }
@@ -350,6 +370,7 @@ void LocalGame::receiveAction()
 
 			std::cout << "new player joined, all say HI to " << playerName << std::endl;
 			player = std::make_shared<Player>(playerId, playerName, playerShip);
+			otherPlayers.push_back(player);
 		}
 	}
 	else return;
