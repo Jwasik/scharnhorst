@@ -67,7 +67,7 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 
-		kamera.calculateView(*window, player->getShip()->getPosition(), 8);
+		kamera.calculateView(*window, player->getShip()->getPosition(), 3);
 		kamera.setView(*window);
 		player->getShip()->setTurrets(kamera.angle, deltaTime);
 		window->display();
