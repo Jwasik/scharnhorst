@@ -32,6 +32,21 @@ float movable::changeAngle(float a, float b)
 	return t;
 }
 
+float movable::changeAngle(float a, float b, float c)
+{
+	float t = a + b + c;
+	if (t > 360)
+	{
+		t = t - 360;
+	}
+	else
+		if (t < 0)
+		{
+			t = t + 360;
+		}
+	return t;
+}
+
 float movable::stopnieNaRadiany(float s)
 {
 	return (s / 180.0) * M_PI;

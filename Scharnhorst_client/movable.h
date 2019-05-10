@@ -5,6 +5,7 @@ class movable :	public physical //,public sf::Drawable
 protected:
 public:
 	float changeAngle(float, float);
+	float changeAngle(float, float, float);
 	float stopnieNaRadiany(float s);
 	float howManyDegreeFrom(float, float);
 	movable();

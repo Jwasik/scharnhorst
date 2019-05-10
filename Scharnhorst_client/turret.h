@@ -13,13 +13,13 @@ protected:
 	sf::Vector2f shipOrigin;
 	float distanceFromShipOrigin;
 	float angleFromShipOrigin;
-	float lockedArea[2];//k¹rowy obszar w którym turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
+	float shipAngle;
+	float restrictedArea[2];//k¹rowy obszar w którym turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
+	float arestrictedArea[2];
 	int middleOfLockedArea;
 	std::vector<std::shared_ptr<sf::Vector2f>> barrels; //Miejsca oznaczaj¹ce koñcu luf dzia³, gdzie powinny siê pojawiæ pociski
 	sf::Vector2f position;
 
-
-	float shipAngle;
 
 
 
@@ -30,5 +30,6 @@ public:
 	turret();
 	turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin);
 	~turret();
+	void updateRestrictedAreaBy(float moveRestricted);
 };
 

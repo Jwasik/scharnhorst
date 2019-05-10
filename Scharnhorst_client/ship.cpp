@@ -33,7 +33,7 @@ Ship::Ship()
 	this->type = "NONE";
 	this->gear = 0;
 	this->maxTurnAcceleration = 8;
-	this->enginePower = 117680000;
+	this->enginePower = 11768000;
 	this->width = 10;
 	this->length = 10;
 	this->actualSpeed = 0;
@@ -185,7 +185,6 @@ void Ship::setTurrets(float mouseAngle, float dTime)
 {
 	for (int i = 0; i < turrets.size(); i++)
 	{
-
 		turrets[i]->updatePosition(this->shape.getRotation(), mouseAngle, this->shape.getPosition(), dTime);
 
 	}
