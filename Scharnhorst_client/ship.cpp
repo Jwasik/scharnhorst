@@ -32,8 +32,8 @@ Ship::Ship()
 
 	this->type = "NONE";
 	this->gear = 0;
-	this->maxTurnAcceleration = 8;
-	this->enginePower = 11768000;
+	this->maxTurnAcceleration = 4;
+	this->enginePower = 117680000;
 	this->width = 10;
 	this->length = 10;
 	this->actualSpeed = 0;

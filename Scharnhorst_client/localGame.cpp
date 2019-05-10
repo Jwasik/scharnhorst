@@ -9,7 +9,8 @@ LocalGame::LocalGame()
 	kamera = Camera(sf::Vector2f(800, 600));
 	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
-	//player = std::make_shared<Player>(123456789, "maciej"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+
+	player = std::make_shared<Player>(123456789, "maciej"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 
 
 	inSocket.bind(sf::Socket::AnyPort);
@@ -78,9 +79,9 @@ void LocalGame::gameLoop()
 
 
 
-		kamera.setCenter(/*sf::Vector2f(100 ,100)*/player->getShip()->getPosition());
-		kamera.calculateView(*window, 3);
-		kamera.setView(*window);
+		kamera.Camera::setCenter(sf::Vector2f(500 ,500)/*player->getShip()->getPosition()*/);
+		kamera.Camera::calculateView(*window, 1000);
+		kamera.Camera::setView(*window);
 		player->getShip()->setTurrets(kamera.angle, deltaTime);
 		window->display();
 	}

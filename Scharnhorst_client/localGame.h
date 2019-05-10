@@ -2,7 +2,6 @@
 #include "includes.h"
 #include "player.h"
 #include <string>
-#include "Camera.h"
 
 
 class LocalGame
