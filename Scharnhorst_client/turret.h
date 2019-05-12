@@ -31,5 +31,6 @@ public:
 	turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin);
 	~turret();
 	void updateRestrictedAreaBy(float moveRestricted);
+	float getShipAngle();
 };
 

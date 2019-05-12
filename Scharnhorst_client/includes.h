@@ -11,5 +11,5 @@
 #include <sstream>
 #include <algorithm>
 
-#include "Camera.h"
+
 #include "functions.h"

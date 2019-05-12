@@ -68,7 +68,35 @@ void movable::rotate(float alpha)
 	physical::setRotation(changeAngle(alpha, physical::getRotation()));
 }
 
+Hitbox::punktNaOkregu movable::zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkregu)
+{
+	Hitbox::punktNaOkregu tem;
+	tem.r = sqrt(pow(punkt.x, 2) + pow(punkt.y, 2));//d³ugoœæ tego promienia
 
+	tem.a = (atan(punkt.y / punkt.x) / M_PI * 180);//k¹t pomiêdzi pionowym promieniem a promieniem do punktu temx, temy
+
+	if (punkt.x >= 0 && punkt.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
+	{
+		tem.a = 90 + tem.a;
+	}
+	else
+		if (punkt.x > 0 && punkt.y >= 0)
+		{
+			tem.a = tem.a + 90;
+		}
+		else
+			if (punkt.x <= 0 && punkt.y > 0)
+			{
+				tem.a = 90 + tem.a + 180;
+			}
+			else
+			{
+				tem.a = tem.a + 270;
+			}
+
+	return tem;
+
+}
 
 
 

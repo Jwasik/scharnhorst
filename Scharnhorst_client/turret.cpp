@@ -60,7 +60,6 @@ void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 	
 	float howManyDegreeToTurret = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), changeAngle(turretAngle, shipAngle));
 	float howManyDegreeToMouse = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), mousAngle);
-	std::cout  << std::endl;
 
 
 	shipOrigin = nshipOrigin;
@@ -118,7 +117,10 @@ void turret::updateRestrictedAreaBy(float moveRestricted)
 	middleOfLockedArea += moveRestricted;
 
 }
-
+float turret::getShipAngle()
+{
+	return shipAngle;
+}
 turret::~turret()
 {
 }

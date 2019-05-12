@@ -10,7 +10,7 @@ LocalGame::LocalGame()
 	this->playerName = "Karl";
 	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 
-	player = std::make_shared<Player>(123456789, "maciej"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	player = std::make_shared<Player>(123456789, "TEST"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 
 
 	inSocket.bind(sf::Socket::AnyPort);
@@ -51,22 +51,18 @@ void LocalGame::gameLoop()
 			player->doStuff(deltaTime);
 		}
 
+
 		this->playerEvent(deltaTime);
-
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
-
 		this->sendAction(); //wysy�a informacje o strzale
-
 		this->receiveAction();//odbiera rozkazy TCP
 		this->recieveMessages(); //odbiera wiadomo�ci TCP
 		this->sendMessage(); //wysy�a wiadomo�� TCP
 
 		window->clear();
-		player->draw(*window);
-		for (const auto & player : otherPlayers)
-		{
-			player->draw(*window);
-		}
+		player->getShip()->setTurrets(kamera.angle, deltaTime);
+
+		
 
 		system("cls");
 		std::cout << player->getShip()->getPosition().x << ' '<<player->getShip()->getPosition().y << std::endl;
@@ -79,10 +75,15 @@ void LocalGame::gameLoop()
 
 
 
-		kamera.Camera::setCenter(sf::Vector2f(500 ,500)/*player->getShip()->getPosition()*/);
+		kamera.Camera::setCenter(/*sf::Vector2f(500 ,500)*/player->getShip()->getPosition());
 		kamera.Camera::calculateView(*window, 1000);
 		kamera.Camera::setView(*window);
-		player->getShip()->setTurrets(kamera.angle, deltaTime);
+
+		player->draw(*window);
+		for (const auto & player : otherPlayers)
+		{
+			player->draw(*window);
+		}
 		window->display();
 	}
 }
@@ -122,6 +123,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 	{
 		player->getShip()->spin(1, deltaTime);
 	}
+
 }
 
 std::shared_ptr<Player> LocalGame::getPlayerById(unsigned int searchedId)

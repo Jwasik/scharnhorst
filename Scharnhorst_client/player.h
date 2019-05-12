@@ -8,6 +8,7 @@ private:
 	std::string playerName;
 	unsigned int playerId;
 
+
 public:
 	std::shared_ptr<Ship> playerShip;
 

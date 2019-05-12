@@ -1,17 +1,3 @@
-﻿  ship.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(65): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(69): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(74): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(137): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(139): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(160): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(176): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(177): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
-          with
-          [
-              T=float
-          ]
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(186): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(197): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+﻿  localGame.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(63): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
   Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
