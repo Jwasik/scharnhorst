@@ -12,6 +12,11 @@ physical::physical(sf::Vector2f position)
 	setPosition(position);
 }
 
+physical::physical(sf::ConvexShape nshape) : shape(nshape)
+{
+	;
+}
+
 void physical::setPosition(sf::Vector2f position)
 {
 	this->shape.setPosition(position);

@@ -19,8 +19,8 @@ turret::turret()
 
 }
 
-turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
-angleFromShipOrigin(nangleFromShipOrigin)
+turret::turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, vector<shared_ptr<barrel>> nbarrels) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
+angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 {
 	
 
@@ -50,6 +50,8 @@ angleFromShipOrigin(nangleFromShipOrigin)
 		middleOfLockedArea = 0;
 
 
+	
+
 
 }
 
@@ -64,7 +66,7 @@ void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 
 	shipOrigin = nshipOrigin;
 	shipAngle = nshipAngle;
-	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(shipAngle)), -distanceFromShipOrigin * cos(stopnieNaRadiany(shipAngle))) + shipOrigin;
+	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(changeAngle(shipAngle, angleFromShipOrigin))), -distanceFromShipOrigin * cos(stopnieNaRadiany(changeAngle(shipAngle, angleFromShipOrigin)))) + shipOrigin;
 	shape.setPosition(position);
 
 
@@ -105,9 +107,36 @@ void turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 
 	shape.setRotation(changeAngle(turretAngle, shipAngle));
 
-	
+	for (auto a : barrels)
+	{
+		a->updatePosition(changeAngle(turretAngle, shipAngle), position);
+		//cout << a->shape.getPosition().x << " " << a->shape.getPosition().y << endl << endl;
+	}
 
 
+
+
+
+}
+
+barrel::barrel()
+{
+	;
+}
+
+barrel::barrel(sf::Vector2f npunkt, sf::ConvexShape nshape)
+{
+	this->shape = nshape;
+	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0,0));
+}
+
+void barrel::updatePosition(float turretAngle, sf::Vector2f nturretOrigin)
+{
+	//cout << nturretOrigin.x << " " << nturretOrigin.y << endl;
+	this->shape.setPosition(sf::Vector2f(punkt.r*sin(stopnieNaRadiany(changeAngle(turretAngle, punkt.a))), -punkt.r * cos(stopnieNaRadiany(changeAngle(turretAngle, punkt.a)))) + nturretOrigin);
+	cout << shape.getPosition().x << " " << shape.getPosition().y << endl ;
+
+	this->shape.setRotation(turretAngle);
 }
 
 void turret::updateRestrictedAreaBy(float moveRestricted)
@@ -123,4 +152,18 @@ float turret::getShipAngle()
 }
 turret::~turret()
 {
+}
+
+void turret::draw(sf::RenderWindow& window)
+{
+	for (auto a : barrels)
+	{
+		window.draw(a->shape);
+		//cout << a->shape.getPosition().x << " " << a->shape.getPosition().y << endl;
+
+	}
+	window.draw(shape);
+	
+
+
 }

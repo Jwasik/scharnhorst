@@ -24,15 +24,49 @@ Ship::Ship()
 	shape.move(sf::Vector2f(128, 512));
 	deleteOrigin();
 
-	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), 100, 0)));
-	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), 20, 0)));
-	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), -40, 0)));
-	turrets.push_back(std::make_shared<turret>(turret("test", sf::Vector2f(128, 512), -100, 0)));
+	vector<shared_ptr<barrel>> temvb;
+
+
+	barrel temb;
+	sf::ConvexShape temc;
+	temc.setPointCount(4);
+	temc.setPoint(0, sf::Vector2f(-5, -80));
+	temc.setPoint(1, sf::Vector2f(5, -80));
+	temc.setPoint(2, sf::Vector2f(5, 0));
+	temc.setPoint(3, sf::Vector2f(-5, 0));
+	temc.setFillColor(sf::Color(90,0,40));
+
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+
+		turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), 100, 0, temvb)));
+
+		temvb.pop_back();
+		temvb.pop_back();
+
+		temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+		temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	
+
+	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), 20, 0, temvb)));
+	temvb.pop_back();
+	temvb.pop_back();
+
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), -40, 0, temvb)));
+	temvb.pop_back();
+	temvb.pop_back();
+
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), -100, 0, temvb)));
+
 
 
 	this->type = "NONE";
 	this->gear = 0;
-	this->maxTurnAcceleration = 800;
+	this->maxTurnAcceleration = 80;
 	this->enginePower = 117680000;
 	this->width = 10;
 	this->length = 10;
@@ -196,10 +230,17 @@ void Ship::draw(sf::RenderWindow& window)
 {
 
 	this->physical::draw(window);
-	for (int i = 0; i < turrets.size(); i++)
+
+	//turrets[1]->barrels[0]->shape.setFillColor(sf::Color(0,0,244));
+
+	for (auto a : turrets)
 	{
 
-		window.draw(turrets[i]->shape);
+		a->draw(window);
+
 	}
+
+
+	
 
 }
