@@ -32,7 +32,7 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 
 	deleteOrigin();
 	turretAngle = 0;
-	rotationSpeed = 30;
+	rotationSpeed = 10;
 	restrictedArea[0] = 100;
 	restrictedArea[1] = 260;
 
@@ -194,15 +194,15 @@ vector<shared_ptr<bullet>> turret::SHOOT()
 
 	sf::ConvexShape temc;
 	temc.setPointCount(4);
-	temc.setPoint(0, sf::Vector2f(-2, -2));
-	temc.setPoint(1, sf::Vector2f(2, -2));
-	temc.setPoint(2, sf::Vector2f(2, 2));
-	temc.setPoint(3, sf::Vector2f(-2, 2));
+	temc.setPoint(0, sf::Vector2f(-3, -3));
+	temc.setPoint(1, sf::Vector2f(3, -3));
+	temc.setPoint(2, sf::Vector2f(3, 3));
+	temc.setPoint(3, sf::Vector2f(-3, 3));
 	temc.setFillColor(sf::Color(90, 200, 0));
 
 	for(shared_ptr<sf::Vector2f> aut : temp)
 	{
-		temb.push_back(make_shared<bullet>(bullet("test", temc, 1600, 270, temAngle, *aut)));
+		temb.push_back(make_shared<bullet>(bullet("test", temc, 1900, 270, temAngle, *aut)));
 	}
 
 	/*for (auto a : temb)

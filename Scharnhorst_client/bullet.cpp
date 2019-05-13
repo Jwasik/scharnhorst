@@ -21,6 +21,8 @@ bullet::bullet(std::string ntype, sf::ConvexShape nbody, float nspeed, float nda
 	this->shape = nbody;
 	this->tracer.b = punkt;
 	this->shape.setRotation(angle);
+	this->shape.setPosition(tracer.b);
+
 
 }
 
