@@ -46,5 +46,10 @@ public:
 	~turret();
 	void updateRestrictedAreaBy(float moveRestricted);
 	float getShipAngle();
+	float getAngleByWater();
+	vector<shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
+
+	vector<shared_ptr<bullet>> SHOOT();
+
 };
 

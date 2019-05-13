@@ -206,6 +206,12 @@ float Ship::getCannonRotation()
 
 void Ship::swim(double deltaTime)
 {
+ 	for (auto aut : bullets)
+	{
+
+		aut->fly(deltaTime);
+	}
+
 	this->accelerate(deltaTime);
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
@@ -230,8 +236,11 @@ void Ship::draw(sf::RenderWindow& window)
 {
 
 	this->physical::draw(window);
-
-	//turrets[1]->barrels[0]->shape.setFillColor(sf::Color(0,0,244));
+	
+	for (auto aut : bullets)
+	{
+		aut->draw(window);
+	}
 
 	for (auto a : turrets)
 	{
@@ -244,3 +253,29 @@ void Ship::draw(sf::RenderWindow& window)
 	
 
 }
+
+void Ship::SHOOT()
+{
+
+	vector<shared_ptr<bullet>> tem;
+
+
+	for (auto aut : turrets)
+	{
+		tem = aut->SHOOT();
+		/*for (shared_ptr<bullet> a : tem)
+		{
+			cout << aut->shape.getPosition().x << " " << aut->shape.getPosition().y << endl;
+
+		}
+		cout << endl;*/
+		bullets + tem;
+		
+
+	}
+
+
+}
+
+
+

@@ -123,6 +123,12 @@ void LocalGame::playerEvent(const double &deltaTime)
 	{
 		player->getShip()->spin(1, deltaTime);
 	}
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+
+		player->getShip()->SHOOT();
+
+	}
 
 }
 
