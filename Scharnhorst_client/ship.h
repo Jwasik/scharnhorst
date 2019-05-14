@@ -28,8 +28,8 @@ public:
 	std::string type;
 	std::string name;
 	float calculateAcceleration();
-	std::vector<std::shared_ptr<turret>> turrets;
-	vector<shared_ptr<bullet>> bullets;
+	std::vector<std::shared_ptr<Turret>> turrets;
+	std::vector<std::shared_ptr<bullet>> bullets;
 
 
 public:
@@ -41,13 +41,15 @@ public:
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
 	void setCannonRotation(float);
-	void setTurrets(float mousAngle, float dTime);
+	void setturrets(float mousAngle, float dTime);
 	float getCannonRotation();
-	
+	void addPoint(unsigned short,sf::Vector2f&);
+	void addTurret(std::shared_ptr<Turret>&);
 	void SHOOT();
 
 	std::string getType();
 	Ship();
+	Ship(std::string&,float[6],unsigned short);
 	~Ship();
 };
 

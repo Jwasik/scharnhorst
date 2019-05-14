@@ -1,7 +1,9 @@
 #pragma once
 #include "includes.h"
 #include "player.h"
+#include "turret.h"
 #include <string>
+#include <fstream>
 
 
 class LocalGame
@@ -43,7 +45,7 @@ public:
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
-
+	void loadGameFiles();
 
 	void receiveAction(); //odbiera pakiety TCP
 	void recieveMessages(); //obs³uguje odbieranie wiadomoœci UDP

@@ -24,46 +24,6 @@ Ship::Ship()
 	shape.move(sf::Vector2f(128, 512));
 	deleteOrigin();
 
-	vector<shared_ptr<barrel>> temvb;
-
-
-	barrel temb;
-	sf::ConvexShape temc;
-	temc.setPointCount(4);
-	temc.setPoint(0, sf::Vector2f(-5, -80));
-	temc.setPoint(1, sf::Vector2f(5, -80));
-	temc.setPoint(2, sf::Vector2f(5, 0));
-	temc.setPoint(3, sf::Vector2f(-5, 0));
-	temc.setFillColor(sf::Color(90,0,40));
-
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
-
-		turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), 100, 0, temvb)));
-
-		temvb.pop_back();
-		temvb.pop_back();
-
-		temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
-		temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
-	
-
-	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), 20, 0, temvb)));
-	temvb.pop_back();
-	temvb.pop_back();
-
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
-	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), -40, 0, temvb)));
-	temvb.pop_back();
-	temvb.pop_back();
-
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
-	turrets.push_back(std::make_shared<turret>(turret("test", this->shape.getPosition(), -100, 0, temvb)));
-
-
-
 	this->type = "NONE";
 	this->gear = 0;
 	this->maxTurnAcceleration = 8;
@@ -77,6 +37,67 @@ Ship::Ship()
 
 	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 
+	std::vector<std::shared_ptr<barrel>> temvb;
+
+
+	barrel temb;
+	sf::ConvexShape temc;
+	temc.setPointCount(4);
+	temc.setPoint(0, sf::Vector2f(-5, -80));
+	temc.setPoint(1, sf::Vector2f(5, -80));
+	temc.setPoint(2, sf::Vector2f(5, 0));
+	temc.setPoint(3, sf::Vector2f(-5, 0));
+	temc.setFillColor(sf::Color(90,0,40));
+
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+
+		turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), 100, 0, temvb)));
+
+		temvb.pop_back();
+		temvb.pop_back();
+
+		temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+		temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	
+
+	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), 20, 0, temvb)));
+	temvb.pop_back();
+	temvb.pop_back();
+
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), -40, 0, temvb)));
+	temvb.pop_back();
+	temvb.pop_back();
+
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(-10, -10), temc)));
+	temvb.push_back(std::make_shared<barrel>(barrel(sf::Vector2f(10, -10), temc)));
+	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), -100, 0, temvb)));
+
+
+
+	
+
+}
+
+Ship::Ship(std::string &name, float parameters[6], unsigned short point_count)
+{
+	shape.setPointCount(point_count);
+
+	this->type = name;
+	this->gear = 0;
+	this->maxTurnAcceleration = parameters[0];
+	this->enginePower = parameters[1];
+	this->width = parameters[2];
+	this->length = parameters[3];
+	this->actualSpeed = parameters[4];
+	this->maxSpeed = parameters[5];
+	this->mass = parameters[6];
+	this->acceleration = enginePower / mass;
+
+	shape.setOrigin(sf::Vector2f(width/2,length/2));
+	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 }
 
 
@@ -107,60 +128,6 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 	{
 		actualSpeed += acceleration * gear*0.25 * deltaTime;
 	}
-
-
-	/*if (gear == 0)
-	{
-		/*if (actualSpeed == 0)return;
-		if (abs(actualSpeed) - waterRezistance * deltaTime < waterRezistance*deltaTime)actualSpeed = 0;*/
-		/*if (actualSpeed > 0)
-		{
-			actualSpeed = actualSpeed - waterRezistance*deltaTime;
-		}
-		else
-		{
-			actualSpeed = actualSpeed + waterRezistance*deltaTime;
-		}
-
-	}
-	else
-	{
-		if (gear > 0)
-		{
-			if (actualSpeed >= 0)
-			{
-				actualSpeed = actualSpeed + (force - waterRezistance)*deltaTime;
-			}
-			else
-			{
-				actualSpeed = actualSpeed + (force + waterRezistance)*deltaTime;
-			}
-		}
-		else
-		{
-			if (actualSpeed >= 0)
-			{
-				actualSpeed = actualSpeed - (force - waterRezistance)*deltaTime;
-			}
-			else
-			{
-				actualSpeed = actualSpeed - (force + waterRezistance)*deltaTime;
-			}
-		}
-
-	}
-
-	/*if (gear == 0)
-	{
-		actualSpeed -= actualSpeed * 0.5f * deltaTime/* <-- opór wody;
-	}
-	else
-	{
-
-			if(actualSpeed > 0&&gear == -1)	actualSpeed = actualSpeed + deltaTime * acceleration - actualSpeed * 0.1f * deltaTime;
-
-	}
-	actualSpeed = actualSpeed + deltaTime * acceleration;*/
 }
 
 
@@ -169,7 +136,6 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 void Ship::spin(bool direction, double dtime)
 {
 	turnAcceleration = maxTurnAcceleration * sin(PI*0.6*(actualSpeed / maxSpeed));
-	//turnAcceleration = maxTurnAcceleration * (-(actualSpeed / maxSpeed * 1.5 - 0.85)*(actualSpeed / maxSpeed * 1.5 - 0.85) + 1);
 	if (direction == 1)this->rotate(dtime*turnAcceleration);
 	else this->rotate(-1 * dtime*turnAcceleration);
 }
@@ -184,7 +150,6 @@ void Ship::changeGear(bool change)
 	{
 		gear++;
 	}
-
 	// w przeciwnym razie nic siê nie zmieni
 }
 
@@ -201,7 +166,17 @@ void Ship::setCannonRotation(float angle)
 
 float Ship::getCannonRotation()
 {
-	return turrets[0]->turretAngle;
+	return turrets[0]->TurretAngle;
+}
+
+void Ship::addPoint(unsigned short number,sf::Vector2f &point)
+{
+	this->shape.setPoint(number,point);
+}
+
+void Ship::addTurret(std::shared_ptr<Turret> &turret)
+{
+	this->turrets.push_back(turret);
 }
 
 void Ship::swim(double deltaTime)
@@ -221,7 +196,7 @@ void Ship::swim(double deltaTime)
 
 }
 
-void Ship::setTurrets(float mouseAngle, float dTime)
+void Ship::setturrets(float mouseAngle, float dTime)
 {
 
 	for (int i = 0; i < turrets.size(); i++)
@@ -256,24 +231,20 @@ void Ship::draw(sf::RenderWindow& window)
 
 void Ship::SHOOT()
 {
-
-	vector<shared_ptr<bullet>> tem;
-
+	std::vector<std::shared_ptr<bullet>> tem;
 
 	for (auto aut : turrets)
 	{
 		tem = aut->SHOOT();
-		/*for (shared_ptr<bullet> a : tem)
+		/*for (std::shared_ptr<bullet> a : tem)
 		{
 			cout << aut->shape.getPosition().x << " " << aut->shape.getPosition().y << endl;
 
 		}
 		cout << endl;*/
 		bullets + tem;
-		
 
 	}
-
 
 }
 

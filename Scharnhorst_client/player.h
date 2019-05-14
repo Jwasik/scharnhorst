@@ -11,7 +11,9 @@ private:
 
 public:
 	std::shared_ptr<Ship> playerShip;
-	sf::Text nameText;
+	sf::Text playerNameText;
+	sf::Text playerShipNameText;
+	sf::Font playerNameFont;
 
 	unsigned int getPlayerId();
 	void setId(unsigned int);
@@ -21,8 +23,8 @@ public:
 
 	std::shared_ptr<Ship>& getShip();
 	Player();
-	Player(unsigned int, std::string);
-	Player(unsigned int, std::string, std::string);
+	//Player(unsigned int, std::string);
+	Player(unsigned int, std::string, std::string = "Scharnhorst");
 	~Player();
 };
 

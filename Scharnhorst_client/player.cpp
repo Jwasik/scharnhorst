@@ -18,6 +18,8 @@ void Player::doStuff(double &deltaTime)
 	if (this->playerShip != nullptr)
 	{
 		playerShip->swim(deltaTime);
+		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));
+		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));
 	}
 }
 
@@ -40,6 +42,8 @@ void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, un
 void Player::draw(sf::RenderWindow &window)
 {
 	this->playerShip->draw(window);
+	window.draw(playerNameText);
+	window.draw(playerShipNameText);
 }
 
 
@@ -53,23 +57,24 @@ Player::Player()
 	playerShip = std::make_shared<Ship>();
 }
 
-Player::Player(unsigned int id, std::string playerName)
-{
-	this->playerShip = std::make_shared<Ship>();
-	this->playerId = id;
-	this->playerName = playerName;
-	this->nameText.setString(playerName);
-}
-
 Player::Player(unsigned int id, std::string playerName, std::string shipType)
 {
 	this->playerShip = std::make_shared<Ship>();
 	this->playerId = id;
 	this->playerName = playerName;
-	this->nameText.setString(playerName);
+
+	this->playerNameText.setString(playerName);
+	this->playerShipNameText.setString(shipType);
+
+	this->playerNameFont.loadFromFile("PressStart2P.ttf");
+	this->playerNameText.setFont(this->playerNameFont);
+	this->playerShipNameText.setFont(this->playerNameFont);
+
+	this->playerNameText.setFillColor(sf::Color::White);
+
+	this->playerShipNameText.setFillColor(sf::Color::Red);
+	playerShipNameText.setCharacterSize(20);
 }
-
-
 
 
 Player::~Player()

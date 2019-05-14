@@ -11,7 +11,7 @@ namespace jw
 }
 
 template <typename T>
-void operator+ (vector<T> &a, vector<T> b)
+void operator+ (std::vector<T> &a, std::vector<T> b)
 {
 	for (int i = 0; i < b.size(); i++)
 	{

@@ -6,7 +6,6 @@
 #include <windows.h>
 #include "Hitbox.h"
 
-using namespace std;
 #define M_PI 3.14159265358979323846
 
 
@@ -18,12 +17,12 @@ private:
 	struct punktNaOkregu;
 
 	sf::Vector2f RotationPoint; // wspó³rzêdne osi obrotu
-	vector<punktNaOkregu> punkty; // dziêki nim ³¹two jest obracaæ woko³o osi hitboxa
+	std::vector<punktNaOkregu> punkty; // dziêki nim ³¹two jest obracaæ woko³o osi hitboxa
 	float a; // aktualny k¹t hitboxu 
 	int ile; // ile jest punktów w polygonie
 	float sNR(float s);//stopnie na radiany
 	float angleRotate(float oa, float r);//sprawdza czy k¹t nie przekrêci³ 360 i sprowadza go na ziemiê 
-	vector<odcinek> odcinki; // odcinki z jakich siê sk³ada hitbox, czyli to wodec czego bêdzie wykrywana kolizja, ich iloœæ proporcjonalnie przek³ada siê na z³o¿onoœæ obliczeniow¹ kolizji
+	std::vector<odcinek> odcinki; // odcinki z jakich siê sk³ada hitbox, czyli to wodec czego bêdzie wykrywana kolizja, ich iloœæ proporcjonalnie przek³ada siê na z³o¿onoœæ obliczeniow¹ kolizji
 
 public:
 	struct odcinek

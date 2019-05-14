@@ -11,9 +11,10 @@ LocalGame::LocalGame()
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 	
-	this->player = std::make_shared<Player>(1, "TEST"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	this->player = std::make_shared<Player>(1, playerName); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 
-	
+	this->loadGameFiles();
+
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
 }
@@ -61,7 +62,7 @@ void LocalGame::gameLoop()
 		this->sendMessage(); //wysy�a wiadomo�� TCP
 
 		window->clear();
-		player->getShip()->setTurrets(kamera.angle, deltaTime);
+		player->getShip()->setturrets(kamera.angle, deltaTime);
 
 		
 
@@ -304,6 +305,63 @@ void LocalGame::sendAction()
 
 void LocalGame::sendMessage()
 {
+}
+
+void LocalGame::loadGameFiles()
+{
+	std::ifstream in("ships.dat");
+	if (!in.good())throw "Cannot load databases";
+	unsigned short count = 0;
+	in >> count;
+	for (unsigned int i = 0; i < count;i++)
+	{
+		std::string ship_name = "TEST";
+		std::getline(in, ship_name);
+		float parameters[6];
+
+		in >> parameters[0];
+		in >> parameters[1];
+		in >> parameters[2];
+		in >> parameters[3];
+		in >> parameters[4];
+		in >> parameters[5];
+
+		unsigned short point_count = 0;
+		in >> point_count;
+
+		std::shared_ptr<Ship> loadedShip = std::make_shared<Ship>(ship_name,parameters, point_count);
+
+		sf::Vector2f point;
+		for (unsigned short j = 0; j < point_count; j++)
+		{
+			in >> point.x;
+			in >> point.y;
+			loadedShip->addPoint(j,point);
+		}
+
+		unsigned short turret_count = 0;
+		in >> turret_count;
+
+		std::string turret_name, cannon_type;
+		for (unsigned short j = 0; j < turret_count; j++)
+		{
+			std::getline(in,turret_name);
+			std::getline(in,cannon_type);
+
+			sf::Vector2f point;
+			in >> point.x;
+			in >> point.y;
+
+			std::shared_ptr<Turret> loaded_turret;
+			/*
+			TUTAJ DOPISAĆ TURRETY
+			*/
+
+		}
+		std::string endWord;
+		in >> endWord;
+		if (endWord != "END")return;
+	}
 }
 
 void LocalGame::receivePlayersPositions()

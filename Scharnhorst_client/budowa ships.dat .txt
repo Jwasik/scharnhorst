@@ -1,0 +1,22 @@
+unsigned short ilosc
+
+string NAZWA
+float max_turn_acceleration
+float engine_power
+float width
+float length
+float max_speed
+float mass
+
+unsigned short liczba_punktów
+{x
+punkt x y
+}
+
+unsigned short liczba_wie¿
+{x
+string NAZWA_WIE¯Y (typ)
+string TYP_ARMAT
+punkt x y
+}
+keyword END
