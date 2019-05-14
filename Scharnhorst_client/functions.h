@@ -10,4 +10,11 @@ namespace jw
 	void printStatus(const sf::Socket::Status&);
 }
 
-
+template <typename T>
+void operator+ (vector<T> &a, vector<T> b)
+{
+	for (int i = 0; i < b.size(); i++)
+	{
+		a.push_back(b[i]);
+	}
+}

@@ -32,7 +32,7 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 
 	deleteOrigin();
 	turretAngle = 0;
-	rotationSpeed = 30;
+	rotationSpeed = 10;
 	restrictedArea[0] = 100;
 	restrictedArea[1] = 260;
 
@@ -132,9 +132,7 @@ barrel::barrel(sf::Vector2f npunkt, sf::ConvexShape nshape)
 
 void barrel::updatePosition(float turretAngle, sf::Vector2f nturretOrigin)
 {
-	//cout << nturretOrigin.x << " " << nturretOrigin.y << endl;
 	this->shape.setPosition(sf::Vector2f(punkt.r*sin(stopnieNaRadiany(changeAngle(turretAngle, punkt.a))), -punkt.r * cos(stopnieNaRadiany(changeAngle(turretAngle, punkt.a)))) + nturretOrigin);
-	cout << shape.getPosition().x << " " << shape.getPosition().y << endl ;
 
 	this->shape.setRotation(turretAngle);
 }
@@ -159,11 +157,58 @@ void turret::draw(sf::RenderWindow& window)
 	for (auto a : barrels)
 	{
 		window.draw(a->shape);
-		//cout << a->shape.getPosition().x << " " << a->shape.getPosition().y << endl;
 
 	}
 	window.draw(shape);
 	
 
 
+}
+
+float turret::getAngleByWater()
+{
+	return this->shape.getRotation();
+}
+
+vector<shared_ptr<sf::Vector2f>> turret::getBarrelsPositionsByWater()
+{
+	vector<shared_ptr<sf::Vector2f>> tem;
+	for (auto a : barrels)
+	{
+		tem.push_back(make_shared<sf::Vector2f>(a->shape.getPosition()));
+	}
+	return tem;
+}
+
+vector<shared_ptr<bullet>> turret::SHOOT()
+{
+	float temAngle = this->getAngleByWater();
+	vector<shared_ptr<bullet>> temb;
+	vector<shared_ptr<sf::Vector2f>> temp = this->getBarrelsPositionsByWater();
+	/*for (auto aut : temp)
+	{
+		cout << aut->x << " " << aut->y << endl;
+
+	}
+	cout << endl;*/
+
+	sf::ConvexShape temc;
+	temc.setPointCount(4);
+	temc.setPoint(0, sf::Vector2f(-3, -3));
+	temc.setPoint(1, sf::Vector2f(3, -3));
+	temc.setPoint(2, sf::Vector2f(3, 3));
+	temc.setPoint(3, sf::Vector2f(-3, 3));
+	temc.setFillColor(sf::Color(90, 200, 0));
+
+	for(shared_ptr<sf::Vector2f> aut : temp)
+	{
+		temb.push_back(make_shared<bullet>(bullet("test", temc, 1900, 270, temAngle, *aut)));
+	}
+
+	/*for (auto a : temb)
+	{
+		cout << 
+	}*/
+
+	return temb;
 }

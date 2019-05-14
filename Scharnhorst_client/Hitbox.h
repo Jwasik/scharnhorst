@@ -30,9 +30,11 @@ public:
 	{
 
 		sf::Vector2f a, b; 
+		sf::VertexArray line;
 		odcinek(sf::Vector2f x, sf::Vector2f xx);
 		void prosta(odcinek o, float* A, float* B, float* C); //liczy parametry równania prostej na podstawie 'odcinka'
 		bool isCross(odcinek o1); //sprawdza czy odcinki siê przecinaj¹
+		odcinek();
 
 
 	};

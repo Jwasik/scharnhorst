@@ -8,7 +8,12 @@
 using namespace std;
 #define M_PI 3.14159265358979323846
 
-Hitbox::odcinek::odcinek(sf::Vector2f x, sf::Vector2f xx) : a(x), b(xx) {};
+Hitbox::odcinek::odcinek(sf::Vector2f x, sf::Vector2f xx) : a(x), b(xx) 
+{
+	line = sf::VertexArray(sf::LineStrip, 2);
+	line[0].position = a;
+	line[1].position = b;
+};
 
 void Hitbox::odcinek::prosta(Hitbox::odcinek o, float* A, float* B, float* C)
 {
@@ -21,6 +26,11 @@ bool Hitbox::odcinek::isCross(Hitbox::odcinek o1)
 	prosta(o1, &A1, &B1, &C1);
 	prosta(*this, &A2, &B2, &C2);
 	return ((((A1*a.x + B1 * a.y + C1)*(A1*b.x + B1 * b.y + C1)) < 0) && (((A2*o1.a.x + B2 * o1.a.y + C2)*(A2*o1.b.x + B2 * o1.b.y + C2)) < 0));
+
+}
+
+Hitbox::odcinek::odcinek()
+{
 
 }
 

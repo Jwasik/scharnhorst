@@ -5,6 +5,7 @@
 #include "Camera.h"
 
 
+
 class Ship : public movable
 {
 private:
@@ -28,6 +29,7 @@ public:
 	std::string name;
 	float calculateAcceleration();
 	std::vector<std::shared_ptr<turret>> turrets;
+	vector<shared_ptr<bullet>> bullets;
 
 
 public:
@@ -41,6 +43,8 @@ public:
 	void setCannonRotation(float);
 	void setTurrets(float mousAngle, float dTime);
 	float getCannonRotation();
+	
+	void SHOOT();
 
 	std::string getType();
 	Ship();
