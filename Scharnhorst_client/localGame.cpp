@@ -11,9 +11,10 @@ LocalGame::LocalGame()
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 	
-	this->player = std::make_shared<Player>(1, playerName); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	this->player = std::make_shared<Player>(1, playerName,"KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 
 	this->loadGameFiles();
+	this->loadMap();
 
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
@@ -64,30 +65,25 @@ void LocalGame::gameLoop()
 		window->clear();
 		player->getShip()->setturrets(kamera.angle, deltaTime);
 
-		
-
-		system("cls");
-		//std::cout << player->getShip()->getPosition().x << ' '<<player->getShip()->getPosition().y << std::endl;
-		/*for (auto & player : otherPlayers)
-		{
-			player->draw(*window);
-			std::cout << player->getShip()->getPosition().x << ' ' << player->getShip()->getPosition().y << std::endl;
-		}*/
-		printAdresses();
-
-
-
-		kamera.Camera::setCenter(/*sf::Vector2f(500 ,500)*/player->getShip()->getPosition());
+		kamera.Camera::setCenter(player->getShip()->getPosition());
 		kamera.Camera::calculateView(*window, 1000);
 		kamera.Camera::setView(*window);
 
+		for (const auto & vector : backgroundMap)
+		{
+			for (const auto & shape : vector)
+			{
+				window->draw(shape);
+			}
+		}
 		player->draw(*window);
 		for (const auto & player : otherPlayers)
 		{
 			player->draw(*window);
 		}
+
 		window->display();
-	}
+	}  
 }
 
 void LocalGame::playerEvent(const double &deltaTime)
@@ -203,6 +199,11 @@ void LocalGame::printAdresses()
 	std::cout << "TCP client working on: " << sf::IpAddress::getLocalAddress() << ':' << orderSocket.getLocalPort() << std::endl;
 	std::cout << "UDP client working on: " << sf::IpAddress::getLocalAddress() << ':' << inSocket.getLocalPort() << std::endl;
 	std::cout << "UDP server working on: " << serverInfo.serverAddress << ':' << serverInfo.serverUdpPort << std::endl;
+}
+
+bool LocalGame::inView(sf::Vector2f pos)
+{
+	return false;
 }
 
 bool LocalGame::connectToServer(const std::string &adress)
@@ -361,6 +362,33 @@ void LocalGame::loadGameFiles()
 		std::string endWord;
 		in >> endWord;
 		if (endWord != "END")return;
+	}
+}
+
+void LocalGame::loadMap()
+{
+	sf::Texture waterTexture;
+	waterTexture.loadFromFile("water.jpg");
+	this->textures.insert(std::pair<std::string,sf::Texture>("water1", waterTexture));
+
+	this->backgroundMap.resize(128);
+	for (auto & vector : backgroundMap)
+	{
+		vector.resize(128);
+	}
+
+	unsigned int c1 = 0, c2 = 0;
+	for (auto & vector : backgroundMap)
+	{
+		c2 = 0;
+		for (auto & shape : vector)
+		{
+			shape.setSize(sf::Vector2f(128, 128));
+			shape.setPosition(c1 * 128, c2 * 128);
+			shape.setTexture(&textures["water1"]);
+			c2++;
+		}
+		c1++;
 	}
 }
 

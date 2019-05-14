@@ -5,7 +5,6 @@
 #include <windows.h>
 #include "Hitbox.h"
 
-using namespace std;
 #define M_PI 3.14159265358979323846
 
 Hitbox::odcinek::odcinek(sf::Vector2f x, sf::Vector2f xx) : a(x), b(xx) 

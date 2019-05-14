@@ -24,10 +24,14 @@ private:
 
 	}gameInfo;
 
+	bool inView(sf::Vector2f);
+
 	std::shared_ptr<sf::RenderWindow> window;
 
 	std::shared_ptr<Player> player;
 	std::vector<std::shared_ptr<Player>> otherPlayers;
+	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
+	std::map<std::string,sf::Texture> textures;
 	sf::TcpSocket orderSocket;
 	sf::UdpSocket inSocket, outSocket;
 public:
@@ -46,6 +50,7 @@ public:
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
 	void loadGameFiles();
+	void loadMap();
 
 	void receiveAction(); //odbiera pakiety TCP
 	void recieveMessages(); //obs³uguje odbieranie wiadomoœci UDP

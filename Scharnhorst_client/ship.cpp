@@ -191,9 +191,6 @@ void Ship::swim(double deltaTime)
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
 
-	std::cout << "gear: " << gear << std::endl;
-	std::cout << "speed: " << actualSpeed << std::endl;
-
 }
 
 void Ship::setturrets(float mouseAngle, float dTime)
