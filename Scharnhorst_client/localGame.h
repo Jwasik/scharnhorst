@@ -53,5 +53,5 @@ public:
 
 	bool joinServer();
 	void printAdresses();
-};
 
+};

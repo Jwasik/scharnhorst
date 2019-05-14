@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "player.h"
 
-
 unsigned int Player::getPlayerId()
 {
 	return this->playerId;
@@ -59,6 +58,7 @@ Player::Player(unsigned int id, std::string playerName)
 	this->playerShip = std::make_shared<Ship>();
 	this->playerId = id;
 	this->playerName = playerName;
+	this->nameText.setString(playerName);
 }
 
 Player::Player(unsigned int id, std::string playerName, std::string shipType)
@@ -66,6 +66,7 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType)
 	this->playerShip = std::make_shared<Ship>();
 	this->playerId = id;
 	this->playerName = playerName;
+	this->nameText.setString(playerName);
 }
 
 

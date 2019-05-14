@@ -11,6 +11,7 @@ private:
 
 public:
 	std::shared_ptr<Ship> playerShip;
+	sf::Text nameText;
 
 	unsigned int getPlayerId();
 	void setId(unsigned int);

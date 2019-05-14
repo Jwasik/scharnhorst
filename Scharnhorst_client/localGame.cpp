@@ -7,12 +7,13 @@
 LocalGame::LocalGame()
 {
 	kamera = Camera(sf::Vector2f(800, 600));
+	
 	this->playerName = "Karl";
-	window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	
+	this->player = std::make_shared<Player>(1, "TEST"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 
-	player = std::make_shared<Player>(123456789, "TEST"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
-
-
+	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
 }
@@ -65,7 +66,7 @@ void LocalGame::gameLoop()
 		
 
 		system("cls");
-		std::cout << player->getShip()->getPosition().x << ' '<<player->getShip()->getPosition().y << std::endl;
+		//std::cout << player->getShip()->getPosition().x << ' '<<player->getShip()->getPosition().y << std::endl;
 		/*for (auto & player : otherPlayers)
 		{
 			player->draw(*window);
@@ -142,6 +143,7 @@ bool LocalGame::joinServer()
 	std::string IP;
 	std::cout << "type server IP and port" << std::endl;
 	std::cin >> IP;
+	if (IP == "single")return 1;
 	orderSocket.setBlocking(false);
 
 	if (connectToServer(IP) == false)return 0;
@@ -306,16 +308,16 @@ void LocalGame::receivePlayersPositions()
 	unsigned short port;
 	if (this->inSocket.receive(receivedPacket, IP, port) != sf::Socket::Done)return;
 
-	std::cout << receivedPacket.getDataSize() << std::endl;
+	//std::cout << receivedPacket.getDataSize() << std::endl;
 
 	std::string message="NULL";
 	if (receivedPacket >> message)
 	{
-		std::cout << message << std::endl;
+		//std::cout << message << std::endl;
 
 		if (message == "PPS")
 		{
-			std::cout << "received PPS" << std::endl;
+			//std::cout << "received PPS" << std::endl;
 			unsigned int playerId;
 			float x, y, shipAngle, cannonAngle;
 
@@ -362,7 +364,7 @@ void LocalGame::receivePlayersPositions()
 				player->getShip()->setRotation(angle);
 				player->getShip()->setCannonRotation(cannonAngle);
 
-				std::cout << "got POS packet about player " << id << " at pos " << position.x << ' ' << position.y << std::endl;
+				//std::cout << "got POS packet about player " << id << " at pos " << position.x << ' ' << position.y << std::endl;
 		}
 	}
 	else return;
@@ -391,7 +393,7 @@ void LocalGame::receiveAction()
 			auto player = getPlayerById(playerId);
 			if (player != nullptr)return;
 
-			std::cout << "new player joined, all say HI to " << playerName << std::endl;
+			//std::cout << "new player joined, all say HI to " << playerName << std::endl;
 			player = std::make_shared<Player>(playerId, playerName, playerShip);
 			player->getShip()->setPosition(sf::Vector2f(100,100));
 			otherPlayers.push_back(player);
