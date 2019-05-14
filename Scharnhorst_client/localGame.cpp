@@ -69,11 +69,18 @@ void LocalGame::gameLoop()
 		kamera.Camera::calculateView(*window, 1000);
 		kamera.Camera::setView(*window);
 
+
+		auto view = kamera.getViewBounds();
 		for (const auto & vector : backgroundMap)
 		{
 			for (const auto & shape : vector)
 			{
-				window->draw(shape);
+				auto object = shape.getGlobalBounds();
+				if (object.intersects(view))
+				{
+					window->draw(shape);
+				}
+				
 			}
 		}
 		player->draw(*window);
@@ -383,9 +390,10 @@ void LocalGame::loadMap()
 		c2 = 0;
 		for (auto & shape : vector)
 		{
-			shape.setSize(sf::Vector2f(128, 128));
+			shape.setSize(sf::Vector2f(1024, 1024));
 			shape.setPosition(c1 * 128, c2 * 128);
 			shape.setTexture(&textures["water1"]);
+			//shape.setFillColor(sf::Color::Red);
 			c2++;
 		}
 		c1++;

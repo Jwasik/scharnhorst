@@ -35,5 +35,6 @@ public:
 	void calculateAngle();
 	void calculateView(sf::RenderWindow &window, float howLean);
 	void setView(sf::RenderWindow &window);
+	sf::FloatRect getViewBounds();
 
 };

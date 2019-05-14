@@ -102,3 +102,13 @@ void Camera::setView(sf::RenderWindow &window)
 	this->changePosition();
 	this->set(&window);
 }
+
+sf::FloatRect Camera::getViewBounds()
+{
+	sf::FloatRect rt;
+	rt.left = this->view.getCenter().x - this->view.getSize().x / 2.f;
+	rt.top = this->view.getCenter().y - this->view.getSize().y / 2.f;
+	rt.width = this->view.getSize().x;
+	rt.height = this->view.getSize().y;
+	return rt;
+}
