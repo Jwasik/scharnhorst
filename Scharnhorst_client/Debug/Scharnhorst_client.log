@@ -1,4 +1,70 @@
-﻿  localGame.cpp
+﻿  pch.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(29): warning C4240: nonstandard extension used: access to 'Hitbox::odcinek' now defined to be 'public', previously it was defined to be 'private'
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(16): note: see declaration of 'Hitbox::odcinek'
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(41): warning C4240: nonstandard extension used: access to 'Hitbox::punktNaOkregu' now defined to be 'public', previously it was defined to be 'private'
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(17): note: see declaration of 'Hitbox::punktNaOkregu'
+  bullet.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(6): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Camera.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(69): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  functions.cpp
+  Hitbox.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(107): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  localGame.cpp
 c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(394): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  movable.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.cpp(52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.cpp(76): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  physical.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.cpp(46): warning C4018: '<': signed/unsigned mismatch
+  player.cpp
+  Scharnhorst_client.cpp
+  ship.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(120): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(124): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(129): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(138): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(159): warning C4018: '<': signed/unsigned mismatch
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(191): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(192): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(199): warning C4018: '<': signed/unsigned mismatch
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(16): warning C4018: '<': signed/unsigned mismatch
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(242): note: see reference to function template instantiation 'void operator +<std::shared_ptr<bullet>>(std::vector<std::shared_ptr<bullet>,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>>)' being compiled
+          with
+          [
+              _Ty=std::shared_ptr<bullet>
+          ]
+  turret.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(144): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+  Generating Code...
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

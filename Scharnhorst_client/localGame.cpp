@@ -159,7 +159,7 @@ bool LocalGame::joinServer()
 	if (connectToServer(IP) == false)return 0;
 
 	sf::Packet newPlayerPacket;
-	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << 1;
+	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->player->getShip()->getType();
 
 	orderSocket.send(newPlayerPacket);
 	newPlayerPacket.clear();
