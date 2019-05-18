@@ -5,9 +5,8 @@
 struct barrel : public movable
 {
 public:
-	Hitbox::punktNaOkregu punkt;
-
-	barrel();
+	Hitbox::punktNaOkregu punkt; //po chuj to jak barrel nie ma hitboxa?
+	barrel();//po chuj?
 	barrel(sf::Vector2f point, sf::ConvexShape shape);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
 };

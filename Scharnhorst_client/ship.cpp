@@ -39,7 +39,7 @@ Ship::Ship()
 
 	std::vector<std::shared_ptr<barrel>> temvb;
 
-
+	//chuja wiem co to jest temc dlatego nazywaj to normalnie
 	barrel temb;
 	sf::ConvexShape temc;
 	temc.setPointCount(4);
@@ -156,11 +156,15 @@ void Ship::changeGear(bool change)
 
 void Ship::setCannonRotation(float angle)
 {
-	for (int i = 0; i < turrets.size(); i++)
+	//Po chuj masz auto jak i tak u¿ywasz tego gówna?
+	/*for (int i = 0; i < turrets.size(); i++)
 	{
-
 		turrets[i]->shape.setRotation(angle);
+	}*/
 
+	for (auto & turret : turrets)
+	{
+		turret->setRotation(angle);
 	}
 }
 
