@@ -1,12 +1,66 @@
-﻿  pch.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(29): warning C4240: nonstandard extension used: access to 'Hitbox::odcinek' now defined to be 'public', previously it was defined to be 'private'
-  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(16): note: see declaration of 'Hitbox::odcinek'
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(41): warning C4240: nonstandard extension used: access to 'Hitbox::punktNaOkregu' now defined to be 'public', previously it was defined to be 'private'
-  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(17): note: see declaration of 'Hitbox::punktNaOkregu'
-  bullet.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(6): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  bullet.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): error C2011: "bullet'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(4): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "bullet"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(6): error C2065: "speed": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(7): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(7): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(7): error C3861: "stopnieNaRadiany": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(8): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(8): error C2065: "tracer": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(12): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "bullet"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(14): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(15): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(19): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "bullet"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(19): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(20): error C2550: "{ctor}": listy inicjatorów konstruktora są dozwolone tylko dla definicji konstruktora
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(21): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(22): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(23): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(23): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(24): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(24): error C2065: "tracer": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(27): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(29): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "bullet"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(30): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(31): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(34): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "bullet"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\bullet.h(4): note: zobacz deklarację „bullet”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(35): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(36): warning C4508: "{dtor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
   Camera.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.h(10): error C2011: "Camera'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(6): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(6): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(6): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(7): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(8): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(9): error C2065: "Center": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(10): error C2065: "MicePosition": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(11): error C2065: "lean": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(12): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(13): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(14): error C2065: "ScreenDimensions": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(15): error C2065: "view": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(16): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(17): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(19): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=int
@@ -15,7 +69,7 @@ c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21):
           [
               T=float
           ]
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
           with
           [
               T=unsigned int
@@ -24,47 +78,489 @@ c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(21):
           [
               T=float
           ]
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.cpp(69): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(24): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(26): error C2065: "Center": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(29): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(31): error C2065: "view": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(31): error C2065: "Center": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(31): error C2065: "lean": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(34): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(36): error C2065: "lean": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(36): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(36): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(39): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(41): error C2065: "lean": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(44): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(46): error C2065: "MicePosition": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(46): error C2065: "Center": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(46): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(46): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(46): error C2065: "lean": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(49): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(51): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(52): error C2065: "view": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(52): error C2065: "ScreenDimensions": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(52): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(55): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(57): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(58): error C2065: "view": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(58): error C2065: "ScreenDimensions": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(58): error C2065: "zoom": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(61): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(63): error C2065: "view": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(66): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(69): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(69): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(71): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(73): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(76): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(78): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(81): error C2065: "MiceFromMiddle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(83): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(87): error C2065: "angle": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(91): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(93): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(94): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(95): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(96): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(100): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(102): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(103): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(106): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(109): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(110): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(111): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.cpp(112): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
   functions.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
   Hitbox.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(51): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(107): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(14): error C2011: "Hitbox'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(10): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(10): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(11): error C2550: "odcinek": listy inicjatorów konstruktora są dozwolone tylko dla definicji konstruktora
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(12): error C2065: "line": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(13): error C2065: "line": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(13): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(14): error C2065: "line": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(14): error C2065: "b": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(15): warning C4508: "odcinek": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(17): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(17): error C2146: błąd składniowy: brakuje „)” przed identyfikatorem „o”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(18): error C2143: błąd składniowy: brakuje „;” przed „{”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(18): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(22): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(22): error C2146: błąd składniowy: brakuje „)” przed identyfikatorem „o1”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(23): error C2143: błąd składniowy: brakuje „;” przed „{”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(23): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(31): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(32): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(34): warning C4508: "odcinek": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(36): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(37): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(39): error C2065: "punktNaOkregu": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(39): error C2146: błąd składniowy: brakuje „;” przed identyfikatorem „tem”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(39): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(41): error C2146: błąd składniowy: brakuje „;” przed identyfikatorem „temo”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(41): warning C4551: wywołaniu funkcji brakuje listy argumentów
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(41): error C3861: "temo": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(42): error C2065: "ile": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(43): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(44): error C2065: "ile": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(46): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(47): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(49): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(51): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(55): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(60): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(65): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(69): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(71): error C2065: "punkty": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(71): error C2065: "tem": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(72): error C2065: "odcinki": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(72): error C2065: "temo": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(75): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(75): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(78): error C2065: "RotationPoint": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(78): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(80): error C3861: "rotate": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(81): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(83): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(85): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(86): error C2065: "RotationPoint": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(87): error C3861: "rotate": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(90): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(105): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(107): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(110): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(112): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(113): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(113): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(115): error C2065: "odcinki": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(115): error C2065: "punkty": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(115): error C2065: "ile": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(115): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(115): error C2065: "RotationPoint": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(118): error C2065: "ile": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(121): error C2065: "odcinki": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(121): error C2065: "punkty": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(121): error C2065: "a": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(121): error C2065: "RotationPoint": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(126): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(128): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(131): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(131): error C2146: błąd składniowy: brakuje „)” przed identyfikatorem „odc”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(132): error C2143: błąd składniowy: brakuje „;” przed „{”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(132): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(144): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(145): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(149): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(157): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(157): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(157): error C2365: "odcinek": zmiana definicji; definicja poprzednia była "funkcja"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(157): error C2146: błąd składniowy: brakuje „;” przed identyfikatorem „getOdcinek”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(158): error C2143: błąd składniowy: brakuje „;” przed „{”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(158): error C2447: "{": brak nagłówka funkcji (stary styl formalnej listy?)
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(162): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(164): error C2065: "odcinki": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(167): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(169): error C2065: "polygon": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(172): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Hitbox"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(13): note: zobacz deklarację „Hitbox”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.cpp(174): error C2065: "polygon": niezadeklarowany identyfikator
   localGame.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(66): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(394): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(6): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(15): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.h(10): error C2011: "Camera'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(10): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.h(11): error C2079: "LocalGame::kamera" używa niezdefiniowanego class "Camera"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(9): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(68): error C2228: po lewej ".setCenter" musi być typ struct/union
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(68): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(68): error C2039: „getPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(69): error C2228: po lewej ".calculateView" musi być typ struct/union
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(69): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(70): error C2228: po lewej ".setView" musi być typ struct/union
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(70): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "Camera"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(79): error C3536: "view" : nie można użyć, zanim zostanie zainicjowany
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(79): error C2664: „bool sf::Rect<float>::intersects(const sf::Rect<float> &) const”: nie można dokonać konwersji argumentu 1 z „int” do „const sf::Rect<float> &”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(79): note: Przyczyna: nie można skonwertować z "int" na "const sf::Rect<float>"
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(79): note: Żaden konstruktor nie mógł przyjąć typu źródłowego lub rozpoznanie przeciążenia konstruktora było niejednoznaczne
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(189): error C2039: „setPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(190): error C2039: „setRotation”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(394): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(442): error C2039: „setPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(443): error C2039: „setRotation”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(463): error C2039: „setPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(464): error C2039: „setRotation”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(498): error C2039: „setPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
   movable.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.cpp(52): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.cpp(76): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(5): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(6): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(8): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(10): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(11): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(12): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(13): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(15): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(17): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(17): error C3861: "getPosition": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(17): error C3861: "setPosition": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(20): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(35): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(50): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(52): warning C4244: "return": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(55): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(66): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(68): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(68): error C3861: "getRotation": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(68): error C3861: "setRotation": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(71): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(76): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(103): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(104): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.cpp(105): warning C4508: "{dtor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
   physical.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(5): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(6): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(7): error C3861: "setPosition": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(8): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(10): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(11): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(12): error C3861: "setPosition": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(13): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(15): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(15): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(16): error C2550: "{ctor}": listy inicjatorów konstruktora są dozwolone tylko dla definicji konstruktora
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(18): warning C4508: "{ctor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(20): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(22): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(25): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(27): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(29): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(31): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(34): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(36): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(39): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(41): error C2355: „this”: Można tworzyć odwołania wyłącznie wewnątrz niestatycznych funkcji składowych lub niestatycznych inicjatorów składowych danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(44): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(46): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(48): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(50): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(53): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(54): error C4430: brak specyfikatora typu - założono, że int. Uwaga: C++ nie obsługuje domyślnie typu int
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.cpp(55): warning C4508: "{dtor}": funkcja powinna zwrócić wartość; założono typ zwracany "void"
   player.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(6): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(15): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.h(10): error C2011: "Camera'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(10): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(21): error C2039: „getPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(22): error C2039: „getPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(34): error C2039: „getPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(35): error C2039: „getPosition”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(36): error C2039: „getRotation”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
   Scharnhorst_client.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(6): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(15): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.h(10): error C2011: "Camera'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(10): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.h(11): error C2079: "LocalGame::kamera" używa niezdefiniowanego class "Camera"
   ship.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(120): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(124): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(129): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(138): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(159): warning C4018: '<': signed/unsigned mismatch
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(191): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(192): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
-          with
-          [
-              T=float
-          ]
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(199): warning C4018: '<': signed/unsigned mismatch
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(16): warning C4018: '<': signed/unsigned mismatch
-  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\ship.cpp(242): note: see reference to function template instantiation 'void operator +<std::shared_ptr<bullet>>(std::vector<std::shared_ptr<bullet>,std::allocator<_Ty>> &,std::vector<_Ty,std::allocator<_Ty>>)' being compiled
-          with
-          [
-              _Ty=std::shared_ptr<bullet>
-          ]
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(6): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(15): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\camera.h(10): error C2011: "Camera'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\camera.h(9): note: zobacz deklarację „Camera”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(10): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(14): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(15): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(16): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(17): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(18): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(19): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(20): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(21): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(22): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(23): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(24): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(25): error C3861: "deleteOrigin": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(55): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(55): error C2440: "<function-style-cast>": nie można konwertować z "initializer list" na "Turret"
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(55): note: Żaden konstruktor nie mógł przyjąć typu źródłowego lub rozpoznanie przeciążenia konstruktora było niejednoznaczne
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(55): error C2672: „std::make_shared”: nie znaleziono zgodnej przeciążonej funkcji
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(64): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(64): error C2440: "<function-style-cast>": nie można konwertować z "initializer list" na "Turret"
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(64): note: Żaden konstruktor nie mógł przyjąć typu źródłowego lub rozpoznanie przeciążenia konstruktora było niejednoznaczne
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(64): error C2672: „std::make_shared”: nie znaleziono zgodnej przeciążonej funkcji
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(70): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(70): error C2440: "<function-style-cast>": nie można konwertować z "initializer list" na "Turret"
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(70): note: Żaden konstruktor nie mógł przyjąć typu źródłowego lub rozpoznanie przeciążenia konstruktora było niejednoznaczne
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(70): error C2672: „std::make_shared”: nie znaleziono zgodnej przeciążonej funkcji
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(76): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(76): error C2440: "<function-style-cast>": nie można konwertować z "initializer list" na "Turret"
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(76): note: Żaden konstruktor nie mógł przyjąć typu źródłowego lub rozpoznanie przeciążenia konstruktora było niejednoznaczne
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(76): error C2672: „std::make_shared”: nie znaleziono zgodnej przeciążonej funkcji
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(86): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(99): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(120): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(124): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(129): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(138): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(139): error C2039: „rotate”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(140): error C2039: „rotate”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(167): error C2039: „setRotation”: Nie jest składową „Turret”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(14): note: zobacz deklarację „Turret”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(178): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(195): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(196): error C2039: „move”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(196): error C2039: „getRotation”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(203): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(205): error C2039: „shape”: Nie jest składową „Ship”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.h(9): note: zobacz deklarację „Ship”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(205): error C2660: "Turret::updatePosition": funkcja nie przyjmuje 3 argumentów
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(35): note: zobacz deklarację „Turret::updatePosition”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(214): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "physical"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
   turret.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(63): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(144): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\functions.h(20): error C2995: "void operator +(std::vector<T,std::allocator<_Ty>> &,std::vector<T,std::allocator<_Ty>>)": szablon funkcji został już zdefiniowany
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\functions.h(14): note: zobacz deklarację „operator +”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\physical.h(7): error C2011: "physical'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\physical.h(6): note: zobacz deklarację „physical”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\movable.h(3): error C2011: "movable'': "class" wpisz ponownie definicję
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(6): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(15): error C2504: „movable”: klasa bazowa niezdefiniowana
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(7): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(8): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(9): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(10): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(22): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(23): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(24): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(25): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(26): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(28): error C3861: "deleteOrigin": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(37): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(42): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(49): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(50): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(52): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(52): error C3861: "howManyDegreeFrom": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(53): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(53): error C3861: "howManyDegreeFrom": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(58): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(58): error C3861: "stopnieNaRadiany": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(59): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(70): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(70): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(71): error C3861: "howManyDegreeFrom": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(71): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(73): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(73): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(85): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(85): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(86): error C3861: "howManyDegreeFrom": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(86): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(88): error C2027: wykorzystanie niezdefiniowanego przez użytkownika typu "movable"
+  c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\movable.h(3): note: zobacz deklarację „movable”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(88): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(92): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(92): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(95): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(105): error C2039: „shape”: Nie jest składową „barrel”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(5): note: zobacz deklarację „barrel”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(106): error C3861: "zamienNaPunktNaOkregu": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(111): error C2039: „shape”: Nie jest składową „barrel”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(5): note: zobacz deklarację „barrel”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(111): error C3861: "changeAngle": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(111): error C3861: "stopnieNaRadiany": identyfikatora nie odnaleziono
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(112): error C2039: „shape”: Nie jest składową „barrel”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(5): note: zobacz deklarację „barrel”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(119): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(137): error C2039: „shape”: Nie jest składową „barrel”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(5): note: zobacz deklarację „barrel”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(139): error C2065: "shape": niezadeklarowany identyfikator
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(144): error C2039: „shape”: Nie jest składową „Turret”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(14): note: zobacz deklarację „Turret”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(152): error C2039: „shape”: Nie jest składową „barrel”
+  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.h(5): note: zobacz deklarację „barrel”
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(152): error C2672: „std::make_shared”: nie znaleziono zgodnej przeciążonej funkcji
+  Generowanie kodu...
