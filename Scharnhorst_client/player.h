@@ -7,6 +7,7 @@ private:
 	float sightAngle = 0;
 	std::string playerName;
 	unsigned int playerId;
+	float angleOfView;
 
 
 public:
@@ -20,6 +21,7 @@ public:
 	void doStuff(double&);
 	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress, unsigned short);
 	void draw(sf::RenderWindow&);
+	void setTurretRotation(float angleOfView);
 
 	std::shared_ptr<Ship>& getShip();
 	Player();

@@ -63,7 +63,8 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 		{
 			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
 			{
-				//???????
+				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
+
 			}
 			else
 			{
@@ -78,7 +79,7 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 		{
 			if ((howManyDegreeToTurret - howManyDegreeToMouse) < rotationSpeed*dTime)
 			{
-				//???????
+				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
 			}
 			else
 			{

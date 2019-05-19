@@ -47,12 +47,7 @@ void LocalGame::gameLoop()
 
 
 
-		this->player->doStuff(deltaTime);
-
-		for (auto & player : otherPlayers)
-		{
-			player->doStuff(deltaTime);
-		}
+		
 
 
 		this->playerEvent(deltaTime);
@@ -63,7 +58,14 @@ void LocalGame::gameLoop()
 		this->sendMessage(); //wysy�a wiadomo�� TCP
 
 		window->clear();
-		player->getShip()->setturrets(kamera.angle, deltaTime);
+
+		player->setTurretRotation(kamera.angle);
+		this->player->doStuff(deltaTime);
+
+		for (auto & player : otherPlayers)
+		{
+			player->doStuff(deltaTime);
+		}
 
 		kamera.Camera::setCenter(player->getShip()->getPosition());
 		kamera.Camera::calculateView(*window, 1000);
