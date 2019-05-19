@@ -46,10 +46,6 @@ void LocalGame::gameLoop()
 		}
 
 
-
-		
-
-
 		this->playerEvent(deltaTime);
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
 		this->sendAction(); //wysy�a informacje o strzale
@@ -59,7 +55,7 @@ void LocalGame::gameLoop()
 
 		window->clear();
 
-		player->setTurretRotation(kamera.angle);
+		player->rotateTurretsTo(kamera.angle);
 		this->player->doStuff(deltaTime);
 
 		for (auto & player : otherPlayers)
@@ -82,7 +78,6 @@ void LocalGame::gameLoop()
 				{
 					window->draw(shape);
 				}
-				
 			}
 		}
 		player->draw(*window);
@@ -133,7 +128,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 
-		player->getShip()->SHOOT();
+		player->getShip()->shoot();
 
 	}
 
@@ -385,7 +380,7 @@ void LocalGame::loadMap()
 	{
 		vector.resize(128);
 	}
-
+	//c1 i c2 to liczniki położenia bitmapy
 	unsigned int c1 = 0, c2 = 0;
 	for (auto & vector : backgroundMap)
 	{
@@ -455,18 +450,18 @@ void LocalGame::receivePlayersPositions()
 				float angle;
 				float cannonAngle;
 				receivedPacket >> id;
+				auto player = this->getPlayerById(id);
+				if (player == nullptr)return;
+				if(player->getPlayerId() == this->player->getPlayerId())return;
 				receivedPacket >> position.x;
 				receivedPacket >> position.y;
 				receivedPacket >> angle;
 				receivedPacket >> cannonAngle;
 
-				auto player = this->getPlayerById(id);
-				if (player == nullptr)return;
+				
 				player->getShip()->setPosition(position);
 				player->getShip()->setRotation(angle);
-				player->getShip()->setCannonRotation(cannonAngle);
-
-				//std::cout << "got POS packet about player " << id << " at pos " << position.x << ' ' << position.y << std::endl;
+				player->rotateTurretsTo(cannonAngle);
 		}
 	}
 	else return;
@@ -495,7 +490,6 @@ void LocalGame::receiveAction()
 			auto player = getPlayerById(playerId);
 			if (player != nullptr)return;
 
-			//std::cout << "new player joined, all say HI to " << playerName << std::endl;
 			player = std::make_shared<Player>(playerId, playerName, playerShip);
 			player->getShip()->setPosition(sf::Vector2f(100,100));
 			otherPlayers.push_back(player);

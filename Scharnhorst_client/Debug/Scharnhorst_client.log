@@ -1,7 +1,3 @@
-﻿  Scharnhorst_client.cpp
-  localGame.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(396): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
-  player.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\player.cpp(23): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
-  Generowanie kodu...
-  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
+﻿  localGame.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(391): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

@@ -16,7 +16,7 @@ Turret::Turret()
 	restrictedArea[1] = 0;
 }
 
-Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<barrel>> nbarrels) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
+Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
 angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 {
 	shape.setPointCount(3);
@@ -64,7 +64,6 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
 			{
 				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
-
 			}
 			else
 			{
@@ -97,17 +96,17 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 	}
 }
 
-barrel::barrel()
+Barrel::Barrel()
 {
 }
 
-barrel::barrel(sf::Vector2f npunkt, sf::ConvexShape nshape)
+Barrel::Barrel(sf::Vector2f npunkt, sf::ConvexShape nshape)
 {
 	this->shape = nshape;
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0,0));
 }
 
-void barrel::updatePosition(float TurretAngle, sf::Vector2f nTurretOrigin)
+void Barrel::updatePosition(float TurretAngle, sf::Vector2f nTurretOrigin)
 {
 	this->shape.setPosition(sf::Vector2f(punkt.r*sin(stopnieNaRadiany(changeAngle(TurretAngle, punkt.a))), -punkt.r * cos(stopnieNaRadiany(changeAngle(TurretAngle, punkt.a)))) + nTurretOrigin);
 	this->shape.setRotation(TurretAngle);
@@ -155,10 +154,11 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 	return tem;
 }
 
-std::vector<std::shared_ptr<bullet>> Turret::SHOOT()
+std::shared_ptr<std::vector<std::shared_ptr<bullet>>> Turret::shoot()
 {
 	float temAngle = this->getAngleByWater();
-	std::vector<std::shared_ptr<bullet>> temb;
+	std::shared_ptr<std::vector<std::shared_ptr<bullet>>> temb;
+	temb = std::make_shared<std::vector<std::shared_ptr<bullet>>>();
 	std::vector<std::shared_ptr<sf::Vector2f>> temp = this->getBarrelsPositionsByWater();
 
 	//co to do chuja jest temc?
@@ -170,12 +170,9 @@ std::vector<std::shared_ptr<bullet>> Turret::SHOOT()
 	temc.setPoint(3, sf::Vector2f(-3, 3));
 	temc.setFillColor(sf::Color(90, 200, 0));
 
-	//co to jest aut : temp???
-	//nazywaj to normalnie
-	for(std::shared_ptr<sf::Vector2f> aut : temp)
+	for(auto aut : temp)
 	{
-		temb.push_back(std::make_shared<bullet>(bullet("test", temc, 1900, 270, temAngle, *aut)));
+		(*temb).push_back(std::make_shared<bullet>(bullet("test", temc, 1900, 270, temAngle, *aut)));
 	}
-
 	return temb;
 }

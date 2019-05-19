@@ -20,8 +20,7 @@ void Player::doStuff(double &deltaTime)
 		playerShip->swim(deltaTime);
 		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));
 		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));
-		this->getShip()->setturrets(angleOfView, deltaTime);
-
+		this->getShip()->setTurrets(this->angleOfView, deltaTime);
 	}
 }
 
@@ -36,7 +35,7 @@ void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, un
 	sendingPacket << this->getShip()->getPosition().x;
 	sendingPacket << this->getShip()->getPosition().y;
 	sendingPacket << this->getShip()->getRotation();
-	sendingPacket << this->getShip()->getCannonRotation();
+	sendingPacket << this->angleOfView;
 
 	socket.send(sendingPacket,address,port);
 }
@@ -80,9 +79,9 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType)
 	angleOfView = 0;
 }
 
-void Player::setTurretRotation(float nangleOfView)
+void Player::rotateTurretsTo(float angleOfView)
 {
-	angleOfView = nangleOfView;
+	this->angleOfView = angleOfView;
 }
 
 

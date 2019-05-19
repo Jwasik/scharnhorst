@@ -2,12 +2,12 @@
 #include "includes.h"
 #include "movable.h"
 
-struct barrel : public movable
+struct Barrel : public movable
 {
 public:
 	Hitbox::punktNaOkregu punkt; //po chuj to jak barrel nie ma hitboxa?
-	barrel();//po chuj?
-	barrel(sf::Vector2f point, sf::ConvexShape shape);
+	Barrel();//po chuj?
+	Barrel(sf::Vector2f point, sf::ConvexShape shape);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
 };
 
@@ -26,7 +26,7 @@ protected:
 	int middleOfLockedArea;
 	sf::Vector2f position;
 
-	std::vector< std::shared_ptr<barrel>> barrels; //Miejsca oznaczaj¹ce koñcu luf dzia³, gdzie powinny siê pojawiæ pociski
+	std::vector< std::shared_ptr<Barrel>> barrels; //Miejsca oznaczaj¹ce koñcu luf dzia³, gdzie powinny siê pojawiæ pociski
 
 public:
 
@@ -34,14 +34,14 @@ public:
 	void draw(sf::RenderWindow& window);
 	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	Turret();
-	Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<barrel>> nbarrels);
+	Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels);
 	~Turret();
 	void updateRestrictedAreaBy(float moveRestricted);
 	float getShipAngle();
 	float getAngleByWater();
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
 
-	std::vector<std::shared_ptr<bullet>> SHOOT();
+	std::shared_ptr<std::vector<std::shared_ptr<bullet>>> shoot();
 
 };
 

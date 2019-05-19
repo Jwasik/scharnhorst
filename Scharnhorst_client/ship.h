@@ -41,11 +41,11 @@ public:
 	void spin(bool, double); // natychmiastowy obrót o akkcelerancjê kontow¹ w czasie
 	void changeGear(bool); // zmana biegu 0 dla -- 1 dla ++
 	void setCannonRotation(float);
-	void setturrets(float mousAngle, float dTime);
+	void setTurrets(float &, double &);
 	float getCannonRotation();
 	void addPoint(unsigned short,sf::Vector2f&);
 	void addTurret(std::shared_ptr<Turret>&);
-	void SHOOT();
+	void shoot();
 
 	std::string getType();
 	Ship();
