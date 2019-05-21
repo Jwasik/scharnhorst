@@ -6,6 +6,12 @@ unsigned int Player::getPlayerId()
 	return this->playerId;
 }
 
+void Player::setShipName(std::string name)
+{
+	this->playerShipNameText.setString(name);
+	this->getShip()->setName(name);
+}
+
 void Player::setId(unsigned int newId)
 {
 	this->playerId = newId;
@@ -72,7 +78,7 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType)
 	this->playerNameText.setFont(this->playerNameFont);
 	this->playerShipNameText.setFont(this->playerNameFont);
 
-	this->playerNameText.setFillColor(sf::Color::White);
+	this->playerNameText.setFillColor(sf::Color::Blue);
 
 	this->playerShipNameText.setFillColor(sf::Color::Red);
 	playerShipNameText.setCharacterSize(20);
@@ -82,6 +88,11 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType)
 void Player::rotateTurretsTo(float angleOfView)
 {
 	this->angleOfView = angleOfView;
+}
+
+void Player::shoot()
+{
+	this->playerShip->shoot(this->newBullets);
 }
 
 

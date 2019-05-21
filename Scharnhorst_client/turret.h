@@ -41,7 +41,7 @@ public:
 	float getAngleByWater();
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
 
-	std::shared_ptr<std::vector<std::shared_ptr<bullet>>> shoot();
+	void shoot(std::shared_ptr<std::vector<Bullet>>);
 
 };
 

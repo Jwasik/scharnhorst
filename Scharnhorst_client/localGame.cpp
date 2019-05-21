@@ -12,6 +12,7 @@ LocalGame::LocalGame()
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 	
 	this->player = std::make_shared<Player>(1, playerName,"KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	this->player->getShip()->setName("KMS Scharnhorst");
 
 	this->loadGameFiles();
 	this->loadMap();
@@ -127,9 +128,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-
-		player->getShip()->shoot();
-
+		player->shoot();
 	}
 
 }
@@ -156,7 +155,7 @@ bool LocalGame::joinServer()
 	if (connectToServer(IP) == false)return 0;
 
 	sf::Packet newPlayerPacket;
-	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->player->getShip()->getType();
+	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->player->getShip()->getType() << this->player->getShip()->getName();
 
 	orderSocket.send(newPlayerPacket);
 	newPlayerPacket.clear();
@@ -479,11 +478,12 @@ void LocalGame::receiveAction()
 		if (message == "PLA")
 		{
 			unsigned int playerId = 0;
-			std::string playerName, playerShip;
+			std::string playerName, playerShip, playerShipName;
 
 			receivedPacket >> playerId;
 			receivedPacket >> playerName;
 			receivedPacket >> playerShip;
+			receivedPacket >> playerShipName;
 
 			if (playerId == 0)return;
 			if (playerId == this->player->getPlayerId())return;
@@ -492,6 +492,7 @@ void LocalGame::receiveAction()
 
 			player = std::make_shared<Player>(playerId, playerName, playerShip);
 			player->getShip()->setPosition(sf::Vector2f(100,100));
+			player->setShipName(playerShipName);
 			otherPlayers.push_back(player);
 		}
 	}

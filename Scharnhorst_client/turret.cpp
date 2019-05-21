@@ -154,25 +154,7 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 	return tem;
 }
 
-std::shared_ptr<std::vector<std::shared_ptr<bullet>>> Turret::shoot()
+void Turret::shoot(std::shared_ptr<std::vector<Bullet>> shootedBullets)
 {
-	float temAngle = this->getAngleByWater();
-	std::shared_ptr<std::vector<std::shared_ptr<bullet>>> temb;
-	temb = std::make_shared<std::vector<std::shared_ptr<bullet>>>();
-	std::vector<std::shared_ptr<sf::Vector2f>> temp = this->getBarrelsPositionsByWater();
 
-	//co to do chuja jest temc?
-	sf::ConvexShape temc;
-	temc.setPointCount(4);
-	temc.setPoint(0, sf::Vector2f(-3, -3));
-	temc.setPoint(1, sf::Vector2f(3, -3));
-	temc.setPoint(2, sf::Vector2f(3, 3));
-	temc.setPoint(3, sf::Vector2f(-3, 3));
-	temc.setFillColor(sf::Color(90, 200, 0));
-
-	for(auto aut : temp)
-	{
-		(*temb).push_back(std::make_shared<bullet>(bullet("test", temc, 1900, 270, temAngle, *aut)));
-	}
-	return temb;
 }

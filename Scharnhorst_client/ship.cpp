@@ -8,21 +8,80 @@ std::string Ship::getType()
 	return this->type;
 }
 
+void Ship::setName(std::string name)
+{
+	this->name = name;
+}
+
+std::string Ship::getName()
+{
+	return this->name;
+}
+
 Ship::Ship()
 {
 
-	shape.setPointCount(7);
-	shape.setPoint(0, sf::Vector2f(48, 0));
-	shape.setPoint(1, sf::Vector2f(16, 64));
-	shape.setPoint(2, sf::Vector2f(0, 192));
-	shape.setPoint(3, sf::Vector2f(16, 336));
-	shape.setPoint(4, sf::Vector2f(80, 336));
-	shape.setPoint(5, sf::Vector2f(96, 192));
-	shape.setPoint(6, sf::Vector2f(80, 64));
-	shape.setOrigin(sf::Vector2f(48, 168));
+	//----------------------------------------------------
+	std::vector<sf::Vector2f> scharnhorstPoints;
+	scharnhorstPoints.push_back(sf::Vector2f(111, 0));
+	scharnhorstPoints.push_back(sf::Vector2f(136, 80));
+	scharnhorstPoints.push_back(sf::Vector2f(136, 88));
+	scharnhorstPoints.push_back(sf::Vector2f(136, 101));
+	scharnhorstPoints.push_back(sf::Vector2f(143, 113));
+	scharnhorstPoints.push_back(sf::Vector2f(150, 145));
+	scharnhorstPoints.push_back(sf::Vector2f(170, 260));
+	scharnhorstPoints.push_back(sf::Vector2f(178, 322));
+	scharnhorstPoints.push_back(sf::Vector2f(179, 367));
+	scharnhorstPoints.push_back(sf::Vector2f(189, 424));
+	scharnhorstPoints.push_back(sf::Vector2f(198, 492));
+	scharnhorstPoints.push_back(sf::Vector2f(209, 614));
+	scharnhorstPoints.push_back(sf::Vector2f(212, 669));
+	scharnhorstPoints.push_back(sf::Vector2f(216, 767));
+	scharnhorstPoints.push_back(sf::Vector2f(219, 868));
+	scharnhorstPoints.push_back(sf::Vector2f(216, 1020));
+	scharnhorstPoints.push_back(sf::Vector2f(211, 1114));
+	scharnhorstPoints.push_back(sf::Vector2f(205, 1176));
+	scharnhorstPoints.push_back(sf::Vector2f(201, 1214));
+	scharnhorstPoints.push_back(sf::Vector2f(198, 1241));
+	scharnhorstPoints.push_back(sf::Vector2f(194, 1275));
+	scharnhorstPoints.push_back(sf::Vector2f(190, 1305));
+	scharnhorstPoints.push_back(sf::Vector2f(185, 1339));
+	scharnhorstPoints.push_back(sf::Vector2f(180, 1367));
+	scharnhorstPoints.push_back(sf::Vector2f(174, 1396));
+	scharnhorstPoints.push_back(sf::Vector2f(174, 1422));
+	scharnhorstPoints.push_back(sf::Vector2f(169, 1455));
+	scharnhorstPoints.push_back(sf::Vector2f(163, 1483));
+	scharnhorstPoints.push_back(sf::Vector2f(155, 1523));
+	scharnhorstPoints.push_back(sf::Vector2f(142, 1580));
+	scharnhorstPoints.push_back(sf::Vector2f(135, 1605));
+	scharnhorstPoints.push_back(sf::Vector2f(127, 1634));
+	scharnhorstPoints.push_back(sf::Vector2f(125, 1639));
+	scharnhorstPoints.push_back(sf::Vector2f(123, 1643));
+	scharnhorstPoints.push_back(sf::Vector2f(120, 1647));
+	scharnhorstPoints.push_back(sf::Vector2f(115, 1649));
+	scharnhorstPoints.push_back(sf::Vector2f(111, 1649));
+	for (auto x : scharnhorstPoints)
+	{
+		x.x *= 2.1621;
+		x.y *= 1.1345;
+	}
+	auto size = scharnhorstPoints.size();
+	for (unsigned int i = size-1; i >0; i--)
+	{
+		scharnhorstPoints.push_back(sf::Vector2f(111-(scharnhorstPoints[i].x-111), scharnhorstPoints[i].y));
+	}
+	shape.setPointCount(72);
+	for (unsigned int i = 0; i < 72; i++)
+	{
+		shape.setPoint(i,scharnhorstPoints[i]);
+	}
+
+
+	shape.setOrigin(240,936);
 	shape.move(shape.getOrigin());
 	shape.move(sf::Vector2f(128, 512));
 	deleteOrigin();
+	//----------------------------------------------------
 
 	this->type = "NONE";
 	this->gear = 0;
@@ -212,14 +271,11 @@ void Ship::draw(sf::RenderWindow& window)
 	}
 }
 
-void Ship::shoot()
+void Ship::shoot(std::shared_ptr<std::vector<Bullet>> bulletsGotFromTurret)
 {
-	std::shared_ptr<std::vector<std::shared_ptr<bullet>>> bulletsGotFromTurret;
-
 	for (auto turret : turrets)
 	{
-		bulletsGotFromTurret = turret->shoot();
-		this->bullets.insert(this->bullets.end(), (*bulletsGotFromTurret).begin(), (*bulletsGotFromTurret).end());
+		turret->shoot(bulletsGotFromTurret);
 	}
 }
 

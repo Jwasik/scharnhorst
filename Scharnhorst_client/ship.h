@@ -29,7 +29,7 @@ public:
 	std::string name;
 	float calculateAcceleration();
 	std::vector<std::shared_ptr<Turret>> turrets;
-	std::vector<std::shared_ptr<bullet>> bullets;
+	std::vector<std::shared_ptr<Bullet>> bullets;
 
 
 public:
@@ -45,9 +45,11 @@ public:
 	float getCannonRotation();
 	void addPoint(unsigned short,sf::Vector2f&);
 	void addTurret(std::shared_ptr<Turret>&);
-	void shoot();
+	void shoot(std::shared_ptr<std::vector<Bullet>>);
 
 	std::string getType();
+	void setName(std::string);
+	std::string getName();
 	Ship();
 	Ship(std::string&,float[6],unsigned short);
 	~Ship();
