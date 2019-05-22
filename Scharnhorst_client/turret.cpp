@@ -44,9 +44,31 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	else middleOfLockedArea = 0;
 }
 
-Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
-angleFromShipOrigin(nangleFromShipOrigin)
+Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, sf::Vector2f turretPositionFromShip) : type(ntype), shipOrigin(nshipOrigin)
 {
+	distanceFromShipOrigin = sqrt(pow(turretPositionFromShip.x, 2) + pow(turretPositionFromShip.y, 2));
+
+	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);//k¹t pomiêdzi pionowym promieniem a promieniem do punktu temx, temy
+
+	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
+	{
+		angleFromShipOrigin = 90 + angleFromShipOrigin;
+	}
+	else
+		if (turretPositionFromShip.x > 0 && turretPositionFromShip.y >= 0)
+		{
+			angleFromShipOrigin = angleFromShipOrigin + 90;
+		}
+		else
+			if (turretPositionFromShip.x <= 0 && turretPositionFromShip.y > 0)
+			{
+				angleFromShipOrigin = 90 + angleFromShipOrigin + 180;
+			}
+			else
+			{
+				angleFromShipOrigin = angleFromShipOrigin + 270;
+			}
+
 	shape.setPointCount(3);
 	shape.setPoint(0, sf::Vector2f(0, -50));
 	shape.setPoint(1, sf::Vector2f(-20, 0));

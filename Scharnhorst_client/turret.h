@@ -35,7 +35,7 @@ public:
 	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	Turret();
 	Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels);
-	Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin);
+	Turret(std::string ntype, sf::Vector2f nshipOrigin, sf::Vector2f turretPositionFromShip);
 	~Turret();
 	void updateRestrictedAreaBy(float moveRestricted);
 	float getShipAngle();
