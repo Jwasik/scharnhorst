@@ -44,6 +44,34 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	else middleOfLockedArea = 0;
 }
 
+Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
+angleFromShipOrigin(nangleFromShipOrigin)
+{
+	shape.setPointCount(3);
+	shape.setPoint(0, sf::Vector2f(0, -50));
+	shape.setPoint(1, sf::Vector2f(-20, 0));
+	shape.setPoint(2, sf::Vector2f(20, 0));
+	shape.setFillColor(sf::Color(255, 0, 0));
+
+	deleteOrigin();
+	TurretAngle = 0;
+	rotationSpeed = 10;
+	restrictedArea[0] = 100;
+	restrictedArea[1] = 260;
+
+	if (restrictedArea[0] != restrictedArea[1])
+		if (restrictedArea[0] > restrictedArea[1])
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
+			middleOfLockedArea = middleOfLockedArea % 360;
+		}
+		else
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
+		}
+	else middleOfLockedArea = 0;
+}
+
 void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin, float dTime)
 {
 	arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);
