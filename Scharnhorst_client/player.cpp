@@ -46,6 +46,19 @@ void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, un
 	socket.send(sendingPacket,address,port);
 }
 
+void Player::sendBullets(sf::TcpSocket &socket)
+{
+	for (auto & bullet : *newBullets)
+	{
+		sf::Packet bulletPacket;
+		bulletPacket.clear();
+
+		std::string order = "BUL";
+		bulletPacket << order;
+		socket.send(bulletPacket);
+	}
+}
+
 void Player::draw(sf::RenderWindow &window)
 {
 	this->playerShip->draw(window);
@@ -62,17 +75,8 @@ std::shared_ptr<Ship> & Player::getShip()
 Player::Player()
 {
 	playerShip = std::make_shared<Ship>();
+	this->newBullets = std::make_shared<std::vector<jw::bulletInfo>>();
 	angleOfView = 0;
-}
-
-Player::Player(unsigned int id, std::string playerName, std::string shipType)
-{
-	this->playerShip = std::make_shared<Ship>();
-	this->playerId = id;
-	this->playerName = playerName;
-
-	this->playerNameText.setString(playerName);
-	this->playerShipNameText.setString(shipType);
 
 	this->playerNameFont.loadFromFile("PressStart2P.ttf");
 	this->playerNameText.setFont(this->playerNameFont);
@@ -82,7 +86,15 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType)
 
 	this->playerShipNameText.setFillColor(sf::Color::Red);
 	playerShipNameText.setCharacterSize(20);
-	angleOfView = 0;
+}
+
+Player::Player(unsigned int id, std::string playerName, std::string shipType) : Player()
+{
+	this->playerId = id;
+	this->playerName = playerName;
+
+	this->playerNameText.setString(playerName);
+	this->playerShipNameText.setString(shipType);
 }
 
 void Player::rotateTurretsTo(float angleOfView)

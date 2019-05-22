@@ -31,9 +31,13 @@ private:
 	std::shared_ptr<Player> player;
 	std::vector<std::shared_ptr<Player>> otherPlayers;
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
+	std::vector<std::pair<std::string,Bullet>> bulletData;
 	std::map<std::string,sf::Texture> textures;
 	sf::TcpSocket orderSocket;
 	sf::UdpSocket inSocket, outSocket;
+
+	bool loadBullets();
+
 public:
 	bool connectToServer(const std::string&);
 	bool isWClicked=0;

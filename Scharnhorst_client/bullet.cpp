@@ -23,6 +23,13 @@ Bullet::Bullet(std::string ntype, sf::ConvexShape nbody, float nspeed, float nda
 	this->shape.setPosition(tracer.b);
 }
 
+Bullet::Bullet(sf::ConvexShape body, float speed, float damage)
+{
+	this->shape = body;
+	this->speed = speed;
+	this->damage = damage;
+}
+
 Bullet::Bullet()
 {
 }

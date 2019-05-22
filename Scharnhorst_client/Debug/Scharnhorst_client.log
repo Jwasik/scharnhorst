@@ -1,7 +1,13 @@
-﻿  turret.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(42): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(119): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+﻿  Scharnhorst_client.cpp
+  localGame.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(241): warning C4244: 'argument': conversion from 'unsigned int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(246): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(432): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+  player.cpp
+  Generating Code...
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(253): warning C4715: 'LocalGame::loadBullets': not all control paths return a value
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

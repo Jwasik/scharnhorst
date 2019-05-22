@@ -13,6 +13,7 @@ public:
 	Hitbox::odcinek tracer;
 	void fly(double deltaTime);
 	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, sf::Vector2f punkt);
+	Bullet(sf::ConvexShape, float, float);
 	void draw(sf::RenderWindow&);
 	Bullet();
 	~Bullet();

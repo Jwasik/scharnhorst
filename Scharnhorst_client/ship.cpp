@@ -239,11 +239,6 @@ void Ship::addTurret(std::shared_ptr<Turret> &turret)
 
 void Ship::swim(double deltaTime)
 {
- 	for (auto aut : bullets)//co niby znaczy aut?
-	{
-		aut->fly(deltaTime);
-	}
-
 	this->accelerate(deltaTime);
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
@@ -261,19 +256,15 @@ void Ship::setTurrets(float &mouseAngle, double &dTime)
 void Ship::draw(sf::RenderWindow& window)
 {
 	this->physical::draw(window);
-	for (auto bullet : bullets)
-	{
-		bullet->draw(window);
-	}
 	for (auto turret : turrets)
 	{
 		turret->draw(window);
 	}
 }
 
-void Ship::shoot(std::shared_ptr<std::vector<Bullet>> bulletsGotFromTurret)
+void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurret)
 {
-	for (auto turret : turrets)
+	for (auto & turret : turrets)
 	{
 		turret->shoot(bulletsGotFromTurret);
 	}

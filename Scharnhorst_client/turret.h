@@ -6,7 +6,7 @@ struct Barrel : public movable
 {
 public:
 	Hitbox::punktNaOkregu punkt; //po chuj to jak barrel nie ma hitboxa?
-	Barrel();//po chuj?
+	Barrel();
 	Barrel(sf::Vector2f point, sf::ConvexShape shape);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
 };
@@ -40,8 +40,7 @@ public:
 	float getShipAngle();
 	float getAngleByWater();
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
-
-	void shoot(std::shared_ptr<std::vector<Bullet>>);
+	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 
 };
 

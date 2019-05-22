@@ -64,6 +64,7 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
 			{
 				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
+				//to musisz przeskoczyæ do tej pozycji
 			}
 			else
 			{
@@ -79,6 +80,7 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 			if ((howManyDegreeToTurret - howManyDegreeToMouse) < rotationSpeed*dTime)
 			{
 				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
+				//to musisz przeskoczyæ do tej pozycji
 			}
 			else
 			{
@@ -129,9 +131,6 @@ Turret::~Turret()
 
 void Turret::draw(sf::RenderWindow& window)
 {
-	//kurwa
-	//nazywaj to normalnie
-	//a nie 'a'
 	for (auto barrel : barrels)
 	{
 		window.draw(barrel->shape);
@@ -152,9 +151,14 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 		tem.push_back(std::make_shared<sf::Vector2f>(barrel->shape.getPosition()));
 	}
 	return tem;
+	//Ja bym to wywali³ bo tylko zwraca pozycjê któr¹ mogê sobie sam wyci¹gn¹æ
 }
 
-void Turret::shoot(std::shared_ptr<std::vector<Bullet>> shootedBullets)
+void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
 {
+	for (auto & barrel : barrels)
+	{
+		(*shootedBullets).push_back(jw::bulletInfo{ this->type, barrel->shape.getPosition(), this->TurretAngle, "noone" });
+	}
 
 }

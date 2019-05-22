@@ -23,6 +23,12 @@ LocalGame::LocalGame()
 
 void LocalGame::gameLoop()
 {
+	if (!this->loadBullets())
+	{
+		std::cout << std::endl<< "cannot load bullet data" << std::endl;
+		return;
+	}
+
 	sf::Clock time;
 	time.restart();
 
@@ -209,6 +215,42 @@ bool LocalGame::inView(sf::Vector2f pos)
 	return false;
 }
 
+
+bool LocalGame::loadBullets()
+{
+	std::fstream in("gamedata/bullets.dat");
+	if (!in.good())	return 0;
+
+	std::string name,endWord;
+	unsigned int pointCount, x, y;
+	float speed, damage;
+
+	while (!in.eof())
+	{
+		endWord = ' ';
+
+		std::getline(in, name);
+		in >> pointCount;
+		sf::ConvexShape bulletShape;
+		bulletShape.setPointCount(pointCount);
+		bulletShape.setFillColor(sf::Color::Red);
+		for (unsigned int i = 0; i < pointCount; i++)
+		{
+			in >> x;
+			in >> y;
+			bulletShape.setPoint(i,sf::Vector2f(x,y));
+		}
+		//Origin
+		in >> x;
+		in >> y;
+		bulletShape.setOrigin(x,y);
+		in >> speed;
+		in >> damage;
+		in >> endWord;
+		if (endWord != "END_BULLET")return 0;
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(bulletShape, speed, damage)));
+	}
+}
 bool LocalGame::connectToServer(const std::string &adress)
 {
 

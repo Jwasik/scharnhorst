@@ -1,0 +1,10 @@
+string nazwa
+unsigned int point_count
+{i=0,i=point_count-1
+unsigned int x y
+}
+int origin_x y
+float speed
+float damage
+END_BULLET
+END_FILE
