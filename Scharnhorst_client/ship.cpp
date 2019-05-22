@@ -80,6 +80,7 @@ Ship::Ship()
 	shape.setOrigin(240,936);
 	shape.move(shape.getOrigin());
 	shape.move(sf::Vector2f(128, 512));
+	shape.setFillColor(sf::Color(50,50,50));
 	deleteOrigin();
 	//----------------------------------------------------
 
@@ -95,49 +96,6 @@ Ship::Ship()
 	this->acceleration = enginePower / mass;
 
 	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
-
-	std::vector<std::shared_ptr<Barrel>> temvb;
-
-	//chuja wiem co to jest temc dlatego nazywaj to normalnie
-	Barrel temb;
-	sf::ConvexShape temc;
-	temc.setPointCount(4);
-	temc.setPoint(0, sf::Vector2f(-5, -80));
-	temc.setPoint(1, sf::Vector2f(5, -80));
-	temc.setPoint(2, sf::Vector2f(5, 0));
-	temc.setPoint(3, sf::Vector2f(-5, 0));
-	temc.setFillColor(sf::Color(90,0,40));
-
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(10, -10), temc)));
-
-		turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), 100, 0, temvb)));
-
-		temvb.pop_back();
-		temvb.pop_back();
-
-		temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(-10, -10), temc)));
-		temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(10, -10), temc)));
-	
-
-	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), 20, 0, temvb)));
-	temvb.pop_back();
-	temvb.pop_back();
-
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(10, -10), temc)));
-	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), -40, 0, temvb)));
-	temvb.pop_back();
-	temvb.pop_back();
-
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(-10, -10), temc)));
-	temvb.push_back(std::make_shared<Barrel>(Barrel(sf::Vector2f(10, -10), temc)));
-	turrets.push_back(std::make_shared<Turret>(Turret("test", this->shape.getPosition(), -100, 0, temvb)));
-
-
-
-	
-
 }
 
 Ship::Ship(std::string &name, float parameters[6], unsigned short point_count)
