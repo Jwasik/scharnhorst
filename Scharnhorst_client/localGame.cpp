@@ -23,6 +23,8 @@ LocalGame::LocalGame()
 
 void LocalGame::gameLoop()
 {
+
+	std::cout << player->getShip()->shape.getOrigin().x << " " << player->getShip()->shape.getOrigin().y << std::endl;
 	if (!this->loadBullets())
 	{
 		std::cout << std::endl<< "cannot load bullet data" << std::endl;
@@ -71,7 +73,7 @@ void LocalGame::gameLoop()
 		}
 
 		kamera.Camera::setCenter(player->getShip()->getPosition());
-		kamera.Camera::calculateView(*window, 1000);
+		kamera.Camera::calculateView(*window, 8);
 		kamera.Camera::setView(*window);
 
 
@@ -386,6 +388,7 @@ void LocalGame::loadGameFiles()
 		}
 
 		unsigned short turret_count = 0;
+		sf::Vector2f turretPositionFromShip;
 		in >> turret_count;
 
 		std::string turret_name, cannon_type;
@@ -399,9 +402,30 @@ void LocalGame::loadGameFiles()
 			in >> point.y;
 
 			std::shared_ptr<Turret> loaded_turret;
-			/*
-			TUTAJ DOPISAĆ TURRETY
-			*/
+			in >> point_count;
+
+			for (unsigned short j = 0; j < point_count; j++)
+			{
+				in >> point.x;
+				in >> point.y;
+				loaded_turret->addPoint(j, point);
+			}
+
+			in >> turretPositionFromShip.x;
+			in >> turretPositionFromShip.y;
+
+			std::string name;
+			in >> point_count;
+			for (unsigned short j = 0; j < point_count; j++)
+			{
+				in >> name;
+				in >> point.x;
+				in >> point.y;
+				loaded_turret->addPoint(j, point);
+				loaded_turret->barrels.push_back(std::make_shared<Barrel>(name, point));
+			}
+
+
 
 		}
 		std::string endWord;

@@ -16,9 +16,10 @@ Turret::Turret()
 	restrictedArea[1] = 0;
 }
 
-Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels) : type(ntype), shipOrigin(nshipOrigin), distanceFromShipOrigin(ndistanceFromShipOrigin),
+Turret::Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels) : type(ntype), distanceFromShipOrigin(ndistanceFromShipOrigin),
 angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 {
+	shipOrigin = sf::Vector2f(100, 100);
 	shape.setPointCount(3);
 	shape.setPoint(0, sf::Vector2f(0, -50));
 	shape.setPoint(1, sf::Vector2f(-20, 0));
@@ -44,11 +45,13 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	else middleOfLockedArea = 0;
 }
 
-Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, sf::Vector2f turretPositionFromShip) : type(ntype), shipOrigin(nshipOrigin)
+Turret::Turret(std::string ntype, std::string nname, sf::Vector2f turretPositionFromShip, unsigned short pointCount, float parameters[3]) : type(ntype), name(nname)
 {
+
+	shipOrigin = sf::Vector2f(100,100);
 	distanceFromShipOrigin = sqrt(pow(turretPositionFromShip.x, 2) + pow(turretPositionFromShip.y, 2));
 
-	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);//k¹t pomiêdzi pionowym promieniem a promieniem do punktu temx, temy
+	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);
 
 	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
 	{
@@ -69,17 +72,15 @@ Turret::Turret(std::string ntype, sf::Vector2f nshipOrigin, sf::Vector2f turretP
 				angleFromShipOrigin = angleFromShipOrigin + 270;
 			}
 
-	shape.setPointCount(3);
-	shape.setPoint(0, sf::Vector2f(0, -50));
-	shape.setPoint(1, sf::Vector2f(-20, 0));
-	shape.setPoint(2, sf::Vector2f(20, 0));
+	shape.setPointCount(pointCount);
+
 	shape.setFillColor(sf::Color(255, 0, 0));
 
 	deleteOrigin();
 	TurretAngle = 0;
-	rotationSpeed = 10;
-	restrictedArea[0] = 100;
-	restrictedArea[1] = 260;
+	rotationSpeed = parameters[1];
+	restrictedArea[0] = parameters[2];
+	restrictedArea[1] = parameters[3];
 
 	if (restrictedArea[0] != restrictedArea[1])
 		if (restrictedArea[0] > restrictedArea[1])
@@ -152,8 +153,15 @@ Barrel::Barrel()
 {
 }
 
-Barrel::Barrel(sf::Vector2f npunkt, sf::ConvexShape nshape)
+Barrel::Barrel(std::string nname, sf::Vector2f npunkt) :name(nname)
 {
+
+	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0, 0));
+}
+
+Barrel::Barrel(std::string nname, sf::Vector2f npunkt, sf::ConvexShape nshape):name(nname)
+{
+
 	this->shape = nshape;
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0,0));
 }
@@ -201,7 +209,7 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 		tem.push_back(std::make_shared<sf::Vector2f>(barrel->shape.getPosition()));
 	}
 	return tem;
-	//Ja bym to wywali³ bo tylko zwraca pozycjê któr¹ mogê sobie sam wyci¹gn¹æ
+
 }
 
 void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
@@ -211,4 +219,9 @@ void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
 		(*shootedBullets).push_back(jw::bulletInfo{ this->type, barrel->shape.getPosition(), this->TurretAngle, "noone" });
 	}
 
+}
+
+void Turret::addPoint(int number, sf::Vector2f point)
+{
+	shape.setPoint(number, point);
 }

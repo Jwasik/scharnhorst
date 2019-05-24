@@ -77,7 +77,7 @@ Ship::Ship()
 	}
 
 
-	shape.setOrigin(240,936);
+	shape.setOrigin(109,936);
 	shape.move(shape.getOrigin());
 	shape.move(sf::Vector2f(128, 512));
 	shape.setFillColor(sf::Color(50,50,50));
@@ -86,7 +86,7 @@ Ship::Ship()
 
 	this->type = "NONE";
 	this->gear = 0;
-	this->maxTurnAcceleration = 8;
+	this->maxTurnAcceleration = 1000;
 	this->enginePower = 117680000;
 	this->width = 10;
 	this->length = 10;
