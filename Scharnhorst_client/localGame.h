@@ -31,12 +31,23 @@ private:
 	std::shared_ptr<Player> player;
 	std::vector<std::shared_ptr<Player>> otherPlayers;
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
+
 	std::vector<std::pair<std::string,Bullet>> bulletData;
+	std::vector<std::pair<std::string,Barrel>> barrelData;
+	std::vector<std::pair<std::string,Turret>> turretData;
+
 	std::map<std::string,sf::Texture> textures;
 	sf::TcpSocket orderSocket;
 	sf::UdpSocket inSocket, outSocket;
 
 	bool loadBullets();
+	bool loadBarrels();
+	bool loadTurrets();
+	bool loadShips();
+
+	Bullet findBullet(std::string);
+	Barrel findBarrel(std::string);
+	Turret findTurret(std::string);
 
 public:
 	bool connectToServer(const std::string&);
@@ -53,8 +64,8 @@ public:
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void sendAction(); //wysy³a informacje o strzale
 	void sendMessage(); //wysy³a wiadomoœæ TCP
-	void loadGameFiles();
 	void loadMap();
+	bool loadGameFiles();
 
 	void receiveAction(); //odbiera pakiety TCP
 	void recieveMessages(); //obs³uguje odbieranie wiadomoœci UDP

@@ -1,0 +1,9 @@
+string nazwa
+string nazwa_pocisku_podstawowego
+unsigned int kaliber
+
+unsigned int point_count
+for()
+{
+ x,y
+}

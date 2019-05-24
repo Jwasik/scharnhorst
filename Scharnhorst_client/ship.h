@@ -43,7 +43,7 @@ public:
 	void setTurrets(float &, double &);
 	float getCannonRotation();
 	void addPoint(unsigned short,sf::Vector2f&);
-	void addTurret(std::shared_ptr<Turret>&);
+	void addTurret(std::shared_ptr<Turret>,sf::Vector2f);
 	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 
 	std::string getType();

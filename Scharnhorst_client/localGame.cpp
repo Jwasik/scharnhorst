@@ -11,25 +11,34 @@ LocalGame::LocalGame()
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 	
-	this->player = std::make_shared<Player>(1, playerName,"KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
-	this->player->getShip()->setName("KMS Scharnhorst");
-
-	this->loadGameFiles();
-	this->loadMap();
-
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
 }
 
 void LocalGame::gameLoop()
 {
-
-	std::cout << player->getShip()->shape.getOrigin().x << " " << player->getShip()->shape.getOrigin().y << std::endl;
 	if (!this->loadBullets())
 	{
 		std::cout << std::endl<< "cannot load bullet data" << std::endl;
 		return;
 	}
+	if (!this->loadBarrels())
+	{
+		std::cout << std::endl << "cannot load barrel data" << std::endl;
+		return;
+	}
+	if (!this->loadTurrets())
+	{
+		std::cout << std::endl << "cannot load turret data" << std::endl;
+		return;
+	}
+	this->loadMap();
+	/*LOAD PLAYER*/
+	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	this->player->getShip()->setName("KMS Scharnhorst");
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("test")), sf::Vector2f(100, 100));
+
+
 
 	sf::Clock time;
 	time.restart();
@@ -224,7 +233,8 @@ bool LocalGame::loadBullets()
 	if (!in.good())	return 0;
 
 	std::string name,endWord;
-	unsigned int pointCount, x, y;
+	unsigned int pointCount;
+	float x, y;
 	float speed, damage;
 
 	while (!in.eof())
@@ -249,9 +259,146 @@ bool LocalGame::loadBullets()
 		in >> speed;
 		in >> damage;
 		in >> endWord;
-		if (endWord != "END_BULLET")return 0;
+		if (endWord != "END_BULLET")continue;
 		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(bulletShape, speed, damage)));
 	}
+	return 1;
+}
+bool LocalGame::loadBarrels()
+{
+	std::fstream in("gamedata/barrels.dat");
+	if (!in.good())	return 0;
+
+	std::string name, mainBulletType, endWord;
+	unsigned int point_count,bulletSize;
+	while (!in.eof())
+	{
+		std::shared_ptr<Barrel> newBarrel;
+
+		unsigned int pointCount = 0;
+		float x, y;
+		sf::ConvexShape barrelShape;
+		barrelShape.setFillColor(sf::Color::Red);
+
+		std::getline(in, name);//nazwa
+		std::getline(in, mainBulletType);//nazwa pocisku
+		in >> bulletSize;//kaliber
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		in >> pointCount;//ilość punktów
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		barrelShape.setPointCount(pointCount);
+
+		for (unsigned int i = 0; i < pointCount; i++)//punkty
+		{
+			in >> x;
+			in >> y;
+			barrelShape.setPoint(i, sf::Vector2f(x, y));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+
+		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
+		if (endWord != "END_BARREL")return 0;
+
+		barrelData.push_back(std::pair<std::string,Barrel>(name,Barrel(name,sf::Vector2f(0,0), barrelShape,findBullet(mainBulletType) ,bulletSize)));
+	}
+	return 1;
+}
+bool LocalGame::loadTurrets()
+{
+	std::fstream in("gamedata/turrets.dat");
+	if (!in.good())return 0;
+
+	sf::Vector2f turretPositionFromShip;
+
+	std::string name, cannonType, endWord;
+	unsigned int point_count;
+	while (!in.eof())
+	{
+		std::shared_ptr<Turret> newTurret;
+
+		unsigned int pointCount = 0;
+		float x, y;
+		sf::ConvexShape turretShape;
+		
+		turretShape.setFillColor(sf::Color::Red);
+
+		std::getline(in, name);//nazwa
+
+		in >> pointCount;//ilość punktów
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		turretShape.setPointCount(pointCount);
+		for (unsigned int i = 0; i < pointCount; i++)//punkty
+		{
+			in >> x;
+			in >> y;
+			turretShape.setPoint(i, sf::Vector2f(x, y));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		in >> x;
+		in >> y;
+		turretShape.setOrigin(sf::Vector2f(x,y));//origin
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		float parameters[3];
+
+		in >> parameters[0];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[1];
+		in >> parameters[2];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		newTurret = std::make_shared<Turret>(name, name, turretShape, parameters);
+
+		unsigned int cannonCount = 0;
+		in >> cannonCount;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		for (unsigned int i = 0; i < cannonCount; i++)//działa
+		{
+			std::getline(in, cannonType);
+			in >> x;
+			in >> y;
+
+			newTurret->addBarrel(findBarrel(cannonType));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		
+		std::getline(in, endWord);
+		std::cout << name << ' ' << endWord << std::endl;
+		if (endWord != "END_TURRET")return 0;
+		turretData.push_back(std::pair<std::string,Turret>(name,Turret(*newTurret)));
+	}
+	return 1;
+}
+bool LocalGame::loadShips()
+{
+	return false;
+}
+Bullet LocalGame::findBullet(std::string name)
+{
+	for (auto &bullet : bulletData)
+	{
+		if (bullet.first == name)return bullet.second;
+	}
+	return bulletData.front().second;
+}
+Barrel LocalGame::findBarrel(std::string name)
+{
+	for (auto &barrel : barrelData)
+	{
+		if (barrel.first == name)return barrel.second;
+	}
+	return barrelData.front().second;
+}
+Turret LocalGame::findTurret(std::string name)
+{
+	for (auto &turret : turretData)
+	{
+		if (turret.first == name)return turret.second;
+	}
+	return turretData.front().second;
 }
 bool LocalGame::connectToServer(const std::string &adress)
 {
@@ -355,83 +502,11 @@ void LocalGame::sendMessage()
 {
 }
 
-void LocalGame::loadGameFiles()
+bool LocalGame::loadGameFiles()
 {
-	std::ifstream in("ships.dat");
-	if (!in.good())throw "Cannot load databases";
-	unsigned short count = 0;
-	in >> count;
-	for (unsigned int i = 0; i < count;i++)
-	{
-		std::string ship_name = "TEST";
-		std::getline(in, ship_name);
-		float parameters[6];
-
-		in >> parameters[0];
-		in >> parameters[1];
-		in >> parameters[2];
-		in >> parameters[3];
-		in >> parameters[4];
-		in >> parameters[5];
-
-		unsigned short point_count = 0;
-		in >> point_count;
-
-		std::shared_ptr<Ship> loadedShip = std::make_shared<Ship>(ship_name,parameters, point_count);
-
-		sf::Vector2f point;
-		for (unsigned short j = 0; j < point_count; j++)
-		{
-			in >> point.x;
-			in >> point.y;
-			loadedShip->addPoint(j,point);
-		}
-
-		unsigned short turret_count = 0;
-		sf::Vector2f turretPositionFromShip;
-		in >> turret_count;
-
-		std::string turret_name, cannon_type;
-		for (unsigned short j = 0; j < turret_count; j++)
-		{
-			std::getline(in,turret_name);
-			std::getline(in,cannon_type);
-
-			sf::Vector2f point;
-			in >> point.x;
-			in >> point.y;
-
-			std::shared_ptr<Turret> loaded_turret;
-			in >> point_count;
-
-			for (unsigned short j = 0; j < point_count; j++)
-			{
-				in >> point.x;
-				in >> point.y;
-				loaded_turret->addPoint(j, point);
-			}
-
-			in >> turretPositionFromShip.x;
-			in >> turretPositionFromShip.y;
-
-			std::string name;
-			in >> point_count;
-			for (unsigned short j = 0; j < point_count; j++)
-			{
-				in >> name;
-				in >> point.x;
-				in >> point.y;
-				loaded_turret->addPoint(j, point);
-				loaded_turret->barrels.push_back(std::make_shared<Barrel>(name, point));
-			}
-
-
-
-		}
-		std::string endWord;
-		in >> endWord;
-		if (endWord != "END")return;
-	}
+	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets())return true;
+	this->loadShips();
+	return false;
 }
 
 void LocalGame::loadMap()
@@ -455,7 +530,6 @@ void LocalGame::loadMap()
 			shape.setSize(sf::Vector2f(1024, 1024));
 			shape.setPosition(c1 * 128, c2 * 128);
 			shape.setTexture(&textures["water1"]);
-			//shape.setFillColor(sf::Color::Red);
 			c2++;
 		}
 		c1++;

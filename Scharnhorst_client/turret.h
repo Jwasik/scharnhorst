@@ -4,12 +4,15 @@
 
 struct Barrel : public movable
 {
+
 public:
+	unsigned int barrelSize;
+	std::shared_ptr<Bullet> mainBulletType;
 	std::string name;
-	Hitbox::punktNaOkregu punkt; //po chuj to jak barrel nie ma hitboxa? - punktNaOkrêgu pozwala przemieszczac punkt na okrêgu a barrel takim punktem jest, o œrodku turret, tak samo jak turret takim jest o œrodku statek 
+	Hitbox::punktNaOkregu punkt;
 	Barrel();
 	Barrel(std::string name, sf::Vector2f point);
-	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape);
+	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape, Bullet, unsigned int);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
 };
 
@@ -41,7 +44,7 @@ public:
 	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	Turret();
 	Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels);
-	Turret(std::string ntype, std::string nname, sf::Vector2f turretPositionFromShip, unsigned short pointCount, float parameters[3]);
+	Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]);
 	~Turret();
 	void updateRestrictedAreaBy(float moveRestricted);
 	float getShipAngle();
@@ -49,5 +52,7 @@ public:
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
 	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 	void addPoint(int number, sf::Vector2f point);
+	void addBarrel(Barrel);
+	void setTurretPosition(sf::Vector2f);
 };
 

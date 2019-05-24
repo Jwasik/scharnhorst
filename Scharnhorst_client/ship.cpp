@@ -190,9 +190,10 @@ void Ship::addPoint(unsigned short number,sf::Vector2f &point)
 	this->shape.setPoint(number,point);
 }
 
-void Ship::addTurret(std::shared_ptr<Turret> &turret)
+void Ship::addTurret(std::shared_ptr<Turret> turret,sf::Vector2f positionFromShip)
 {
 	this->turrets.push_back(turret);
+	this->turrets.back()->setTurretPosition(positionFromShip);
 }
 
 void Ship::swim(double deltaTime)

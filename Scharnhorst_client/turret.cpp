@@ -45,42 +45,17 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	else middleOfLockedArea = 0;
 }
 
-Turret::Turret(std::string ntype, std::string nname, sf::Vector2f turretPositionFromShip, unsigned short pointCount, float parameters[3]) : type(ntype), name(nname)
+Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]) : type(ntype), name(nname)
 {
+	this->shape = turretBody;
 
 	shipOrigin = sf::Vector2f(100,100);
-	distanceFromShipOrigin = sqrt(pow(turretPositionFromShip.x, 2) + pow(turretPositionFromShip.y, 2));
 
-	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);
-
-	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
-	{
-		angleFromShipOrigin = 90 + angleFromShipOrigin;
-	}
-	else
-		if (turretPositionFromShip.x > 0 && turretPositionFromShip.y >= 0)
-		{
-			angleFromShipOrigin = angleFromShipOrigin + 90;
-		}
-		else
-			if (turretPositionFromShip.x <= 0 && turretPositionFromShip.y > 0)
-			{
-				angleFromShipOrigin = 90 + angleFromShipOrigin + 180;
-			}
-			else
-			{
-				angleFromShipOrigin = angleFromShipOrigin + 270;
-			}
-
-	shape.setPointCount(pointCount);
-
-	shape.setFillColor(sf::Color(255, 0, 0));
-
-	deleteOrigin();
+	this->deleteOrigin();
 	TurretAngle = 0;
-	rotationSpeed = parameters[1];
-	restrictedArea[0] = parameters[2];
-	restrictedArea[1] = parameters[3];
+	this->rotationSpeed = parameters[1];
+	this->restrictedArea[0] = parameters[2];
+	this->restrictedArea[1] = parameters[3];
 
 	if (restrictedArea[0] != restrictedArea[1])
 		if (restrictedArea[0] > restrictedArea[1])
@@ -155,13 +130,12 @@ Barrel::Barrel()
 
 Barrel::Barrel(std::string nname, sf::Vector2f npunkt) :name(nname)
 {
-
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0, 0));
 }
 
-Barrel::Barrel(std::string nname, sf::Vector2f npunkt, sf::ConvexShape nshape):name(nname)
+Barrel::Barrel(std::string nname, sf::Vector2f npunkt, sf::ConvexShape nshape, Bullet mainBulletType, unsigned int barrelSize):name(nname),barrelSize(barrelSize)
 {
-
+	this->mainBulletType = std::make_shared<Bullet>(mainBulletType);
 	this->shape = nshape;
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0,0));
 }
@@ -218,10 +192,39 @@ void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
 	{
 		(*shootedBullets).push_back(jw::bulletInfo{ this->type, barrel->shape.getPosition(), this->TurretAngle, "noone" });
 	}
-
 }
 
 void Turret::addPoint(int number, sf::Vector2f point)
 {
 	shape.setPoint(number, point);
 }
+
+void Turret::addBarrel(Barrel barrel)
+{
+	barrels.push_back(std::make_shared<Barrel>(barrel));
+}
+
+void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
+{
+	distanceFromShipOrigin = sqrt(pow(turretPositionFromShip.x, 2) + pow(turretPositionFromShip.y, 2));
+
+	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);
+
+	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê
+	{
+		angleFromShipOrigin = 90 + angleFromShipOrigin;
+	}
+	else if (turretPositionFromShip.x > 0 && turretPositionFromShip.y >= 0)
+	{
+		angleFromShipOrigin = angleFromShipOrigin + 90;
+	}
+	else if (turretPositionFromShip.x <= 0 && turretPositionFromShip.y > 0)
+	{
+		angleFromShipOrigin = 90 + angleFromShipOrigin + 180;
+	}
+	else
+	{
+		angleFromShipOrigin = angleFromShipOrigin + 270;
+	}
+}
+
