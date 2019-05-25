@@ -47,15 +47,17 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 
 Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]) : type(ntype), name(nname)
 {
+
 	this->shape = turretBody;
 
 	shipOrigin = sf::Vector2f(100,100);
 
 	this->deleteOrigin();
 	TurretAngle = 0;
-	this->rotationSpeed = parameters[1];
-	this->restrictedArea[0] = parameters[2];
-	this->restrictedArea[1] = parameters[3];
+	this->rotationSpeed = parameters[0];
+	this->restrictedArea[0] = parameters[1];
+	this->restrictedArea[1] = parameters[2];
+
 
 	if (restrictedArea[0] != restrictedArea[1])
 		if (restrictedArea[0] > restrictedArea[1])
@@ -164,11 +166,12 @@ Turret::~Turret()
 
 void Turret::draw(sf::RenderWindow& window)
 {
+	window.draw(shape);
 	for (auto barrel : barrels)
 	{
 		window.draw(barrel->shape);
 	}
-	window.draw(shape);
+	
 }
 
 float Turret::getAngleByWater()

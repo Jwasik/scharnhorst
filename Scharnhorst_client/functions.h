@@ -35,3 +35,9 @@ sf::Packet operator<<(sf::Packet& packet, jw::bulletInfo &info)
 	packet << info.ownerName;
 	return packet;
 }
+
+std::ostream& operator<<(std::ostream &stream,sf::Vector2f vec)
+{
+	stream << vec.x << ' ' << vec.x << std::endl;
+	return stream;
+}

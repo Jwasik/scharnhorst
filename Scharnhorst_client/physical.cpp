@@ -36,6 +36,11 @@ float physical::getRotation()
 	return shape.getRotation();
 }
 
+sf::Vector2f physical::getOrigin()
+{
+	return this->shape.getOrigin();
+}
+
 void physical::draw(sf::RenderWindow &window)
 {
 	window.draw(this->shape);

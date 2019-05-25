@@ -24,11 +24,10 @@ float movable::changeAngle(float a, float b)
 	{
 		t = t - 360;
 	}
-	else
-		if (t < 0)
-		{
-			t = t + 360;
-		}
+	else if (t < 0)
+	{
+		t = t + 360;
+	}
 	return t;
 }
 

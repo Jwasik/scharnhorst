@@ -34,9 +34,9 @@ void LocalGame::gameLoop()
 	}
 	this->loadMap();
 	/*LOAD PLAYER*/
-	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
+	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	this->player->getShip()->setName("KMS Scharnhorst");
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("test")), sf::Vector2f(100, 100));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 0));
 	std::cout << this->findTurret("test").barrels.size();
 
 
@@ -279,7 +279,7 @@ bool LocalGame::loadBarrels()
 		unsigned int pointCount = 0;
 		float x, y;
 		sf::ConvexShape barrelShape;
-		barrelShape.setFillColor(sf::Color::Red);
+		barrelShape.setFillColor(sf::Color::Blue);
 
 		std::getline(in, name);//nazwa
 		std::getline(in, mainBulletType);//nazwa pocisku
@@ -317,6 +317,7 @@ bool LocalGame::loadTurrets()
 	unsigned int point_count;
 	while (!in.eof())
 	{
+		endWord = "none";
 		std::shared_ptr<Turret> newTurret;
 
 		unsigned int pointCount = 0;
@@ -329,7 +330,6 @@ bool LocalGame::loadTurrets()
 
 		in >> pointCount;//ilość punktów
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-
 		turretShape.setPointCount(pointCount);
 		for (unsigned int i = 0; i < pointCount; i++)//punkty
 		{
@@ -341,14 +341,13 @@ bool LocalGame::loadTurrets()
 		in >> x;
 		in >> y;
 		turretShape.setOrigin(sf::Vector2f(x,y));//origin
-		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		float parameters[3];
-
 		in >> parameters[0];
-		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		in >> parameters[1];
 		in >> parameters[2];
+		std::cout << "left" << parameters[1] << std::endl;
+		std::cout << "right" << parameters[2] << std::endl;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		newTurret = std::make_shared<Turret>(name, name, turretShape, parameters);
@@ -361,8 +360,7 @@ bool LocalGame::loadTurrets()
 			std::getline(in, cannonType);
 			in >> x;
 			in >> y;
-
-			newTurret->addBarrel(findBarrel(cannonType),sf::Vector2f(x,y));
+			newTurret->addBarrel(findBarrel(cannonType),sf::Vector2f(x,y)+ findBarrel(cannonType).getOrigin());
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}		
 		std::getline(in, endWord);
