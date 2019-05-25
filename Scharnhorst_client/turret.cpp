@@ -202,6 +202,7 @@ void Turret::addPoint(int number, sf::Vector2f point)
 
 void Turret::addBarrel(Barrel barrel, sf::Vector2f barrelPositionFromTurret)
 {
+	barrel.punkt = movable::zamienNaPunktNaOkregu(barrelPositionFromTurret, sf::Vector2f(0,0));
 	barrels.push_back(std::make_shared<Barrel>(barrel));
 }
 
