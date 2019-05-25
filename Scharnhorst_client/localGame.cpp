@@ -6,7 +6,7 @@
 
 LocalGame::LocalGame()
 {
-	kamera = Camera(sf::Vector2f(800, 600));
+	kamera = Camera(sf::Vector2f(1024, 768));
 	
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
@@ -36,10 +36,10 @@ void LocalGame::gameLoop()
 	/*LOAD PLAYER*/
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	this->player->getShip()->setName("KMS Scharnhorst");
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 0));
-	std::cout << this->findTurret("test").barrels.size();
-
-
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, 600));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, 500));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, -700));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, -300));
 
 	sf::Clock time;
 	time.restart();
@@ -55,6 +55,11 @@ void LocalGame::gameLoop()
 			if (event.type == sf::Event::MouseWheelScrolled)
 			{
 				kamera.addZoom(event.mouseWheelScroll.delta / 10);
+			}
+			if (event.type == sf::Event::Resized)
+			{
+				kamera.view.setSize(sf::Vector2f(this->window->getSize().x, this->window->getSize().y));
+				kamera.setDimensions(sf::Vector2f(this->window->getSize()));
 			}
 		}
 
@@ -291,13 +296,19 @@ bool LocalGame::loadBarrels()
 
 		barrelShape.setPointCount(pointCount);
 
+		float maxx=0, maxy=0;//używane do znalezienia originu
+
 		for (unsigned int i = 0; i < pointCount; i++)//punkty
 		{
 			in >> x;
 			in >> y;
+
 			barrelShape.setPoint(i, sf::Vector2f(x, y));
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			if (x > maxx)maxx = x;
+			if (y > maxy)maxy = y;
 		}
+		barrelShape.setOrigin(sf::Vector2f(maxx/2,maxy));
 
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
@@ -346,8 +357,6 @@ bool LocalGame::loadTurrets()
 		in >> parameters[0];
 		in >> parameters[1];
 		in >> parameters[2];
-		std::cout << "left" << parameters[1] << std::endl;
-		std::cout << "right" << parameters[2] << std::endl;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		newTurret = std::make_shared<Turret>(name, name, turretShape, parameters);

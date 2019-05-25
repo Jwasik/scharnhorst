@@ -20,7 +20,7 @@ private:
 	}serverInfo;
 	struct gameInformation
 	{
-		sf::VideoMode resolution = sf::VideoMode(800U,600U); // jak zmieniasz zmieñ równierz kamera w localGame.cpp
+		sf::VideoMode resolution = sf::VideoMode(1024,768); // jak zmieniasz zmieñ równierz kamera w localGame.cpp
 
 	}gameInfo;
 

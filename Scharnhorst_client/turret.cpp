@@ -16,6 +16,32 @@ Turret::Turret()
 	restrictedArea[1] = 0;
 }
 
+Turret::Turret(const Turret & turret)
+{
+	this->shape = turret.shape;
+
+	this->type = turret.type;
+	this->name = turret.name;
+	this->shipOrigin = turret.shipOrigin;
+	this->position = turret.position;
+
+	for (const auto & barrel : turret.barrels)
+	{
+		this->barrels.push_back(std::make_shared<Barrel>(*barrel));
+	}
+
+	this->rotationSpeed = turret.rotationSpeed;
+	this->distanceFromShipOrigin = turret.distanceFromShipOrigin;
+	this->angleFromShipOrigin = turret.angleFromShipOrigin;
+	this->shipAngle = turret.shipAngle;
+	this->restrictedArea[0] = turret.restrictedArea[0];
+	this->restrictedArea[1] = turret.restrictedArea[1];
+	this->arestrictedArea[0] = turret.arestrictedArea[0];
+	this->arestrictedArea[1] = turret.arestrictedArea[1];
+	this->turretAngle = turret.turretAngle;
+	this->middleOfLockedArea = turret.middleOfLockedArea;
+}
+
 Turret::Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels) : type(ntype), distanceFromShipOrigin(ndistanceFromShipOrigin),
 angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 {
@@ -27,7 +53,7 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	shape.setFillColor(sf::Color(255, 0, 0));
 
 	deleteOrigin();
-	TurretAngle = 0;
+	turretAngle = 0;
 	rotationSpeed = 10;
 	restrictedArea[0] = 100;
 	restrictedArea[1] = 260;
@@ -47,13 +73,12 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 
 Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]) : type(ntype), name(nname)
 {
-
 	this->shape = turretBody;
 
 	shipOrigin = sf::Vector2f(100,100);
 
 	this->deleteOrigin();
-	TurretAngle = 0;
+	turretAngle = 0;
 	this->rotationSpeed = parameters[0];
 	this->restrictedArea[0] = parameters[1];
 	this->restrictedArea[1] = parameters[2];
@@ -72,13 +97,13 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 	else middleOfLockedArea = 0;
 }
 
-void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshipOrigin, float dTime)
+void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nshipOrigin, float dTime)
 {
 	arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);
 	arestrictedArea[1] = changeAngle(restrictedArea[1], shipAngle);
 	
-	float howManyDegreeToTurret = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), changeAngle(TurretAngle, shipAngle));
-	float howManyDegreeToMouse = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), mousAngle);
+	float howManyDegreeToTurret = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), changeAngle(turretAngle, shipAngle));
+	float howManyDegreeToMouse = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), mouseAngle);
 
 
 	this->shipOrigin = nshipOrigin;
@@ -96,10 +121,10 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 			}
 			else
 			{
-				TurretAngle = movable::changeAngle(TurretAngle, rotationSpeed * dTime);
-				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(TurretAngle, shipAngle)))
+				turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
+				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
-					TurretAngle = movable::changeAngle(TurretAngle, -1 * rotationSpeed * dTime);
+					turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
 				}
 			}
 		}
@@ -112,18 +137,18 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 			}
 			else
 			{
-				TurretAngle = movable::changeAngle(TurretAngle, -1 * rotationSpeed * dTime);
-				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(TurretAngle, shipAngle)))
+				turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
+				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
-					TurretAngle = movable::changeAngle(TurretAngle, rotationSpeed * dTime);
+					turretAngle = movable::changeAngle(this->turretAngle, rotationSpeed * dTime);
 				}
 			}
 		}
-		//std::cout << TurretAngle << ' ' << shipAngle << std::endl;
-	shape.setRotation(changeAngle(TurretAngle, shipAngle));
+	shape.setRotation(changeAngle(turretAngle, shipAngle));
+	//std::cout << turretAngle << ' ' << shipAngle << std::endl;
 	for (auto &barrel : barrels)
 	{
-		barrel->updatePosition(changeAngle(TurretAngle, shipAngle), position);
+		barrel->updatePosition(changeAngle(turretAngle, shipAngle), position);
 	}
 }
 
@@ -136,11 +161,11 @@ Barrel::Barrel(std::string nname, sf::Vector2f npunkt) :name(nname)
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0, 0));
 }
 
-Barrel::Barrel(std::string nname, sf::Vector2f npunkt, sf::ConvexShape nshape, Bullet mainBulletType, unsigned int barrelSize):name(nname),barrelSize(barrelSize)
+Barrel::Barrel(std::string name, sf::Vector2f punkt, sf::ConvexShape shape, Bullet mainBulletType, unsigned int barrelSize):name(name),barrelSize(barrelSize)
 {
 	this->mainBulletType = std::make_shared<Bullet>(mainBulletType);
-	this->shape = nshape;
-	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0,0));
+	this->shape = shape;
+	this->punkt = zamienNaPunktNaOkregu(punkt, sf::Vector2f(0,0));
 }
 
 void Barrel::updatePosition(float TurretAngle, sf::Vector2f nTurretOrigin)
@@ -166,17 +191,22 @@ Turret::~Turret()
 
 void Turret::draw(sf::RenderWindow& window)
 {
-	window.draw(shape);
+	
 	for (auto barrel : barrels)
 	{
 		window.draw(barrel->shape);
 	}
-	
+	window.draw(shape);
 }
 
 float Turret::getAngleByWater()
 {
 	return this->shape.getRotation();
+}
+
+float Turret::getTurretAngle()
+{
+	return this->turretAngle;
 }
 
 std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
@@ -194,7 +224,7 @@ void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
 {
 	for (auto & barrel : barrels)
 	{
-		(*shootedBullets).push_back(jw::bulletInfo{ this->type, barrel->shape.getPosition(), this->TurretAngle, "noone" });
+		(*shootedBullets).push_back(jw::bulletInfo{ this->type, barrel->shape.getPosition(), this->turretAngle, "noone" });
 	}
 }
 
@@ -205,7 +235,7 @@ void Turret::addPoint(int number, sf::Vector2f point)
 
 void Turret::addBarrel(Barrel barrel, sf::Vector2f barrelPositionFromTurret)
 {
-	barrel.punkt = movable::zamienNaPunktNaOkregu(barrelPositionFromTurret, sf::Vector2f(0,0));
+	barrel.punkt = movable::zamienNaPunktNaOkregu(barrelPositionFromTurret-barrel.getOrigin(), sf::Vector2f(0,0));
 	barrels.push_back(std::make_shared<Barrel>(barrel));
 }
 
@@ -217,19 +247,19 @@ void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
 
 	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê
 	{
-		angleFromShipOrigin = 90 + angleFromShipOrigin;
+		angleFromShipOrigin += 90;
 	}
 	else if (turretPositionFromShip.x > 0 && turretPositionFromShip.y >= 0)
 	{
-		angleFromShipOrigin = angleFromShipOrigin + 90;
+		angleFromShipOrigin += 90;
 	}
 	else if (turretPositionFromShip.x <= 0 && turretPositionFromShip.y > 0)
 	{
-		angleFromShipOrigin = 90 + angleFromShipOrigin + 180;
+		angleFromShipOrigin += 270;
 	}
 	else
 	{
-		angleFromShipOrigin = angleFromShipOrigin + 270;
+		angleFromShipOrigin += 270;
 	}
 }
 

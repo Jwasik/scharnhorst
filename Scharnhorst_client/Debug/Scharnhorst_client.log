@@ -1,10 +1,14 @@
-﻿  turret.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(38): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(43): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(65): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(80): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(156): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(216): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+﻿  localGame.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(61): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(279): warning C4101: 'point_count': unreferenced local variable
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(328): warning C4101: 'point_count': unreferenced local variable
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(537): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

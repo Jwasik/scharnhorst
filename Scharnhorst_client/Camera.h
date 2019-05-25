@@ -32,6 +32,7 @@ public:
 	void setZoom(float);
 	void addZoom(float);
 	void set(sf::RenderWindow*);
+	void setDimensions(sf::Vector2f);
 	void calculateAngle();
 	void calculateView(sf::RenderWindow &window, float howLean);
 	void setView(sf::RenderWindow &window);

@@ -181,7 +181,7 @@ void Ship::setCannonRotation(float angle)
 
 float Ship::getCannonRotation()
 {
-	if(turrets[0] != nullptr)return turrets[0]->TurretAngle;
+	if(turrets[0] != nullptr)return turrets[0]->getTurretAngle();
 	return 0;
 }
 
@@ -192,7 +192,7 @@ void Ship::addPoint(unsigned short number,sf::Vector2f &point)
 
 void Ship::addTurret(std::shared_ptr<Turret> turret,sf::Vector2f positionFromShip)
 {
-	this->turrets.push_back(turret);
+	this->turrets.push_back(std::make_shared<Turret>(*turret));
 	this->turrets.back()->setTurretPosition(positionFromShip);
 }
 

@@ -38,11 +38,10 @@ float movable::changeAngle(float a, float b, float c)
 	{
 		t = t - 360;
 	}
-	else
-		if (t < 0)
-		{
-			t = t + 360;
-		}
+	else if (t < 0)
+	{
+		t = t + 360;
+	}
 	return t;
 }
 
@@ -58,8 +57,7 @@ float movable::howManyDegreeFrom(float a, float b)
 	{
 		return tem + 360;
 	}
-	else
-		return tem;
+	return tem;
 }
 
 void movable::rotate(float alpha)
@@ -76,25 +74,21 @@ Hitbox::punktNaOkregu movable::zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vec
 
 	if (punkt.x >= 0 && punkt.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê 
 	{
-		tem.a = 90 + tem.a;
+		tem.a += 90;
+	}
+	else if (punkt.x > 0 && punkt.y >= 0)
+	{
+		tem.a += 90;
+	}
+	else if (punkt.x <= 0 && punkt.y > 0)
+	{
+		tem.a += 270;
 	}
 	else
-		if (punkt.x > 0 && punkt.y >= 0)
-		{
-			tem.a = tem.a + 90;
-		}
-		else
-			if (punkt.x <= 0 && punkt.y > 0)
-			{
-				tem.a = 90 + tem.a + 180;
-			}
-			else
-			{
-				tem.a = tem.a + 270;
-			}
-
+	{
+		tem.a += 270;
+	}
 	return tem;
-
 }
 
 

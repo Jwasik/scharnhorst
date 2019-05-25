@@ -22,34 +22,37 @@ protected:
 
 	std::string type;
 	std::string name;
-	
-	float rotationSpeed; //w stopniach/sekundê
-	
+
 	sf::Vector2f shipOrigin;
+	sf::Vector2f position;
+	std::vector< std::shared_ptr<Barrel>> barrels; //Miejsca oznaczaj¹ce koñcu luf dzia³, gdzie powinny siê pojawiæ pociski
+
+	float rotationSpeed; //w stopniach/sekundê
 	float distanceFromShipOrigin;
 	float angleFromShipOrigin;
 	float shipAngle;
-	float restrictedArea[2];//k¹rowy obszar w którym Turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
+	float restrictedArea[2];//k¹towy obszar w którym Turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
 	float arestrictedArea[2];
+	float turretAngle;
 	int middleOfLockedArea;
-	sf::Vector2f position;
-
-
 
 public:
-	std::vector< std::shared_ptr<Barrel>> barrels; //Miejsca oznaczaj¹ce koñcu luf dzia³, gdzie powinny siê pojawiæ pociski
-
-	float TurretAngle;
-	void draw(sf::RenderWindow& window);
-	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	Turret();
+	Turret(const Turret & Turret);
 	Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels);
 	Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]);
 	~Turret();
+
+	
+
+	void draw(sf::RenderWindow& window);
+	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
+	
+	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
 	void updateRestrictedAreaBy(float moveRestricted);
 	float getShipAngle();
 	float getAngleByWater();
-	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
+	float getTurretAngle();
 	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 	void addPoint(int number, sf::Vector2f point);
 	void addBarrel(Barrel, sf::Vector2f);

@@ -63,9 +63,9 @@ scharnhorst main turret
 180 190
 3
 GER280
--16 33
+-16 -33
 GER280
-0 33
+0 -33
 GER280
-16 33
+16 -33
 END_TURRET

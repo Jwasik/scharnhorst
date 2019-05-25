@@ -56,11 +56,17 @@ void Camera::addZoom(float delta)
 {
 	zoom = zoom + zoom * delta;
 	view.setSize(ScreenDimensions / zoom);
+
 }
 
 void Camera::set(sf::RenderWindow *window)
 {
 	window->setView(view);
+}
+
+void Camera::setDimensions(sf::Vector2f dimensions)
+{
+	this->ScreenDimensions = dimensions;
 }
 
 void Camera::calculateAngle()

@@ -5,10 +5,9 @@
 
 class physical
 {
-
 protected:
+	
 	void deleteOrigin();
-
 public:
 	sf::ConvexShape shape;
 
@@ -22,8 +21,6 @@ public:
 	float getRotation();
 	sf::Vector2f getOrigin();
 
-
 	~physical();
-
 };
 
