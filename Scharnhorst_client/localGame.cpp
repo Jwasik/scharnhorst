@@ -36,10 +36,10 @@ void LocalGame::gameLoop()
 	/*LOAD PLAYER*/
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	this->player->getShip()->setName("KMS Scharnhorst");
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, 600));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, 500));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, -700));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(0, -300));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 600));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 500));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 700));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -300));
 
 	sf::Clock time;
 	time.restart();
