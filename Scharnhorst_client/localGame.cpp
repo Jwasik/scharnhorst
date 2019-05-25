@@ -37,6 +37,7 @@ void LocalGame::gameLoop()
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst"); // tak sobie to ustawiam aby do test�w pomin�� motyw sieciowy
 	this->player->getShip()->setName("KMS Scharnhorst");
 	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("test")), sf::Vector2f(100, 100));
+	std::cout << this->findTurret("test").barrels.size();
 
 
 
@@ -361,12 +362,10 @@ bool LocalGame::loadTurrets()
 			in >> x;
 			in >> y;
 
-			newTurret->addBarrel(findBarrel(cannonType));
+			newTurret->addBarrel(findBarrel(cannonType),sf::Vector2f(x,y));
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
-		
+		}		
 		std::getline(in, endWord);
-		std::cout << name << ' ' << endWord << std::endl;
 		if (endWord != "END_TURRET")return 0;
 		turretData.push_back(std::pair<std::string,Turret>(name,Turret(*newTurret)));
 	}

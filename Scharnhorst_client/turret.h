@@ -52,7 +52,7 @@ public:
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();
 	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 	void addPoint(int number, sf::Vector2f point);
-	void addBarrel(Barrel);
+	void addBarrel(Barrel, sf::Vector2f);
 	void setTurretPosition(sf::Vector2f);
 };
 

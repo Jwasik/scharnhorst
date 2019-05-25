@@ -79,10 +79,10 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 	float howManyDegreeToMouse = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), mousAngle);
 
 
-	shipOrigin = nshipOrigin;
-	shipAngle = nshipAngle;
+	this->shipOrigin = nshipOrigin;
+	this->shipAngle = nshipAngle;
 	position = sf::Vector2f(distanceFromShipOrigin*sin(stopnieNaRadiany(changeAngle(shipAngle, angleFromShipOrigin))), -distanceFromShipOrigin * cos(stopnieNaRadiany(changeAngle(shipAngle, angleFromShipOrigin)))) + shipOrigin;
-	shape.setPosition(position);
+	this->shape.setPosition(position);
 
 
 		if (howManyDegreeToTurret < howManyDegreeToMouse)
@@ -117,10 +117,11 @@ void Turret::updatePosition(float nshipAngle, float mousAngle, sf::Vector2f nshi
 				}
 			}
 		}
+		//std::cout << TurretAngle << ' ' << shipAngle << std::endl;
 	shape.setRotation(changeAngle(TurretAngle, shipAngle));
-	for (auto a : barrels)
+	for (auto &barrel : barrels)
 	{
-		a->updatePosition(changeAngle(TurretAngle, shipAngle), position);
+		barrel->updatePosition(changeAngle(TurretAngle, shipAngle), position);
 	}
 }
 
@@ -199,7 +200,7 @@ void Turret::addPoint(int number, sf::Vector2f point)
 	shape.setPoint(number, point);
 }
 
-void Turret::addBarrel(Barrel barrel)
+void Turret::addBarrel(Barrel barrel, sf::Vector2f barrelPositionFromTurret)
 {
 	barrels.push_back(std::make_shared<Barrel>(barrel));
 }

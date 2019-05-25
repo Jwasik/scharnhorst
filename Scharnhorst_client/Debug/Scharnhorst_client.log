@@ -1,5 +1,5 @@
 ﻿  localGame.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(273): warning C4101: 'point_count': unreferenced local variable
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(316): warning C4101: 'point_count': unreferenced local variable
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(531): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(274): warning C4101: 'point_count': unreferenced local variable
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(317): warning C4101: 'point_count': unreferenced local variable
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(530): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
   Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
