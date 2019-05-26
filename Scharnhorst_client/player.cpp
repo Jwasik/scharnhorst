@@ -55,8 +55,10 @@ void Player::sendBullets(sf::TcpSocket &socket)
 
 		std::string order = "BUL";
 		bulletPacket << order;
+		bulletPacket << bullet;
 		socket.send(bulletPacket);
 	}
+	newBullets->clear();
 }
 
 void Player::draw(sf::RenderWindow &window)

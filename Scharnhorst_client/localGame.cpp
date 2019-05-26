@@ -10,6 +10,8 @@ LocalGame::LocalGame()
 	
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
+	this->player->getShip()->setName("KMS Scharnhorst");
 	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
@@ -33,13 +35,12 @@ void LocalGame::gameLoop()
 		return;
 	}
 	this->loadMap();
+
 	/*LOAD PLAYER*/
-	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
-	this->player->getShip()->setName("KMS Scharnhorst");
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 600));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 500));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 700));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -400));
 	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -300));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 400));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 300));
 
 	sf::Clock time;
 	time.restart();
@@ -61,14 +62,8 @@ void LocalGame::gameLoop()
 				kamera.view.setSize(sf::Vector2f(this->window->getSize().x, this->window->getSize().y));
 				kamera.setDimensions(sf::Vector2f(this->window->getSize()));
 			}
+			if (event.type == sf::Event::Closed)window->close();
 		}
-
-		while (window->pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window->close();
-		}
-
 
 		this->playerEvent(deltaTime);
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
@@ -76,8 +71,7 @@ void LocalGame::gameLoop()
 		this->receiveAction();//odbiera rozkazy TCP
 		this->recieveMessages(); //odbiera wiadomo�ci TCP
 		this->sendMessage(); //wysy�a wiadomo�� TCP
-
-		window->clear();
+		this->player->sendBullets(this->orderSocket);//wysyła dane o bulletach które stworzył gracz
 
 		player->rotateTurretsTo(kamera.angle);
 		this->player->doStuff(deltaTime);
@@ -91,7 +85,7 @@ void LocalGame::gameLoop()
 		kamera.Camera::calculateView(*window, 8);
 		kamera.Camera::setView(*window);
 
-
+		window->clear();
 		auto view = kamera.getViewBounds();
 		for (const auto & vector : backgroundMap)
 		{
@@ -108,6 +102,11 @@ void LocalGame::gameLoop()
 		for (const auto & player : otherPlayers)
 		{
 			player->draw(*window);
+		}
+
+		for (auto & bullet : bullets)
+		{
+			bullet.draw(*this->window);
 		}
 
 		window->display();
@@ -266,7 +265,7 @@ bool LocalGame::loadBullets()
 		in >> damage;
 		in >> endWord;
 		if (endWord != "END_BULLET")continue;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(bulletShape, speed, damage)));
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage)));
 	}
 	return 1;
 }
@@ -313,7 +312,7 @@ bool LocalGame::loadBarrels()
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
 
-		barrelData.push_back(std::pair<std::string,Barrel>(name,Barrel(name,sf::Vector2f(0,0), barrelShape,findBullet(mainBulletType) ,bulletSize)));
+		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), bulletSize)));
 	}
 	return 1;
 }
@@ -617,7 +616,6 @@ void LocalGame::receiveAction()
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
 	if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
-
 	std::string message;
 	if (receivedPacket >> message)
 	{
@@ -640,6 +638,15 @@ void LocalGame::receiveAction()
 			player->getShip()->setPosition(sf::Vector2f(100,100));
 			player->setShipName(playerShipName);
 			otherPlayers.push_back(player);
+		}
+		else if (message == "BUL")
+		{
+			std::cout << "received BUL" << std::endl;
+			jw::bulletInfo receivedData;
+			receivedPacket >> receivedData;
+			std::shared_ptr<Bullet> newBullet = std::make_shared<Bullet>(this->findBullet(receivedData.name));
+			newBullet->setBulletInfo(receivedData);
+			this->bullets.push_back(*newBullet);
 		}
 	}
 	else return;

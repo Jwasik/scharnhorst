@@ -2,6 +2,7 @@
 #include "includes.h"
 #include "player.h"
 #include "turret.h"
+#include "bullet.h"
 #include <string>
 #include <fstream>
 
@@ -30,6 +31,7 @@ private:
 
 	std::shared_ptr<Player> player;
 	std::vector<std::shared_ptr<Player>> otherPlayers;
+	std::vector<Bullet> bullets;//œwiadomie zrobi³em bez wskaŸnika, zapytaj siê potem dlaczego
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
 
 	std::vector<std::pair<std::string,Bullet>> bulletData;
