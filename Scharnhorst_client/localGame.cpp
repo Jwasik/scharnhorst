@@ -37,10 +37,9 @@ void LocalGame::gameLoop()
 	this->loadMap();
 
 	/*LOAD PLAYER*/
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -400));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -300));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 400));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 300));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -461));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -336));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 451));
 
 	sf::Clock time;
 	time.restart();
@@ -79,6 +78,10 @@ void LocalGame::gameLoop()
 		for (auto & player : otherPlayers)
 		{
 			player->doStuff(deltaTime);
+		}
+		for (auto & bullet : bullets)
+		{
+			bullet.fly(deltaTime);
 		}
 
 		kamera.Camera::setCenter(player->getShip()->getPosition());
@@ -641,7 +644,6 @@ void LocalGame::receiveAction()
 		}
 		else if (message == "BUL")
 		{
-			std::cout << "received BUL" << std::endl;
 			jw::bulletInfo receivedData;
 			receivedPacket >> receivedData;
 			std::shared_ptr<Bullet> newBullet = std::make_shared<Bullet>(this->findBullet(receivedData.name));
