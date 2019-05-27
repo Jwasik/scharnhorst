@@ -44,7 +44,7 @@ public:
 	};
 
 	sf::ConvexShape polygon;// wizualna interpretacja hitboxu
-
+	Hitbox();
 	Hitbox(sf::ConvexShape polygona); // konstruktor na podstawie polygonu
 	void hitboxmove(float xs, float ys);//przemieszcza wielok¹t convexShape i robi rotate o 0 co generuje nowe wartoœci odcinków na podstawie ox i oy/// move()
 	void rotate(float at);//liczy nowe odcinki po obrocie na podstawie k¹tu 'a' zakualizowanego o 'at' oraz zbioru niezmiennego 'punkty' //dziedziczy z movable
