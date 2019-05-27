@@ -219,11 +219,12 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 	return tem;
 }
 
-void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets)
+void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets,float &shipAngle)
 {
 	for (auto & barrel : barrels)
 	{
-		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), this->turretAngle, "noone" });
+		std::cout << this->turretAngle << std::endl;
+		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), float(fmod(this->turretAngle+shipAngle,360)), "noone" });
 	}
 }
 

@@ -223,9 +223,10 @@ void Ship::draw(sf::RenderWindow& window)
 
 void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurret)
 {
+	auto angle = this->shape.getRotation();
 	for (auto & turret : turrets)
 	{
-		turret->shoot(bulletsGotFromTurret);
+		turret->shoot(bulletsGotFromTurret,angle);
 	}
 }
 
