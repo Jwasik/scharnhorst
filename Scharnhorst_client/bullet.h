@@ -8,13 +8,13 @@ protected:
 	float speed;
 	float damage;
 	float angle;
-	sf::Vector2f direction;
 	sf::Vector2f movementVector;//przechowuje wektor przesuniêcia z altualn¹ prêdkoœci¹ i k¹tem w czasie 1 sekundy
 
 public:
 	Hitbox::odcinek tracer;
 
 	Bullet();
+	Bullet(const Bullet&);
 	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, sf::Vector2f punkt);
 	Bullet(std::string,sf::ConvexShape, float, float);
 

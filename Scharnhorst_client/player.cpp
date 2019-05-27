@@ -24,8 +24,8 @@ void Player::doStuff(double &deltaTime)
 	if (this->playerShip != nullptr)
 	{
 		playerShip->swim(deltaTime);
-		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));
-		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));
+		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));//Nazwa gracza
+		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));//Nazwa statku
 		this->getShip()->setTurrets(this->angleOfView, deltaTime);
 	}
 }

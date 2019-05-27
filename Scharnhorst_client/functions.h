@@ -1,5 +1,6 @@
 #pragma once
 #include "includes.h"
+#include "bullet.h"
 
 namespace jw
 {
@@ -31,3 +32,5 @@ sf::Packet& operator>>(sf::Packet&, jw::bulletInfo&);
 
 std::ostream& operator<<(std::ostream&, sf::Vector2f);
 
+sf::Packet& operator<<(sf::Packet&,std::vector<jw::bulletInfo>&);
+sf::Packet& operator>>(sf::Packet&, std::vector<jw::bulletInfo>&);

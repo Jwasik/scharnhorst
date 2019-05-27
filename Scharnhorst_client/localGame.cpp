@@ -618,41 +618,46 @@ void LocalGame::receiveAction()
 {
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
-	if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
-	std::string message;
-	if (receivedPacket >> message)
+
+	sf::Clock connectionClock;
+	connectionClock.restart();
+	while (connectionClock.getElapsedTime().asMilliseconds()<30)
 	{
-		if (message == "PLA")
+		if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
+		std::string message;
+		if (receivedPacket >> message)
 		{
-			unsigned int playerId = 0;
-			std::string playerName, playerShip, playerShipName;
+			if (message == "PLA")
+			{
+				unsigned int playerId = 0;
+				std::string playerName, playerShip, playerShipName;
 
-			receivedPacket >> playerId;
-			receivedPacket >> playerName;
-			receivedPacket >> playerShip;
-			receivedPacket >> playerShipName;
+				receivedPacket >> playerId;
+				receivedPacket >> playerName;
+				receivedPacket >> playerShip;
+				receivedPacket >> playerShipName;
 
-			if (playerId == 0)return;
-			if (playerId == this->player->getPlayerId())return;
-			auto player = getPlayerById(playerId);
-			if (player != nullptr)return;
+				if (playerId == 0)return;
+				if (playerId == this->player->getPlayerId())return;
+				auto player = getPlayerById(playerId);
+				if (player != nullptr)return;
 
-			player = std::make_shared<Player>(playerId, playerName, playerShip);
-			player->getShip()->setPosition(sf::Vector2f(100,100));
-			player->setShipName(playerShipName);
-			otherPlayers.push_back(player);
+				player = std::make_shared<Player>(playerId, playerName, playerShip);
+				player->getShip()->setPosition(sf::Vector2f(100, 100));
+				player->setShipName(playerShipName);
+				otherPlayers.push_back(player);
+			}
+			else if (message == "BUL")
+			{
+				jw::bulletInfo receivedData;
+				receivedPacket >> receivedData;
+				std::shared_ptr<Bullet> newBullet = std::make_shared<Bullet>(this->findBullet(receivedData.name));
+				newBullet->setBulletInfo(receivedData);
+				this->bullets.push_back(*newBullet);
+			}
 		}
-		else if (message == "BUL")
-		{
-			jw::bulletInfo receivedData;
-			receivedPacket >> receivedData;
-			std::shared_ptr<Bullet> newBullet = std::make_shared<Bullet>(this->findBullet(receivedData.name));
-			newBullet->setBulletInfo(receivedData);
-			this->bullets.push_back(*newBullet);
-		}
+		else return;
 	}
-	else return;
-
 }
 
 void LocalGame::recieveMessages()

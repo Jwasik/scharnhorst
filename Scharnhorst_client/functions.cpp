@@ -58,3 +58,26 @@ std::ostream & operator<<(std::ostream & stream, sf::Vector2f vec)
 	stream << vec.x << ' ' << vec.x << std::endl;
 	return stream;
 }
+
+sf::Packet & operator<<(sf::Packet &packet, std::vector<jw::bulletInfo> &bullets)
+{
+	packet << unsigned int(bullets.size());
+	for (auto & info : bullets)
+	{
+		packet << info;
+	}
+	return packet;
+}
+
+sf::Packet & operator>>(sf::Packet &packet , std::vector<jw::bulletInfo> &bullets)
+{
+	unsigned int size;
+	packet >> size;
+	jw::bulletInfo temporary;
+	for (unsigned int i=0;i<size;i++)
+	{
+		packet >> temporary;
+		bullets.push_back(temporary);
+	}
+	return packet;
+}

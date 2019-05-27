@@ -19,7 +19,7 @@ void Hitbox::odcinek::prosta(Hitbox::odcinek o, float* A, float* B, float* C)
 	*A = o.a.y - o.b.y; *B = o.b.x - o.a.x; *C = o.a.x*o.b.y - o.b.x*o.a.y;
 }
 
-bool Hitbox::odcinek::isCross(Hitbox::odcinek o1)
+bool Hitbox::odcinek::intersects(Hitbox::odcinek o1)
 {
 	float A1, B1, C1, A2, B2, C2;
 	prosta(o1, &A1, &B1, &C1);
@@ -132,7 +132,7 @@ bool Hitbox::hit(odcinek odc)
 {
 	for (int i = 0; i < ile; i++)
 	{
-		if (odc.isCross(odcinki[i]))
+		if (odc.intersects(odcinki[i]))
 		{
 
 			return 1;
