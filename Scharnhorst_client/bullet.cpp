@@ -3,13 +3,14 @@
 
 void Bullet::calculateMovementVector()
 {
-	//Do zrobienia
+	direction.x = sin(stopnieNaRadiany(angle));
+	direction.y = cos(stopnieNaRadiany(angle);
 }
 
 void Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime;
-	this->tracer = Hitbox::odcinek(this->tracer.b, this->tracer.b + sf::Vector2f(distance * sin(stopnieNaRadiany(angle)), -distance * cos(stopnieNaRadiany(angle))));
+	this->tracer = Hitbox::odcinek(this->tracer.b, this->tracer.b + sf::Vector2f(distance * direction.x, -distance * direction.y)));
 	this->shape.setPosition(tracer.b);
 }
 

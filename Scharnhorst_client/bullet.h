@@ -8,6 +8,7 @@ protected:
 	float speed;
 	float damage;
 	float angle;
+	sf::Vector2f direction;
 	sf::Vector2f movementVector;//przechowuje wektor przesuniêcia z altualn¹ prêdkoœci¹ i k¹tem w czasie 1 sekundy
 
 public:
