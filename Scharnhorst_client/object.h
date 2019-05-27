@@ -10,7 +10,7 @@ private:
 public:
 	std::vector<std::shared_ptr<sf::Vector2f>> points;
 	object();
-	object(std::vector<std::shared_ptr<sf::Vector2f>> points);
+	object(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> points);
 	void setFillColor(sf::Color color);
 	void setPointCount(int count);
 	void changePoint(int count, std::shared_ptr<sf::Vector2f > position);

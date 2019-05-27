@@ -5,7 +5,7 @@ object::object()
 {
 }
 
-object::object(std::vector<std::shared_ptr<sf::Vector2f>> npoints) : points(npoints)
+object::object(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> npoints) : points(*npoints)
 {	
 	updateShape();
 }
