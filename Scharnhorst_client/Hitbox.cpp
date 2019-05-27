@@ -33,6 +33,11 @@ Hitbox::odcinek::odcinek()
 
 }
 
+Hitbox::Hitbox()
+{
+
+}
+
 Hitbox::Hitbox(sf::ConvexShape polygona) 
 	{
 		float temx, temy; // x i y wzglêdem pocz¹tku uk³adu
