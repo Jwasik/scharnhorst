@@ -7,6 +7,13 @@
 LocalGame::LocalGame()
 {
 	kamera = Camera(sf::Vector2f(1024, 768));
+
+	sf::ConvexShape defaultShape;
+	defaultShape.setPointCount(3);
+	defaultShape.setPoint(0, sf::Vector2f(15,0));
+	defaultShape.setPoint(1, sf::Vector2f(30,30));
+	defaultShape.setPoint(2, sf::Vector2f(0,30));
+	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10)));
 	
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
@@ -40,6 +47,7 @@ void LocalGame::gameLoop()
 	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -461));
 	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -336));
 	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 451));
+	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst 150 turret")), sf::Vector2f(1, 200));
 
 	sf::Clock time;
 	time.restart();
@@ -245,29 +253,45 @@ bool LocalGame::loadBullets()
 	float x, y;
 	float speed, damage;
 
-	while (!in.eof())
+	while (true)
 	{
-		endWord = ' ';
+		std::cout << "next" << std::endl;
+		endWord = "ERR";
 
 		std::getline(in, name);
+		std::cout << name << std::endl;
+
 		in >> pointCount;
+		std::cout << pointCount << std::endl;
+
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
 		sf::ConvexShape bulletShape;
 		bulletShape.setPointCount(pointCount);
 		bulletShape.setFillColor(sf::Color::Red);
+		
 		for (unsigned int i = 0; i < pointCount; i++)
 		{
 			in >> x;
 			in >> y;
 			bulletShape.setPoint(i,sf::Vector2f(x,y));
+			std::cout << x << ' ' << y << std::endl;
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 		//Origin
 		in >> x;
 		in >> y;
 		bulletShape.setOrigin(x,y);
+		std::cout << x << ' ' << y << std::endl;
 		in >> speed;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		in >> damage;
-		in >> endWord;
-		if (endWord != "END_BULLET")continue;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		std::cout << speed << ' ' << damage << std::endl;
+		std::getline(in, endWord);
+		std::cout << endWord << std::endl;
+		
+		if (endWord != "END_BULLET")break;
 		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage)));
 	}
 	return 1;
@@ -310,12 +334,13 @@ bool LocalGame::loadBarrels()
 			if (x > maxx)maxx = x;
 			if (y > maxy)maxy = y;
 		}
-		barrelShape.setOrigin(sf::Vector2f(maxx/2,maxy));
+		barrelShape.setOrigin(sf::Vector2f(maxx/2,0));
 
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
 
 		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), bulletSize)));
+		barrelData.back().second.length = maxy;
 	}
 	return 1;
 }
@@ -371,7 +396,7 @@ bool LocalGame::loadTurrets()
 			std::getline(in, cannonType);
 			in >> x;
 			in >> y;
-			newTurret->addBarrel(findBarrel(cannonType),sf::Vector2f(x,y)+ findBarrel(cannonType).getOrigin());
+			newTurret->addBarrel(findBarrel(cannonType),sf::Vector2f(x,y- findBarrel(cannonType).length)+ findBarrel(cannonType).getOrigin());
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}		
 		std::getline(in, endWord);

@@ -234,7 +234,6 @@ void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets,f
 {
 	for (auto & barrel : barrels)
 	{
-		std::cout << this->turretAngle << std::endl;
 		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), float(fmod(this->turretAngle+shipAngle,360)), "noone" });
 	}
 }

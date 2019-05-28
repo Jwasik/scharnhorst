@@ -7,6 +7,7 @@ struct Barrel : public movable
 
 public:
 	unsigned int barrelSize;
+	float length;//D³ugoœæ lufy
 	std::shared_ptr<Bullet> mainBulletType;
 	std::string name;
 	Hitbox::punktNaOkregu punkt;
