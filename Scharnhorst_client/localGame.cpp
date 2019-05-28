@@ -14,6 +14,8 @@ LocalGame::LocalGame()
 	defaultShape.setPoint(1, sf::Vector2f(30,30));
 	defaultShape.setPoint(2, sf::Vector2f(0,30));
 	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10)));
+
+	if (!this->loadGameFiles())throw 'E';
 	
 	this->playerName = "Karl";
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
@@ -22,10 +24,12 @@ LocalGame::LocalGame()
 	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
+	this->player->setShip(this->findShip("Scharnhorst"));
 }
 
 void LocalGame::gameLoop()
 {
+	this->player->setShip(this->findShip("Scharnhorst"));
 	if (!this->loadBullets())
 	{
 		std::cout << std::endl<< "cannot load bullet data" << std::endl;
@@ -42,12 +46,6 @@ void LocalGame::gameLoop()
 		return;
 	}
 	this->loadMap();
-
-	/*LOAD PLAYER*/
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -461));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, -336));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst main turret")), sf::Vector2f(1, 451));
-	this->player->getShip()->addTurret(std::make_shared<Turret>(this->findTurret("scharnhorst 150 turret")), sf::Vector2f(1, 200));
 
 	sf::Clock time;
 	time.restart();
@@ -255,14 +253,11 @@ bool LocalGame::loadBullets()
 
 	while (true)
 	{
-		std::cout << "next" << std::endl;
 		endWord = "ERR";
 
 		std::getline(in, name);
-		std::cout << name << std::endl;
 
 		in >> pointCount;
-		std::cout << pointCount << std::endl;
 
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -275,21 +270,17 @@ bool LocalGame::loadBullets()
 			in >> x;
 			in >> y;
 			bulletShape.setPoint(i,sf::Vector2f(x,y));
-			std::cout << x << ' ' << y << std::endl;
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
 		//Origin
 		in >> x;
 		in >> y;
 		bulletShape.setOrigin(x,y);
-		std::cout << x << ' ' << y << std::endl;
 		in >> speed;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		in >> damage;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		std::cout << speed << ' ' << damage << std::endl;
 		std::getline(in, endWord);
-		std::cout << endWord << std::endl;
 		
 		if (endWord != "END_BULLET")break;
 		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage)));
@@ -349,13 +340,11 @@ bool LocalGame::loadTurrets()
 	std::fstream in("gamedata/turrets.dat");
 	if (!in.good())return 0;
 
-	sf::Vector2f turretPositionFromShip;
-
 	std::string name, cannonType, endWord;
 	unsigned int point_count;
 	while (!in.eof())
 	{
-		endWord = "none";
+		endWord = "ERR";
 		std::shared_ptr<Turret> newTurret;
 
 		unsigned int pointCount = 0;
@@ -407,7 +396,81 @@ bool LocalGame::loadTurrets()
 }
 bool LocalGame::loadShips()
 {
-	return false;
+	std::fstream in("gamedata/ships.dat");
+	if (!in.good())return 0;
+
+	std::string name, endWord;
+	unsigned int point_count;
+	while (true)
+	{
+		endWord = "ERR";
+		std::shared_ptr<Ship> newShip;
+
+		unsigned int pointCount = 0;
+		float x, y;
+		sf::ConvexShape shipShape;
+
+		shipShape.setFillColor(sf::Color::Red);
+
+		std::getline(in, name);//nazwa
+		float parameters[6];//parametry
+		in >> parameters[0];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[1];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[2];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[3];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[4];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> parameters[5];
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		in >> pointCount;//ilość punktów
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		shipShape.setPointCount(pointCount);
+		float maxx=0, maxy=0;
+		for (unsigned int i = 0; i < pointCount; i++)//punkty
+		{
+			in >> x;
+			in >> y;
+			if (x > maxx)maxx = x;
+			if (y > maxy)maxy = y;
+			shipShape.setPoint(i, sf::Vector2f(x, y));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		}
+		shipShape.setOrigin(sf::Vector2f(maxx/2, maxy/2));//origin
+
+		newShip = std::make_shared<Ship>(name, parameters, shipShape);
+
+		unsigned int turretCount = 0;
+		in >> turretCount;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::string turretName;
+		float turretRestrictedArea[2];
+		for (unsigned int i = 0; i < turretCount; i++)
+		{
+			std::getline(in,turretName);
+			in >> x;
+			in >> y;
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			in >> turretRestrictedArea[0];
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			in >> turretRestrictedArea[1];
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::shared_ptr<Turret> newTurret = std::make_shared<Turret>(this->findTurret(turretName));
+			newTurret->setRestrictedArea(parameters);
+			newShip->addTurret(newTurret,sf::Vector2f(x,y));
+		}
+		
+		std::getline(in, endWord);
+		if (endWord != "END_SHIP")break;
+		shipData.push_back(std::pair<std::string, Ship>(name, Ship(*newShip)));
+	}
+	return 1;
 }
 Bullet LocalGame::findBullet(std::string name)
 {
@@ -432,6 +495,14 @@ Turret LocalGame::findTurret(std::string name)
 		if (turret.first == name)return turret.second;
 	}
 	return turretData.front().second;
+}
+Ship LocalGame::findShip(std::string name)
+{
+	for (auto &ship : shipData)
+	{
+		if (ship.first == name)return ship.second;
+	}
+	return shipData.front().second;
 }
 bool LocalGame::connectToServer(const std::string &adress)
 {
@@ -537,8 +608,7 @@ void LocalGame::sendMessage()
 
 bool LocalGame::loadGameFiles()
 {
-	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets())return true;
-	this->loadShips();
+	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets() && this->loadShips())return true;
 	return false;
 }
 

@@ -1,5 +1,3 @@
-unsigned short ilosc
-
 string NAZWA
 float max_turn_acceleration
 float engine_power
@@ -8,15 +6,18 @@ float length
 float max_speed
 float mass
 
-unsigned short liczba_punktów
-{x
+unsigned int liczba_punktów
+{
 punkt x y
+}
+origin x y
+
+unsigned int liczba_wie¿
+{
+string NAZWA_WIE¯Y (typ)
+punkt x y
+float ograniczenie obrotu lewo
+float ograniczenie obrotu prawo
 }
 
-unsigned short liczba_wie¿
-{x
-string NAZWA_WIE¯Y (typ)
-string TYP_ARMAT
-punkt x y
-}
-keyword END
+END_SHIP

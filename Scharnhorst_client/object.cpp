@@ -27,7 +27,7 @@ void object::changePoint(int count, std::shared_ptr<sf::Vector2f> position)
 
 void object::updateShape()
 {
-	int counter = 0;
+	unsigned int counter = 0;
 	setPointCount(points.size());
 	for (auto point : points)
 	{

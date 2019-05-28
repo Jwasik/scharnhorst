@@ -109,6 +109,11 @@ void Player::shoot()
 	this->playerShip->shoot(this->newBullets);
 }
 
+void Player::setShip(Ship newShip)
+{
+	*(this->playerShip) = newShip;
+}
+
 
 
 Player::~Player()

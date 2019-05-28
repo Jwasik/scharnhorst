@@ -2,6 +2,12 @@
 #include "turret.h"
 
 
+void Turret::setRestrictedArea(float angles[2])
+{
+	this->restrictedArea[0] = angles[0];
+	this->restrictedArea[1] = angles[1];
+}
+
 Turret::Turret()
 {
 	shape.setPointCount(3);

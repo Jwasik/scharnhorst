@@ -3,6 +3,7 @@
 #include "player.h"
 #include "turret.h"
 #include "bullet.h"
+#include "ship.h"
 #include <string>
 #include <fstream>
 
@@ -37,6 +38,7 @@ private:
 	std::vector<std::pair<std::string,Bullet>> bulletData;
 	std::vector<std::pair<std::string,Barrel>> barrelData;
 	std::vector<std::pair<std::string,Turret>> turretData;
+	std::vector<std::pair<std::string,Ship>> shipData;
 
 	std::map<std::string,sf::Texture> textures;
 	sf::TcpSocket orderSocket;
@@ -50,6 +52,7 @@ private:
 	Bullet findBullet(std::string);
 	Barrel findBarrel(std::string);
 	Turret findTurret(std::string);
+	Ship findShip(std::string);
 
 public:
 	bool connectToServer(const std::string&);

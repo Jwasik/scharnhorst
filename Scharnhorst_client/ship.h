@@ -50,7 +50,7 @@ public:
 	void setName(std::string);
 	std::string getName();
 	Ship();
-	Ship(std::string&,float[6],unsigned short);
+	Ship(std::string&,float[6],sf::ConvexShape);
 	~Ship();
 };
 

@@ -38,6 +38,7 @@ protected:
 	bool turretCanDo360;
 	int middleOfLockedArea;
 
+
 public:
 	Turret();
 	Turret(const Turret & Turret);
@@ -59,5 +60,6 @@ public:
 	void addPoint(int number, sf::Vector2f point);
 	void addBarrel(Barrel, sf::Vector2f);
 	void setTurretPosition(sf::Vector2f);
+	void setRestrictedArea(float[2]);
 };
 

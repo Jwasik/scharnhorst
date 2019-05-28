@@ -28,6 +28,7 @@ public:
 	void draw(sf::RenderWindow&);
 	void rotateTurretsTo(float angleOfView);
 	void shoot();
+	void setShip(Ship);
 
 	std::shared_ptr<Ship>& getShip();
 	Player();
