@@ -34,6 +34,7 @@ protected:
 	float restrictedArea[2];//k¹towy obszar w którym Turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
 	float arestrictedArea[2];
 	float turretAngle;
+	bool turretCanDo360;
 	int middleOfLockedArea;
 
 public:

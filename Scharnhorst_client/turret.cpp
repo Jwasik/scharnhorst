@@ -85,6 +85,8 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 
 
 	if (restrictedArea[0] != restrictedArea[1])
+	{
+		turretCanDo360 = 0;
 		if (restrictedArea[0] > restrictedArea[1])
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
@@ -94,11 +96,18 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
 		}
-	else middleOfLockedArea = 0;
+	}	
+	else turretCanDo360 = 1;
+
 }
 
 void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nshipOrigin, float dTime)
 {
+	if (turretCanDo360 = 1)
+	{
+		middleOfLockedArea = (changeAngle(turretAngle, shipAngle) + 180);
+		middleOfLockedArea = middleOfLockedArea % 360;
+	}
 	arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);
 	arestrictedArea[1] = changeAngle(restrictedArea[1], shipAngle);
 	
@@ -122,6 +131,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			else
 			{
 				turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
+				if(turretCanDo360 == 0)
 				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
 					turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
@@ -138,6 +148,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			else
 			{
 				turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
+				if (turretCanDo360 == 0)
 				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
 					turretAngle = movable::changeAngle(this->turretAngle, rotationSpeed * dTime);
@@ -145,7 +156,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			}
 		}
 	shape.setRotation(changeAngle(turretAngle, shipAngle));
-	//std::cout << turretAngle << ' ' << shipAngle << std::endl;
+	
 	for (auto &barrel : barrels)
 	{
 		barrel->updatePosition(changeAngle(turretAngle, shipAngle), position);

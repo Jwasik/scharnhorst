@@ -1,23 +1,10 @@
-﻿  localGame.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(61): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
-          with
-          [
-              T=unsigned int
-          ]
-          and
-          [
-              T=float
-          ]
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(281): warning C4101: 'point_count': unreferenced local variable
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(330): warning C4101: 'point_count': unreferenced local variable
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(539): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
-  turret.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(64): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(69): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(90): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(95): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(105): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\turret.cpp(181): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-  Generating Code...
-  Scharnhorst_client.vcxproj -> C:\Users\Wanioch\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
+﻿  turret.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(64): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(69): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(92): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(97): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(108): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(114): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(115): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(192): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
+  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe
