@@ -1,19 +1,2 @@
-﻿  bullet.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  functions.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  localGame.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  movable.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  physical.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  player.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  Scharnhorst_client.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  ship.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  turret.cpp
-c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\includes.h(2): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
-  Generating Code...
+﻿  pch.cpp
+c:\users\wanioch\documents\github\scharnhorst\scharnhorst_client\hitbox.h(3): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory

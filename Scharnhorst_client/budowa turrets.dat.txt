@@ -1,0 +1,18 @@
+string nazwa
+unsigned int point_count
+{
+unsigned int x y
+}
+int origin_x y
+
+float prêdkoœæ_obrotu
+float ograniczenie_obrotu_w_lewo
+float ograniczenie_obrotu_w_prawo
+
+unsigned int cannon_count
+{
+string nazwa_dzia³a
+unsigned int x y
+}
+
+END_TURRET

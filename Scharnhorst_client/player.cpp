@@ -1,10 +1,15 @@
 #include "pch.h"
 #include "player.h"
 
-
 unsigned int Player::getPlayerId()
 {
 	return this->playerId;
+}
+
+void Player::setShipName(std::string name)
+{
+	this->playerShipNameText.setString(name);
+	this->getShip()->setName(name);
 }
 
 void Player::setId(unsigned int newId)
@@ -19,6 +24,9 @@ void Player::doStuff(double &deltaTime)
 	if (this->playerShip != nullptr)
 	{
 		playerShip->swim(deltaTime);
+		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));//Nazwa gracza
+		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));//Nazwa statku
+		this->getShip()->setTurrets(this->angleOfView, deltaTime);
 	}
 }
 
@@ -33,14 +41,31 @@ void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, un
 	sendingPacket << this->getShip()->getPosition().x;
 	sendingPacket << this->getShip()->getPosition().y;
 	sendingPacket << this->getShip()->getRotation();
-	sendingPacket << this->getShip()->getCannonRotation();
+	sendingPacket << this->angleOfView;
 
 	socket.send(sendingPacket,address,port);
+}
+
+void Player::sendBullets(sf::TcpSocket &socket)
+{
+	for (auto & bullet : *newBullets)
+	{
+		sf::Packet bulletPacket;
+		bulletPacket.clear();
+
+		std::string order = "BUL";
+		bulletPacket << order;
+		bulletPacket << bullet;
+		socket.send(bulletPacket);
+	}
+	newBullets->clear();
 }
 
 void Player::draw(sf::RenderWindow &window)
 {
 	this->playerShip->draw(window);
+	window.draw(playerNameText);
+	window.draw(playerShipNameText);
 }
 
 
@@ -52,21 +77,38 @@ std::shared_ptr<Ship> & Player::getShip()
 Player::Player()
 {
 	playerShip = std::make_shared<Ship>();
+	this->newBullets = std::make_shared<std::vector<jw::bulletInfo>>();
+	angleOfView = 0;
+
+	this->playerNameFont.loadFromFile("PressStart2P.ttf");
+	this->playerNameText.setFont(this->playerNameFont);
+	this->playerShipNameText.setFont(this->playerNameFont);
+
+	this->playerNameText.setFillColor(sf::Color::Blue);
+
+	this->playerShipNameText.setFillColor(sf::Color::Red);
+	playerShipNameText.setCharacterSize(20);
 }
 
-Player::Player(unsigned int id, std::string playerName)
+Player::Player(unsigned int id, std::string playerName, std::string shipType) : Player()
 {
-	this->playerShip = std::make_shared<Ship>();
 	this->playerId = id;
 	this->playerName = playerName;
+
+	this->playerNameText.setString(playerName);
+	this->playerShipNameText.setString(shipType);
 }
 
-Player::Player(unsigned int id, std::string playerName, std::string shipType)
+void Player::rotateTurretsTo(float angleOfView)
 {
-	this->playerShip = std::make_shared<Ship>();
-	this->playerId = id;
-	this->playerName = playerName;
+	this->angleOfView = angleOfView;
 }
+
+void Player::shoot()
+{
+	this->playerShip->shoot(this->newBullets);
+}
+
 
 
 Player::~Player()
