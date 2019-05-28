@@ -51,7 +51,7 @@
     <ClInclude Include="Hitbox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="object.h">
+    <ClInclude Include="nemovable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

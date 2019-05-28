@@ -10,8 +10,9 @@ void Bullet::calculateMovementVector()
 void Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime;
-	this->tracer = Hitbox::odcinek(this->tracer.b, this->tracer.b + sf::Vector2f(distance * movementVector.x, -distance * movementVector.y));
-	this->shape.setPosition(tracer.b);
+	this->shape.setPosition(this->shape.getPosition() + sf::Vector2f(distance * movementVector.x, -distance * movementVector.y));
+
+	this->tracer = Hitbox::odcinek(this->tracer.b, this->shape.getPosition());
 }
 
 void Bullet::draw(sf::RenderWindow& window)

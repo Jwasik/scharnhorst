@@ -1,10 +1,44 @@
-﻿  turret.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(64): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(69): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(92): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(97): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(108): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(114): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(115): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(192): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
+﻿  Scharnhorst_client.cpp
+  bullet.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\bullet.cpp(12): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+  localGame.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(67): warning C4244: "argument": konwersja z "T" do "T", możliwa utrata danych
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(296): warning C4101: "point_count": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(344): warning C4101: "point_count": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(403): warning C4101: "point_count": lokalna zmienna, do której nie istnieje odwołanie
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\localgame.cpp(634): warning C4244: "argument": konwersja z "unsigned int" do "float", możliwa utrata danych
+  object.cpp
+  player.cpp
+  ship.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(84): warning C4244: "-=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(88): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(93): warning C4244: "+=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(102): warning C4244: "=": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(103): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(104): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(149): warning C4244: "inicjowanie": konwersja z "double" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(150): warning C4244: "argument": konwersja z "double" do "T", możliwa utrata danych
+          with
+          [
+              T=float
+          ]
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\ship.cpp(158): warning C4244: "argument": konwersja z "double" do "float", możliwa utrata danych
+  turret.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(70): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(75): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(98): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(103): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(114): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(120): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(121): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(198): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
+  Generowanie kodu...
   Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

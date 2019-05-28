@@ -164,7 +164,7 @@
     <ClInclude Include="includes.h" />
     <ClInclude Include="localGame.h" />
     <ClInclude Include="movable.h" />
-    <ClInclude Include="object.h" />
+    <ClInclude Include="nemovable.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="physical.h" />
     <ClInclude Include="player.h" />
