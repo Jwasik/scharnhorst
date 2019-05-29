@@ -61,7 +61,12 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 	this->actualSpeed = 0;
 	this->acceleration = enginePower / mass;
 
-	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
+	this->shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
+	this->bodyProjection.setPointCount(4);
+	for (int i = 0; i < 4; i++)
+	{
+		bodyProjection.setPoint(i, sf::Vector2f(0, 0));
+	}
 }
 
 
@@ -175,6 +180,36 @@ void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurr
 	{
 		turret->shoot(bulletsGotFromTurret,angle);
 	}
+}
+
+void Ship::createBodyprojection()
+{
+	int pointCount;
+	pointCount = shape.getPointCount;
+	for (int i = 0; i < pointCount; i++)
+	{
+		if (this->shape.getPoint(i).y <= this->bodyProjection.getPoint(1).y)
+		{
+			bodyProjection.setPoint(1, shape.getPoint(i));
+			continue;
+		}
+		if (this->shape.getPoint(i).x >= this->bodyProjection.getPoint(2).x)
+		{
+			bodyProjection.setPoint(2, shape.getPoint(i));
+			continue;
+		}
+		if (this->shape.getPoint(i).y >= this->bodyProjection.getPoint(3).y)
+		{
+			bodyProjection.setPoint(3, shape.getPoint(i));
+			continue;
+		}
+		if (this->shape.getPoint(i).x <= this->bodyProjection.getPoint(4).x)
+		{
+			bodyProjection.setPoint(4, shape.getPoint(i));
+			continue;
+		}
+	}
+	this->body = Hitbox(bodyProjection);
 }
 
 

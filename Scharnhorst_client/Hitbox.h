@@ -14,6 +14,7 @@ class Hitbox // klasa opisuj¹cy obiekt namacalny wirtualnie i jego ConvexShape
 private:
 	struct odcinek;
 	struct punktNaOkregu;
+	struct crossHitbox;
 
 	sf::Vector2f RotationPoint; // wspó³rzêdne osi obrotu
 	std::vector<punktNaOkregu> punkty; // dziêki nim ³¹two jest obracaæ woko³o osi hitboxa
@@ -24,6 +25,8 @@ private:
 	std::vector<odcinek> odcinki; // odcinki z jakich siê sk³ada hitbox, czyli to wodec czego bêdzie wykrywana kolizja, ich iloœæ proporcjonalnie przek³ada siê na z³o¿onoœæ obliczeniow¹ kolizji
 
 public:
+
+	
 	struct odcinek
 	{
 
@@ -34,6 +37,13 @@ public:
 		bool intersects(odcinek o1); //sprawdza czy odcinki siê przecinaj¹
 		odcinek();
 	};
+	struct corssHitbox
+	{
+		odcinek hor, ver;
+
+
+	};
+	
 	struct punktNaOkregu // punkt zorientowany w sposób odleg³oœæ od œrodka okrêgu: 'r', i k¹t 'a' pomiêdzy pionowym w górê promieniem 
 	{
 		float r;

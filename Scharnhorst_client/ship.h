@@ -11,6 +11,8 @@ class Ship : public movable
 private:
 
 public:
+	sf::ConvexShape bodyProjection;
+	Hitbox body;
 
 	float width; // [m]
 	float length; // [m]
@@ -33,7 +35,7 @@ public:
 
 public:
 
-
+	void createBodyprojection();
 	void draw(sf::RenderWindow&);
 	void accelerate(double);
 	void swim(double); //przesówa i obraca statek raz na klatkê oraz go rysuje(dziêki physical::draw które w przysz³oœci zostanie zmieniona na bitmapê) 
