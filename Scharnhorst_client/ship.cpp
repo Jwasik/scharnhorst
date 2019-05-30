@@ -60,14 +60,14 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 
 	this->type = name;
 	this->gear = 0;
-	this->maxTurnAcceleration = parameters[0];
-	this->enginePower = parameters[1];
+	this->maxTurnAcceleration = 55;//parameters[0];
+	this->enginePower = 1000000;//parameters[1];
 	this->width = parameters[2];
 	this->length = parameters[3];
-	this->maxSpeed = parameters[4];
+	this->maxSpeed = parameters[4]*8;
 	this->mass = parameters[5];
 	this->actualSpeed = 0;
-	this->acceleration = enginePower / mass;
+	this->acceleration = (enginePower / mass)*20;
 
 	this->shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 	this->bodyProjection.setPointCount(4);
@@ -135,7 +135,10 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 	if (gear != 0)
 	{
 		actualSpeed += acceleration * gear*0.25 * deltaTime;
+
 	}
+
+	std::cout << actualSpeed << std::endl;
 }
 
 
@@ -144,8 +147,22 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 void Ship::spin(bool direction, double dtime)
 {
 	turnAcceleration = maxTurnAcceleration * sin(PI*0.6*(actualSpeed / maxSpeed));
-	if (direction == 1)this->rotate(dtime*turnAcceleration);
-	else this->rotate(-1 * dtime*turnAcceleration);
+	if (direction == 1)
+	{
+		this->rotate(dtime*turnAcceleration);
+		hitbox[0].rotate(dtime*turnAcceleration);
+		hitbox[1].rotate(dtime*turnAcceleration);
+
+	}
+	else
+	{
+		this->rotate(-1 * dtime*turnAcceleration);
+		hitbox[0].rotate(-1 * dtime*turnAcceleration);
+		hitbox[1].rotate(-1 * dtime*turnAcceleration);
+
+	}
+
+	
 }
 
 void Ship::changeGear(bool change)
@@ -192,6 +209,13 @@ void Ship::swim(double deltaTime)
 	this->accelerate(deltaTime);
 	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
+	this->hitbox[0].setPosition(shape.getPosition());
+	this->hitbox[1].setPosition(shape.getPosition());
+	std::cout << shape.getPosition().x << std::endl;
+
+	this->hitbox[0].updateVisual();
+	this->hitbox[1].updateVisual();
+
 }
 
 void Ship::setTurrets(float &mouseAngle, double &dTime)
@@ -211,8 +235,10 @@ void Ship::draw(sf::RenderWindow& window)
 		turret->draw(window);
 	}
 	/*this->hitboxes[0].setPosition(this->shape.getPosition());
-	this->hitboxes[0].setRotation(this->shape.getRotation());
-	window.draw(this->hitboxes[0]);*/
+	this->hitboxes[0].setRotation(this->shape.getRotation());*/
+	window.draw(hitbox[0].line);
+	window.draw(hitbox[1].line);///do testów(usuñ)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 }
 
 void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurret)

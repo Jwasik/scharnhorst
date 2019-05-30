@@ -111,7 +111,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 {
 	if (turretCanDo360 = 1)
 	{
-		middleOfLockedArea = (changeAngle(turretAngle, shipAngle) + 180);
+		middleOfLockedArea = turretAngle + 180;
 		middleOfLockedArea = middleOfLockedArea % 360;
 	}
 	arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);

@@ -1,6 +1,10 @@
-﻿  pch.cpp
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(31): error C2079: "Hitbox::corssHitbox::hor" używa niezdefiniowanego struct "Hitbox::odcinek"
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(35): warning C4240: użyto niestandardowego rozszerzenia: dostęp do „Hitbox::odcinek” teraz zdefiniowany jako „public”, poprzednio został zdefiniowany jako „private”
-  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(15): note: zobacz deklarację „Hitbox::odcinek”
-c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(46): warning C4240: użyto niestandardowego rozszerzenia: dostęp do „Hitbox::punktNaOkregu” teraz zdefiniowany jako „public”, poprzednio został zdefiniowany jako „private”
-  c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\hitbox.h(16): note: zobacz deklarację „Hitbox::punktNaOkregu”
+﻿  turret.cpp
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(70): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(75): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(98): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(103): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(114): warning C4244: "=": konwersja z "float" do "int", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(120): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(121): warning C4244: "argument": konwersja z "int" do "float", możliwa utrata danych
+c:\users\maciej\documents\github\scharnhorst\scharnhorst_client\turret.cpp(197): warning C4244: "+=": konwersja z "float" do "int", możliwa utrata danych
+  Scharnhorst_client.vcxproj -> C:\Users\Maciej\Documents\GitHub\scharnhorst\Debug\Scharnhorst_client.exe

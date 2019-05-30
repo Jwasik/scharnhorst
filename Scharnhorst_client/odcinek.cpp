@@ -4,6 +4,8 @@
 odcinek::odcinek(sf::Vector2f a, sf::Vector2f b) : punkt1(a), punkt2(b)
 {
 	orgin = sf::Vector2f(0, 0);
+	oa.a = 0;
+	ob.a = 0;
 
 	line = sf::VertexArray(sf::LineStrip, 2);
 	line[0].position = a;
@@ -20,34 +22,39 @@ float sNR(float s)
 	return (s / 180.0) * M_PI;
 }
 
-void odcinek::rotate(float angle)
+void odcinek::rotate(float angle) 
 {
-	oa = zamienNaPunktNaOkregu(punkt1, orgin);
-	ob = zamienNaPunktNaOkregu(punkt2, orgin);
-	
-	this->oa.r = this->oa.r + angle;
-	if (this->oa.r > 360)
+	oa = zamienNaPunktNaOkregu(punkt1 - orgin, orgin);
+	ob = zamienNaPunktNaOkregu(punkt2 - orgin, orgin);
+
+	this->oa.a += angle;
+
+	if (this->oa.a > 360)
 	{
-		this->oa.r -= 360;
+		this->oa.a -= 360;
 	}
-	this->ob.r = this->ob.r + angle;
-	if (this->ob.r > 360)
+	this->ob.a = this->ob.a + angle;
+	if (this->ob.a > 360)
 	{
-		this->ob.r -= 360;
+		this->oa.a -= 360; 
 	}
 
 
 	punkt1 = oa.zamienNaPunkt(orgin);
 	punkt2 = ob.zamienNaPunkt(orgin);
 }
-void odcinek::setRotation(float angle)
+void odcinek::setRotation(float angle) // nie dzi³a
 {
 	oa = zamienNaPunktNaOkregu(punkt1, orgin);
 	ob = zamienNaPunktNaOkregu(punkt2, orgin);
 
-	this->oa.r = angle;
-	this->ob.r = angle;
-	  
+
+
+	this->oa.a = angle;
+	this->ob.a = angle;
+
+
+
 	punkt1 = oa.zamienNaPunkt(orgin);
 	punkt2 = ob.zamienNaPunkt(orgin);
 }
@@ -104,4 +111,20 @@ punktNaOkregu zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkreg
 		tem.a += 270;
 	}
 	return tem;
+}
+
+void odcinek::setPosition(sf::Vector2f position)
+{
+	punkt1 -= orgin;
+	punkt2 -= orgin;
+
+	orgin = position;
+
+	punkt1 += orgin;
+	punkt2 += orgin;
+
+
+
+
+
 }

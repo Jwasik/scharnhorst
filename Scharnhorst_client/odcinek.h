@@ -37,6 +37,8 @@ public:
 	void move(sf::Vector2f moveBy);//przemieszcza punkty i orgin
 	void updateVisual(); //aktualizuje line
 	void setOrgin(sf::Vector2f);//ustawia orgin
+	void setPosition(sf::Vector2f);
+
 
 	odcinek();
 };
