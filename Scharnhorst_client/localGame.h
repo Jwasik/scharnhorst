@@ -6,6 +6,7 @@
 #include "ship.h"
 #include <string>
 #include <fstream>
+#include <SFML/Audio.hpp>
 
 
 class LocalGame
@@ -35,6 +36,8 @@ private:
 	std::vector<Bullet> bullets;//œwiadomie zrobi³em bez wskaŸnika, zapytaj siê potem dlaczego
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
 
+	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> sounds;
+
 	std::vector<std::pair<std::string,Bullet>> bulletData;
 	std::vector<std::pair<std::string,Barrel>> barrelData;
 	std::vector<std::pair<std::string,Turret>> turretData;
@@ -47,6 +50,7 @@ private:
 	bool loadBullets();
 	bool loadBarrels();
 	bool loadTurrets();
+	bool loadSounds();
 	bool loadShips();
 
 	Bullet findBullet(std::string);
