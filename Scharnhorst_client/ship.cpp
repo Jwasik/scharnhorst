@@ -50,8 +50,8 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 	hitboxes[0].setOrigin(sf::Vector2f(130,15));*/
 
 	auto temporaryOrigin = this->shape.getOrigin();
-	this->hitbox[0] = odcinek(sf::Vector2f(0, temporaryOrigin.y), sf::Vector2f(temporaryOrigin.x * 2, temporaryOrigin.y));
-	this->hitbox[1] = odcinek(sf::Vector2f(temporaryOrigin.y, 0), sf::Vector2f(temporaryOrigin.x, temporaryOrigin.y * 2));
+	this->hitbox[0] = odcinek(sf::Vector2f(0, 0/*temporaryOrigin.y*/), sf::Vector2f(/*temporaryOrigin.x * 2*/0, 0/*temporaryOrigin.y*/));
+	this->hitbox[1] = odcinek(sf::Vector2f(/*temporaryOrigin.y*/0, 0), sf::Vector2f(/*temporaryOrigin.x*/0, 0/*temporaryOrigin.y * 2*/));
 
 	this->shape.move(shape.getOrigin());
 	this->shape.move(sf::Vector2f(128, 512));
@@ -70,11 +70,12 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 	this->acceleration = (enginePower / mass)*20;
 
 	this->shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
-	this->bodyProjection.setPointCount(4);
-	for (int i = 0; i < 4; i++)
+	//this->bodyProjection.setPointCount(4);
+	/*for (int i = 0; i < 4; i++)
 	{
 		bodyProjection.setPoint(i, sf::Vector2f(0, 0));
-	}
+	}*/
+	createBodyprojection();
 }
 
 
@@ -111,6 +112,7 @@ Ship::Ship(const Ship &newShip)
 	{
 		this->turrets.push_back(std::make_shared<Turret>(*turret));
 	}
+	createBodyprojection();
 }
 
 float Ship::calculateAcceleration()
@@ -138,7 +140,7 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 
 	}
 
-	std::cout << actualSpeed << std::endl;
+	//std::cout << actualSpeed << std::endl;
 }
 
 
@@ -211,7 +213,7 @@ void Ship::swim(double deltaTime)
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
 	this->hitbox[0].setPosition(shape.getPosition());
 	this->hitbox[1].setPosition(shape.getPosition());
-	std::cout << shape.getPosition().x << std::endl;
+	//std::cout << shape.getPosition().x << std::endl;
 
 	this->hitbox[0].updateVisual();
 	this->hitbox[1].updateVisual();
@@ -256,28 +258,36 @@ void Ship::createBodyprojection()
 	pointCount = shape.getPointCount();
 	for (int i = 0; i < pointCount; i++)
 	{
-		if (this->shape.getPoint(i).y <= this->bodyProjection.getPoint(1).y)
+		if (this->shape.getPoint(i).y <= hitbox[0].punkt1.y)
 		{
-			bodyProjection.setPoint(1, shape.getPoint(i));
+			hitbox[0].punkt1 = shape.getPoint(i);
 			continue;
 		}
-		if (this->shape.getPoint(i).x >= this->bodyProjection.getPoint(2).x)
+		if (this->shape.getPoint(i).x >= hitbox[1].punkt1.x)
 		{
-			bodyProjection.setPoint(2, shape.getPoint(i));
+			hitbox[1].punkt1 = shape.getPoint(i);
+
 			continue;
 		}
-		if (this->shape.getPoint(i).y >= this->bodyProjection.getPoint(3).y)
+		if (this->shape.getPoint(i).y >= this->hitbox[0].punkt2.y)
 		{
-			bodyProjection.setPoint(3, shape.getPoint(i));
+			hitbox[0].punkt2 = shape.getPoint(i);
+
 			continue;
 		}
-		if (this->shape.getPoint(i).x <= this->bodyProjection.getPoint(4).x)
+		if (this->shape.getPoint(i).x <= hitbox[1].punkt2.x)
 		{
-			bodyProjection.setPoint(4, shape.getPoint(i));
+			hitbox[1].punkt2 = shape.getPoint(i);
+
 			continue;
 		}
 	}
-	this->body = Hitbox(bodyProjection);
+
+	/*for (int i = 0; i < pointCount; i++)
+	{
+		std::cout << shape.getPoint(i).x << " " << shape.getPoint(i).y << std::endl;
+	}*/
+
 }
 
 
