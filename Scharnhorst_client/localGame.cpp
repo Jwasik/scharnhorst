@@ -30,25 +30,20 @@ LocalGame::LocalGame()
 void LocalGame::gameLoop()
 {
 	this->player->setShip(this->findShip("Scharnhorst"));
-	if (!this->loadBullets())
-	{
-		std::cout << std::endl<< "cannot load bullet data" << std::endl;
-		return;
-	}
-	if (!this->loadBarrels())
-	{
-		std::cout << std::endl << "cannot load barrel data" << std::endl;
-		return;
-	}
-	if (!this->loadTurrets())
-	{
-		std::cout << std::endl << "cannot load turret data" << std::endl;
-		return;
-	}
-	this->loadMap();
 
 	sf::Clock time;
 	time.restart();
+
+	sf::Sound sound1;
+	sound1.setVolume(100);
+	for (auto &sound : sounds)
+	{
+		if (sound.first == "a.wav")
+		{
+			sound1.setBuffer(*(sound.second));
+		}
+	}
+	sound1.play();
 
 	double deltaTime;
 	while (window->isOpen())
@@ -285,6 +280,7 @@ bool LocalGame::loadBullets()
 		if (endWord != "END_BULLET")break;
 		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage)));
 	}
+	in.close();
 	return 1;
 }
 bool LocalGame::loadBarrels()
@@ -333,6 +329,7 @@ bool LocalGame::loadBarrels()
 		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), bulletSize)));
 		barrelData.back().second.length = maxy;
 	}
+	in.close();
 	return 1;
 }
 bool LocalGame::loadTurrets()
@@ -392,7 +389,24 @@ bool LocalGame::loadTurrets()
 		if (endWord != "END_TURRET")return 0;
 		turretData.push_back(std::pair<std::string,Turret>(name,Turret(*newTurret)));
 	}
+	in.close();
 	return 1;
+}
+bool LocalGame::loadSounds()
+{
+	std::ifstream in("gamedata/sounds/file_list.txt");
+	if (!in.good())return 0;
+
+	std::string filename;
+	std::shared_ptr<sf::SoundBuffer> buffer;
+	while (!in.eof())
+	{
+		buffer = std::make_shared<sf::SoundBuffer>();
+		in >> filename;
+		if (!buffer->loadFromFile("gamedata/sounds/"+filename))continue;
+		this->sounds.insert(std::pair<std::string,std::shared_ptr<sf::SoundBuffer>>(filename,buffer));
+	}
+	return true;
 }
 bool LocalGame::loadShips()
 {
@@ -470,6 +484,7 @@ bool LocalGame::loadShips()
 		if (endWord != "END_SHIP")break;
 		shipData.push_back(std::pair<std::string, Ship>(name, Ship(*newShip)));
 	}
+	in.close();
 	return 1;
 }
 Bullet LocalGame::findBullet(std::string name)
@@ -608,7 +623,7 @@ void LocalGame::sendMessage()
 
 bool LocalGame::loadGameFiles()
 {
-	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets() && this->loadShips())return true;
+	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets() && this->loadShips() && this->loadSounds())return true;
 	return false;
 }
 
