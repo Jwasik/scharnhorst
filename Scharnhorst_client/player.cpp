@@ -50,6 +50,7 @@ void Player::sendBullets(sf::TcpSocket &socket)
 {
 	for (auto & bullet : *newBullets)
 	{
+		bullet.ownerId = this->playerId;
 		sf::Packet bulletPacket;
 		bulletPacket.clear();
 

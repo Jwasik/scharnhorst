@@ -738,6 +738,7 @@ void LocalGame::receiveAction()
 				if (player != nullptr)return;
 
 				player = std::make_shared<Player>(playerId, playerName, playerShip);
+				player->setShip(this->findShip(playerShip));
 				player->getShip()->setPosition(sf::Vector2f(100, 100));
 				player->setShipName(playerShipName);
 				otherPlayers.push_back(player);

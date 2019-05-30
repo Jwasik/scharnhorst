@@ -131,8 +131,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 		{
 			if ((howManyDegreeToMouse - howManyDegreeToTurret) < rotationSpeed*dTime)
 			{
-				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
-				//to musisz przeskoczyæ do tej pozycji
+				//Dopisz skok do limitu obrotu
 			}
 			else
 			{
@@ -240,7 +239,7 @@ void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets,f
 {
 	for (auto & barrel : barrels)
 	{
-		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), float(fmod(this->turretAngle+shipAngle,360)), "noone" });
+		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), float(fmod(this->turretAngle+shipAngle,360)), 0 });
 	}
 }
 

@@ -2,6 +2,7 @@
 #include "includes.h"
 #include "movable.h"
 #include "turret.h"
+#include "odcinek.h"
 #include "Camera.h"
 
 
@@ -11,6 +12,7 @@ class Ship : public movable
 private:
 
 public:
+	//sf::RectangleShape hitboxes[2];
 	sf::ConvexShape bodyProjection;
 	Hitbox body;
 
@@ -34,7 +36,7 @@ public:
 
 
 public:
-
+	odcinek hitbox[2];
 	void createBodyprojection();
 	void draw(sf::RenderWindow&);
 	void accelerate(double);
@@ -53,6 +55,7 @@ public:
 	std::string getName();
 	Ship();
 	Ship(std::string&,float[6],sf::ConvexShape);
+	Ship(const Ship &);
 	~Ship();
 };
 

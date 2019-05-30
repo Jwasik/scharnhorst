@@ -165,11 +165,13 @@
     <ClInclude Include="localGame.h" />
     <ClInclude Include="movable.h" />
     <ClInclude Include="nemovable.h" />
+    <ClInclude Include="odcinek.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="physical.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ship.h" />
     <ClInclude Include="turret.h" />
+    <ClInclude Include="unmovable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bullet.cpp" />
@@ -179,6 +181,7 @@
     <ClCompile Include="localGame.cpp" />
     <ClCompile Include="movable.cpp" />
     <ClCompile Include="object.cpp" />
+    <ClCompile Include="odcinek.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -190,6 +193,7 @@
     <ClCompile Include="Scharnhorst_client.cpp" />
     <ClCompile Include="ship.cpp" />
     <ClCompile Include="turret.cpp" />
+    <ClCompile Include="unmovable.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

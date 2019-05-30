@@ -22,14 +22,13 @@ private:
 	int ile; // ile jest punktów w polygonie
 	float sNR(float s);//stopnie na radiany
 	float angleRotate(float oa, float r);//sprawdza czy k¹t nie przekrêci³ 360 i sprowadza go na ziemiê 
-	std::vector<odcinek> odcinki; // odcinki z jakich siê sk³ada hitbox, czyli to wodec czego bêdzie wykrywana kolizja, ich iloœæ proporcjonalnie przek³ada siê na z³o¿onoœæ obliczeniow¹ kolizji
+	std::vector<odcinek> odcinki; // odcinki z jakich siê sk³ada hitbox, czyli to wodec czego bêdzie wykrywana kolizja, ich iloœæ kwadratowo przek³ada siê na z³o¿onoœæ obliczeniow¹ kolizji
 
 public:
 
 	
 	struct odcinek
 	{
-
 		sf::Vector2f a, b; 
 		sf::VertexArray line;
 		odcinek(sf::Vector2f x, sf::Vector2f xx);
@@ -40,8 +39,6 @@ public:
 	struct corssHitbox
 	{
 		odcinek hor, ver;
-
-
 	};
 	
 	struct punktNaOkregu // punkt zorientowany w sposób odleg³oœæ od œrodka okrêgu: 'r', i k¹t 'a' pomiêdzy pionowym w górê promieniem 

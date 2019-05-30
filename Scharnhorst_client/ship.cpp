@@ -45,6 +45,14 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 {
 	this->shape = shape;
 
+	/*hitboxes[0].setFillColor(sf::Color::Red);
+	hitboxes[0].setSize(sf::Vector2f(260,30));
+	hitboxes[0].setOrigin(sf::Vector2f(130,15));*/
+
+	auto temporaryOrigin = this->shape.getOrigin();
+	this->hitbox[0] = odcinek(sf::Vector2f(0, temporaryOrigin.y), sf::Vector2f(temporaryOrigin.x * 2, temporaryOrigin.y));
+	this->hitbox[1] = odcinek(sf::Vector2f(temporaryOrigin.y, 0), sf::Vector2f(temporaryOrigin.x, temporaryOrigin.y * 2));
+
 	this->shape.move(shape.getOrigin());
 	this->shape.move(sf::Vector2f(128, 512));
 	this->shape.setFillColor(sf::Color(50, 50, 50));
@@ -72,6 +80,37 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 
 Ship::~Ship()
 {
+}
+
+Ship::Ship(const Ship &newShip)
+{
+	this->hitbox[0] = newShip.hitbox[0];
+	this->hitbox[1] = newShip.hitbox[1];
+
+	/*hitboxes[0].setFillColor(sf::Color::Red);
+	hitboxes[0].setSize(sf::Vector2f(260, 30));
+	hitboxes[0].setOrigin(sf::Vector2f(130, 15));*/
+
+	this->shape = newShip.shape;
+	this->width = newShip.width;
+	this->length = newShip.length;
+	this->maxSpeed = newShip.length;
+	this->maxTurnAcceleration = newShip.maxTurnAcceleration;
+	this->turnAcceleration = newShip.turnAcceleration;
+	this->mass = newShip.mass;
+	this->enginePower = newShip.enginePower;
+	this->force = newShip.force;
+	this->waterRezistance = newShip.waterRezistance;
+	this->shipStaticPressure = newShip.shipStaticPressure;
+	this->gear = 0;
+	this->acceleration = newShip.acceleration;
+	this->actualSpeed = 0;
+	this->type = newShip.type;
+	this->name = newShip.name;
+	for (auto & turret : newShip.turrets)
+	{
+		this->turrets.push_back(std::make_shared<Turret>(*turret));
+	}
 }
 
 float Ship::calculateAcceleration()
@@ -171,6 +210,9 @@ void Ship::draw(sf::RenderWindow& window)
 	{
 		turret->draw(window);
 	}
+	/*this->hitboxes[0].setPosition(this->shape.getPosition());
+	this->hitboxes[0].setRotation(this->shape.getRotation());
+	window.draw(this->hitboxes[0]);*/
 }
 
 void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurret)
@@ -185,7 +227,7 @@ void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurr
 void Ship::createBodyprojection()
 {
 	int pointCount;
-	pointCount = shape.getPointCount;
+	pointCount = shape.getPointCount();
 	for (int i = 0; i < pointCount; i++)
 	{
 		if (this->shape.getPoint(i).y <= this->bodyProjection.getPoint(1).y)
