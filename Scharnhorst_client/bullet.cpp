@@ -9,7 +9,7 @@ void Bullet::calculateMovementVector()
 
 void Bullet::fly(double deltaTime)
 {
-	float distance = speed * deltaTime;
+	float distance = speed * deltaTime*8;
 	this->shape.setPosition(this->shape.getPosition() + sf::Vector2f(distance * movementVector.x, -distance * movementVector.y));
 
 	this->tracer = Hitbox::odcinek(this->tracer.b, this->shape.getPosition());
@@ -31,14 +31,24 @@ void Bullet::setBulletInfo(const jw::bulletInfo &info)
 	this->tracer.b = info.position;
 }
 
+int Bullet::getCaliber()
+{
+	return this->caliber;
+}
+
+void Bullet::setCaliber(int caliber)
+{
+	this->caliber = caliber;
+}
+
 std::string Bullet::getType()
 {
 	return this->type;
 }
 
-Bullet::Bullet(std::string ntype, sf::ConvexShape nbody, float nspeed, float ndamage, float nangle, sf::Vector2f punkt) : type(ntype), speed(nspeed), damage(ndamage), angle(nangle)
+Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber ,sf::Vector2f punkt) : type(type), speed(speed), damage(damage), angle(angle), caliber(caliber)
 {
-	this->shape = nbody;
+	this->shape = body;
 	this->tracer.b = punkt;
 	this->shape.setRotation(angle);
 	this->shape.setPosition(tracer.b);
@@ -46,12 +56,9 @@ Bullet::Bullet(std::string ntype, sf::ConvexShape nbody, float nspeed, float nda
 	this->movementVector = sf::Vector2f(10, 10);//dla testów
 }
 
-Bullet::Bullet(std::string name,sf::ConvexShape body, float speed, float damage)
+Bullet::Bullet(std::string type,sf::ConvexShape body, float speed, float damage, int caliber) : type(type), speed(speed), damage(damage), caliber(caliber)
 {
-	this->type = name;
 	this->shape = body;
-	this->speed = speed;
-	this->damage = damage;
 	this->calculateMovementVector();
 	this->movementVector = sf::Vector2f(10, 10);//dla testów
 }
@@ -65,6 +72,7 @@ Bullet::Bullet(const Bullet &origin)
 	this->type = origin.type;
 	this->speed = origin.speed;
 	this->damage = origin.damage;
+	this->caliber = origin.caliber;
 	this->angle = origin.angle;
 	this->shape = origin.shape;
 	this->tracer = origin.tracer;

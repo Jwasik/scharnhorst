@@ -36,7 +36,8 @@ private:
 	std::vector<Bullet> bullets;//œwiadomie zrobi³em bez wskaŸnika, zapytaj siê potem dlaczego
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
 
-	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> sounds;
+	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers;
+	std::vector<std::shared_ptr<sf::Sound>> sounds;
 
 	std::vector<std::pair<std::string,Bullet>> bulletData;
 	std::vector<std::pair<std::string,Barrel>> barrelData;
@@ -44,7 +45,7 @@ private:
 	std::vector<std::pair<std::string,Ship>> shipData;
 
 	std::map<std::string,sf::Texture> textures;
-	sf::TcpSocket orderSocket;
+	sf::TcpSocket TCPsocket;
 	sf::UdpSocket inSocket, outSocket;
 
 	bool loadBullets();
@@ -57,6 +58,9 @@ private:
 	Barrel findBarrel(std::string);
 	Turret findTurret(std::string);
 	Ship findShip(std::string);
+	std::shared_ptr<sf::SoundBuffer> findSoundBuffer(int);
+
+	sf::Clock connectionClock;//Przechowuje czas od ostatniej interakcji z serwerem
 
 public:
 	bool connectToServer(const std::string&);
@@ -71,13 +75,12 @@ public:
 	std::shared_ptr<Player> getPlayerById(unsigned int);
 
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
-	void sendAction(); //wysy³a informacje o strzale
-	void sendMessage(); //wysy³a wiadomoœæ TCP
 	void loadMap();
 	bool loadGameFiles();
 
-	void receiveAction(); //odbiera pakiety TCP
-	void recieveMessages(); //obs³uguje odbieranie wiadomoœci UDP
+	void receiveTCP(); //odbiera pakiety TCP
+	void recieveUDP(); //obs³uguje odbieranie wiadomoœci UDP
+	void sendTCP(sf::Packet);
 	//receiveMessage wywo³uje receivePlayersPositions
 	void receivePlayersPositions(); //odbiera pozycje graczy od serwera
 

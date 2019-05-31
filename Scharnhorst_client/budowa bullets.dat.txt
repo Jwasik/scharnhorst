@@ -6,5 +6,6 @@ unsigned int x y
 int origin_x y
 float speed
 float damage
+float caliber
 END_BULLET
 END_FILE

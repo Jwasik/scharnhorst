@@ -213,7 +213,6 @@ void Ship::swim(double deltaTime)
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
 	this->hitbox[0].setPosition(shape.getPosition());
 	this->hitbox[1].setPosition(shape.getPosition());
-	//std::cout << shape.getPosition().x << std::endl;
 
 	this->hitbox[0].updateVisual();
 	this->hitbox[1].updateVisual();

@@ -100,11 +100,6 @@ Player::Player(unsigned int id, std::string playerName, std::string shipType) : 
 	this->playerShipNameText.setString(shipType);
 }
 
-void Player::rotateTurretsTo(float angleOfView)
-{
-	this->angleOfView = angleOfView;
-}
-
 void Player::shoot()
 {
 	this->playerShip->shoot(this->newBullets);
@@ -113,6 +108,11 @@ void Player::shoot()
 void Player::setShip(Ship newShip)
 {
 	*(this->playerShip) = newShip;
+}
+
+void Player::setAngleOfView(float angle)
+{
+	this->angleOfView = angle;
 }
 
 

@@ -8,12 +8,15 @@ LocalGame::LocalGame()
 {
 	kamera = Camera(sf::Vector2f(1024, 768));
 
+	this->loadMap();
+
 	sf::ConvexShape defaultShape;
 	defaultShape.setPointCount(3);
 	defaultShape.setPoint(0, sf::Vector2f(15,0));
 	defaultShape.setPoint(1, sf::Vector2f(30,30));
 	defaultShape.setPoint(2, sf::Vector2f(0,30));
-	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10)));
+
+	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10,10)));
 
 	if (!this->loadGameFiles())throw 'E';
 	
@@ -34,17 +37,7 @@ void LocalGame::gameLoop()
 	sf::Clock time;
 	time.restart();
 
-	sf::Sound sound1;
-	sound1.setVolume(100);
-	for (auto &sound : sounds)
-	{
-		if (sound.first == "a.wav")
-		{
-			sound1.setBuffer(*(sound.second));
-		}
-	}
-	sound1.play();
-
+	this->connectionClock.restart();
 	double deltaTime;
 	while (window->isOpen())
 	{
@@ -67,13 +60,11 @@ void LocalGame::gameLoop()
 
 		this->playerEvent(deltaTime);
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
-		this->sendAction(); //wysy�a informacje o strzale
-		this->receiveAction();//odbiera rozkazy TCP
-		this->recieveMessages(); //odbiera wiadomo�ci TCP
-		this->sendMessage(); //wysy�a wiadomo�� TCP
-		this->player->sendBullets(this->orderSocket);//wysyła dane o bulletach które stworzył gracz
+		this->receiveTCP();//odbiera rozkazy TCP
+		this->recieveUDP(); //odbiera wiadomo�ci TCP
+		this->player->sendBullets(this->TCPsocket);//wysyła dane o bulletach które stworzył gracz
 
-		player->rotateTurretsTo(kamera.angle);
+		player->setAngleOfView(kamera.angle);
 		this->player->doStuff(deltaTime);
 
 		for (auto & player : otherPlayers)
@@ -176,14 +167,14 @@ bool LocalGame::joinServer()
 	std::cout << "type server IP and port" << std::endl;
 	std::cin >> IP;
 	if (IP == "single")return 1;
-	orderSocket.setBlocking(false);
+	TCPsocket.setBlocking(false);
 
 	if (connectToServer(IP) == false)return 0;
 
 	sf::Packet newPlayerPacket;
 	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->player->getShip()->getType() << this->player->getShip()->getName();
 
-	orderSocket.send(newPlayerPacket);
+	TCPsocket.send(newPlayerPacket);
 	newPlayerPacket.clear();
 
 	sf::Clock connectionClock;
@@ -191,7 +182,7 @@ bool LocalGame::joinServer()
 	std::string receivedMessage;
 	while (connectionClock.getElapsedTime().asSeconds() < 10)
 	{
-		orderSocket.receive(newPlayerPacket);
+		TCPsocket.receive(newPlayerPacket);
 		if (newPlayerPacket >> receivedMessage)
 		{
 			if (receivedMessage == "PLJ")
@@ -225,7 +216,7 @@ bool LocalGame::joinServer()
 
 void LocalGame::printAdresses()
 {
-	std::cout << "TCP client working on: " << sf::IpAddress::getLocalAddress() << ':' << orderSocket.getLocalPort() << std::endl;
+	std::cout << "TCP client working on: " << sf::IpAddress::getLocalAddress() << ':' << TCPsocket.getLocalPort() << std::endl;
 	std::cout << "UDP client working on: " << sf::IpAddress::getLocalAddress() << ':' << inSocket.getLocalPort() << std::endl;
 	std::cout << "UDP server working on: " << serverInfo.serverAddress << ':' << serverInfo.serverUdpPort << std::endl;
 }
@@ -244,7 +235,7 @@ bool LocalGame::loadBullets()
 	std::string name,endWord;
 	unsigned int pointCount;
 	float x, y;
-	float speed, damage;
+	float speed, damage,caliber;
 
 	while (true)
 	{
@@ -275,10 +266,12 @@ bool LocalGame::loadBullets()
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		in >> damage;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> caliber;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		std::getline(in, endWord);
 		
 		if (endWord != "END_BULLET")break;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage)));
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber)));
 	}
 	in.close();
 	return 1;
@@ -403,8 +396,12 @@ bool LocalGame::loadSounds()
 	{
 		buffer = std::make_shared<sf::SoundBuffer>();
 		in >> filename;
-		if (!buffer->loadFromFile("gamedata/sounds/"+filename))continue;
-		this->sounds.insert(std::pair<std::string,std::shared_ptr<sf::SoundBuffer>>(filename,buffer));
+		if (!buffer->loadFromFile("gamedata/sounds/" + filename))
+		{
+			std::cout << "cannot load gamedata/sounds/" + filename << std::endl;
+			continue;
+		}
+		this->soundBuffers.insert(std::pair<std::string,std::shared_ptr<sf::SoundBuffer>>(filename,buffer));
 	}
 	return true;
 }
@@ -519,10 +516,20 @@ Ship LocalGame::findShip(std::string name)
 	}
 	return shipData.front().second;
 }
+std::shared_ptr<sf::SoundBuffer> LocalGame::findSoundBuffer(int caliber)
+{
+	for (auto & pair : soundBuffers)
+	{
+		if (pair.first == std::to_string(caliber)+".wav")
+		{
+			return pair.second;
+		}
+	}
+	std::shared_ptr<sf::SoundBuffer> newSound = std::make_shared<sf::SoundBuffer>();
+	return newSound;
+}
 bool LocalGame::connectToServer(const std::string &adress)
 {
-
-
 	auto dots = std::count_if(adress.begin(), adress.end(), [](char a) {return a == '.'; });
 	if (dots != 3)
 	{
@@ -561,7 +568,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 	sf::Socket::Status status;
 	do
 	{
-		status = orderSocket.connect(sf::IpAddress(IP), portNum);
+		status = TCPsocket.connect(sf::IpAddress(IP), portNum);
 		if (connectionClock.getElapsedTime().asMilliseconds() > 3000)
 		{
 			std::cout << "max time elapsed" << std::endl;
@@ -576,7 +583,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 	helloPacket.clear();
 	helloPacket << "HI_" << inSocket.getLocalPort();
 	std::cout << "sending \"HI\" to server" << std::endl;
-	orderSocket.send(helloPacket);
+	TCPsocket.send(helloPacket);
 	helloPacket.clear();
 
 	connectionClock.restart();
@@ -584,13 +591,13 @@ bool LocalGame::connectToServer(const std::string &adress)
 	while (1)
 	{
 		if (connectionClock.getElapsedTime().asSeconds() > 2)return false;
-		if (orderSocket.receive(helloPacket) == sf::Socket::Done)
+		if (TCPsocket.receive(helloPacket) == sf::Socket::Done)
 		{
 			std::string message;
 			helloPacket >> message;
 			if (message == "HI_")
 			{
-				this->serverInfo.serverAddress = orderSocket.getRemoteAddress();
+				this->serverInfo.serverAddress = TCPsocket.getRemoteAddress();
 				helloPacket >> serverInfo.serverUdpPort;
 				std::cout << "server responded with \"HI\" and port " << serverInfo.serverUdpPort << std::endl;
 				this->serverInfo.serverAddress = IP;
@@ -611,14 +618,6 @@ LocalGame::~LocalGame()
 void LocalGame::sendPlayerPosition()
 {
 	this->player->sendPlayerPosition(outSocket, this->serverInfo.serverAddress, this->serverInfo.serverUdpPort);
-}
-
-void LocalGame::sendAction()
-{
-}
-
-void LocalGame::sendMessage()
-{
 }
 
 bool LocalGame::loadGameFiles()
@@ -718,13 +717,13 @@ void LocalGame::receivePlayersPositions()
 				
 				player->getShip()->setPosition(position);
 				player->getShip()->setRotation(angle);
-				player->rotateTurretsTo(cannonAngle);
+				player->setAngleOfView(cannonAngle);
 		}
 	}
 	else return;
 }
 
-void LocalGame::receiveAction()
+void LocalGame::receiveTCP()
 {
 	sf::Packet receivedPacket;
 	receivedPacket.clear();
@@ -733,12 +732,13 @@ void LocalGame::receiveAction()
 	connectionClock.restart();
 	while (connectionClock.getElapsedTime().asMilliseconds()<30)
 	{
-		if (orderSocket.receive(receivedPacket) != sf::Socket::Done)return;
+		if (TCPsocket.receive(receivedPacket) != sf::Socket::Done)return;
 		std::string message;
 		if (receivedPacket >> message)
 		{
 			if (message == "PLA")
 			{
+
 				unsigned int playerId = 0;
 				std::string playerName, playerShip, playerShipName;
 
@@ -765,13 +765,46 @@ void LocalGame::receiveAction()
 				std::shared_ptr<Bullet> newBullet = std::make_shared<Bullet>(this->findBullet(receivedData.name));
 				newBullet->setBulletInfo(receivedData);
 				this->bullets.push_back(*newBullet);
+
+				while (this->sounds.size() > 200)
+				{
+					sounds.erase(sounds.begin());
+				}
+
+				std::shared_ptr<sf::Sound> newSound = std::make_shared<sf::Sound>();
+				newSound->setBuffer(*(this->findSoundBuffer(newBullet->getCaliber())));
+				sounds.push_back(newSound);	
+				newSound->play();
+			}
+			else if (message == "EXT")
+			{
+				unsigned int afkPlayerId;
+
+				std::cout << "exit" << std::endl;
+				receivedPacket >> afkPlayerId;
+
+				for (auto it = otherPlayers.begin(); it != otherPlayers.end(); it++)
+				{
+					if ((*it)->getPlayerId() == (*it)->getPlayerId())
+					{
+						otherPlayers.erase(it);
+						break;
+					}
+				}
+			}
+			else if (message == "AFK")
+			{
+				this->connectionClock.restart();
+				sf::Packet afkPacket;
+				afkPacket << "AFK";
+				this->sendTCP(afkPacket);
 			}
 		}
 		else return;
 	}
 }
 
-void LocalGame::recieveMessages()
+void LocalGame::recieveUDP()
 {
 	sf::Clock connectionClock;
 	connectionClock.restart();
@@ -779,5 +812,10 @@ void LocalGame::recieveMessages()
 	{
 		receivePlayersPositions();
 	}
+}
+
+void LocalGame::sendTCP(sf::Packet messagePacket)
+{
+	this->TCPsocket.send(messagePacket);
 }
 
