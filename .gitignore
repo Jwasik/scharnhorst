@@ -8,6 +8,7 @@
 *.pdb
 *.pgc
 *.pgd
+*.pbd
 *.rsp
 *.sbr
 *.tlb
@@ -22,3 +23,6 @@
 *.pidb
 *.svclog
 *.scc
+*.tlog
+*.ipch
+*.exe
