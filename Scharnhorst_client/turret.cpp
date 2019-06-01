@@ -282,3 +282,7 @@ void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
 	}*/
 }
 
+void Turret::setRotation(float angle)
+{
+	this->turretAngle = angle;
+}

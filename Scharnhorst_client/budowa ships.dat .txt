@@ -18,6 +18,7 @@ string NAZWA_WIE¯Y (typ)
 punkt x y
 float ograniczenie obrotu lewo
 float ograniczenie obrotu prawo
+float pocz¹tkowy obrót
 }
 
 END_SHIP

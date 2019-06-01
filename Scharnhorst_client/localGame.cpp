@@ -33,6 +33,12 @@ LocalGame::LocalGame()
 void LocalGame::gameLoop()
 {
 	this->player->setShip(this->findShip("Scharnhorst"));
+	
+	sf::Music backgroundMusic;
+	backgroundMusic.openFromFile("gamedata/music/background1.flac");
+	backgroundMusic.setLoop(true);
+	backgroundMusic.setVolume(100);
+	backgroundMusic.play();
 
 	sf::Clock time;
 	time.restart();
@@ -316,9 +322,9 @@ bool LocalGame::loadBarrels()
 		}
 		barrelShape.setOrigin(sf::Vector2f(maxx/2,0));
 
+
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
-
 		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), bulletSize)));
 		barrelData.back().second.length = maxy;
 	}
@@ -379,7 +385,9 @@ bool LocalGame::loadTurrets()
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}		
 		std::getline(in, endWord);
-		if (endWord != "END_TURRET")return 0;
+
+		std::cout << name << std::endl;
+		if (endWord != "END_TURRET")break;
 		turretData.push_back(std::pair<std::string,Turret>(name,Turret(*newTurret)));
 	}
 	in.close();
@@ -408,6 +416,7 @@ bool LocalGame::loadSounds()
 bool LocalGame::loadShips()
 {
 	std::fstream in("gamedata/ships.dat");
+
 	if (!in.good())return 0;
 
 	std::string name, endWord;
@@ -462,6 +471,8 @@ bool LocalGame::loadShips()
 
 		std::string turretName;
 		float turretRestrictedArea[2];
+		float startingAngle=69;
+		
 		for (unsigned int i = 0; i < turretCount; i++)
 		{
 			std::getline(in,turretName);
@@ -472,8 +483,11 @@ bool LocalGame::loadShips()
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			in >> turretRestrictedArea[1];
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			in >> startingAngle;
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::shared_ptr<Turret> newTurret = std::make_shared<Turret>(this->findTurret(turretName));
 			newTurret->setRestrictedArea(parameters);
+			newTurret->setRotation(startingAngle);
 			newShip->addTurret(newTurret,sf::Vector2f(x,y));
 		}
 		
@@ -622,8 +636,12 @@ void LocalGame::sendPlayerPosition()
 
 bool LocalGame::loadGameFiles()
 {
-	if (this->loadBullets() && this->loadBarrels() && this->loadTurrets() && this->loadShips() && this->loadSounds())return true;
-	return false;
+	if (!this->loadBullets())std::cout << "cannot load bullets" << std::endl;
+	if (!this->loadBarrels())std::cout << "cannot load barrels" << std::endl;
+	if (!this->loadTurrets())std::cout << "cannot load turrets" << std::endl;
+	if (!this->loadShips())std::cout << "cannot load ships" << std::endl;
+	if (!this->loadSounds())std::cout << "cannot load sounds" << std::endl;
+	return true;
 }
 
 void LocalGame::loadMap()
@@ -645,7 +663,7 @@ void LocalGame::loadMap()
 		for (auto & shape : vector)
 		{
 			shape.setSize(sf::Vector2f(1024, 1024));
-			shape.setPosition(c1 * 128, c2 * 128);
+			shape.setPosition(c1 * 1024, c2 * 1024);
 			shape.setTexture(&textures["water1"]);
 			c2++;
 		}

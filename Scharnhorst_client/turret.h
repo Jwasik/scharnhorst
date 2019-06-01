@@ -46,8 +46,6 @@ public:
 	Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]);
 	~Turret();
 
-	
-
 	void draw(sf::RenderWindow& window);
 	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	
@@ -61,5 +59,6 @@ public:
 	void addBarrel(Barrel, sf::Vector2f);
 	void setTurretPosition(sf::Vector2f);
 	void setRestrictedArea(float[2]);
+	void setRotation(float);
 };
 
