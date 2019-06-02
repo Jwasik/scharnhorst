@@ -45,9 +45,14 @@ void LocalGame::gameLoop()
 
 	this->connectionClock.restart();
 	double deltaTime;
-	while (window->isOpen())
+	while (window->isOpen() && !endFlag)
 	{
 
+		if (connectionClock.getElapsedTime().asSeconds() > 15)
+		{
+			std::cout << "lost connection to server" << std::endl;
+			return;
+		}
 		deltaTime = time.restart().asSeconds()*stalaCzasowa;
 		sf::Event event;
 		while (window->pollEvent(event))
@@ -108,6 +113,10 @@ void LocalGame::gameLoop()
 		for (auto & bullet : bullets)
 		{
 			bullet.draw(*this->window);
+		}
+		for (auto & shape : testShapes)
+		{
+			window->draw(shape);
 		}
 
 		window->display();
@@ -385,8 +394,6 @@ bool LocalGame::loadTurrets()
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}		
 		std::getline(in, endWord);
-
-		std::cout << name << std::endl;
 		if (endWord != "END_TURRET")break;
 		turretData.push_back(std::pair<std::string,Turret>(name,Turret(*newTurret)));
 	}
@@ -793,6 +800,20 @@ void LocalGame::receiveTCP()
 				newSound->setBuffer(*(this->findSoundBuffer(newBullet->getCaliber())));
 				sounds.push_back(newSound);	
 				newSound->play();
+			}
+			else if (message == "HIT")
+			{
+				unsigned int preyId,bulletId,predatorId;
+				float damage;
+				double preyHPleft;
+				receivedPacket >> preyId >> bulletId >> predatorId >> damage >> preyHPleft;
+				/*TO POTEM WYWALIĆ*/
+				sf::Vector2f test;
+				receivedPacket >> test.x >> test.y;
+				sf::CircleShape temp(20);
+				temp.setFillColor(sf::Color::Red);
+				temp.setPosition(test);
+				this->testShapes.push_back(temp);
 			}
 			else if (message == "EXT")
 			{

@@ -5,6 +5,8 @@ PLJ id_gracza, x ,y ,kierunek_obrotu // potwierdza stworzenie gracza na serwerze
 
 BUL x, y kierunek, typ // tworzy nowy pocisk na wsp x,y o kierunku kierunek i okreœlonym typie
 
+HIT id_gracza_trafionego, id_pocisku, id_w³aœciciela, obra¿enia(uint), ca³kowite_HP_trafionego_gracza(uint)
+
 id_gracza = unsigned int
 x,y = float
 kierunki = float

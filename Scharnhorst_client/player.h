@@ -7,6 +7,8 @@
 class Player
 {
 private:
+	double HP;
+	double maxHP;
 	std::string playerName;
 	unsigned int playerId;
 	float angleOfView;
@@ -16,6 +18,8 @@ private:
 	sf::Text playerNameText;
 	sf::Text playerShipNameText;
 	sf::Font playerNameFont;
+
+	unsigned int actualBulletId;
 
 public:
 	unsigned int getPlayerId();

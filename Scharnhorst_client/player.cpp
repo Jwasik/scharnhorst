@@ -51,6 +51,9 @@ void Player::sendBullets(sf::TcpSocket &socket)
 	for (auto & bullet : *newBullets)
 	{
 		bullet.ownerId = this->playerId;
+		bullet.bulletId = this->actualBulletId;
+		actualBulletId++;
+
 		sf::Packet bulletPacket;
 		bulletPacket.clear();
 
@@ -89,6 +92,8 @@ Player::Player()
 
 	this->playerShipNameText.setFillColor(sf::Color::Red);
 	playerShipNameText.setCharacterSize(20);
+
+	this->actualBulletId = 1;
 }
 
 Player::Player(unsigned int id, std::string playerName, std::string shipType) : Player()
@@ -108,6 +113,8 @@ void Player::shoot()
 void Player::setShip(Ship newShip)
 {
 	*(this->playerShip) = newShip;
+	this->maxHP = newShip.width * newShip.length * 16;
+	this->HP = maxHP;
 }
 
 void Player::setAngleOfView(float angle)

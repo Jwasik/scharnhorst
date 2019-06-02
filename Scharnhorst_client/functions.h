@@ -15,6 +15,7 @@ namespace jw
 		sf::Vector2f position;
 		float angle;
 		unsigned int ownerId;
+		unsigned int bulletId;
 	};
 }
 

@@ -29,6 +29,8 @@ void Bullet::setBulletInfo(const jw::bulletInfo &info)
 	this->shape.setRotation(info.angle);
 	this->tracer.a = info.position;
 	this->tracer.b = info.position;
+	this->bulletId = info.bulletId;
+	this->ownerId = info.ownerId;
 }
 
 int Bullet::getCaliber()
@@ -39,6 +41,26 @@ int Bullet::getCaliber()
 void Bullet::setCaliber(int caliber)
 {
 	this->caliber = caliber;
+}
+
+void Bullet::setId(unsigned int id)
+{
+	this->bulletId = id;
+}
+
+unsigned int Bullet::getId()
+{
+	return this->bulletId;
+}
+
+void Bullet::setOwnerId(unsigned int id)
+{
+	this->ownerId = id;
+}
+
+unsigned int Bullet::getOwnerId()
+{
+	return this->ownerId;
 }
 
 std::string Bullet::getType()

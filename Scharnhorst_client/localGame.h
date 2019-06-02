@@ -11,6 +11,10 @@
 
 class LocalGame
 {
+	bool endFlag = false;
+
+	std::vector<sf::CircleShape> testShapes;
+
 	Camera kamera;
 	std::string playerName;
 	float stalaCzasowa = 1;

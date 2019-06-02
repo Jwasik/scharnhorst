@@ -4,6 +4,8 @@
 class Bullet : public movable
 {
 protected:
+	unsigned int bulletId;
+	unsigned int ownerId;
 	std::string type;
 	float speed;
 	float damage;
@@ -25,6 +27,11 @@ public:
 	void setBulletInfo(const jw::bulletInfo&);
 	int getCaliber();
 	void setCaliber(int);
+	void setId(unsigned int);
+	unsigned int getId();
+	void setOwnerId(unsigned int);
+	unsigned int getOwnerId();
+
 	std::string getType();
 	
 	~Bullet();
