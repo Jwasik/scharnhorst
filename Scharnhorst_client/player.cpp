@@ -112,6 +112,7 @@ void Player::shoot()
 
 void Player::setShip(Ship newShip)
 {
+	this->setShipName(newShip.getType());
 	*(this->playerShip) = newShip;
 	this->maxHP = newShip.width * newShip.length * 16;
 	this->HP = maxHP;

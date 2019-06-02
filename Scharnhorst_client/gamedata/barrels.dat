@@ -37,3 +37,20 @@ panzergranate 150
 5 33
 0 33
 END_BARREL
+GER105
+panzergranate 105
+105
+3
+1 0
+0 23
+3 23
+END_BARREL
+RUS180
+RUS180
+180
+4
+2 0
+4 0
+6 54
+0 54
+END_BARREL

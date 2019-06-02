@@ -27,13 +27,11 @@ LocalGame::LocalGame()
 	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
-	this->player->setShip(this->findShip("Scharnhorst"));
 }
 
 void LocalGame::gameLoop()
 {
-	this->player->setShip(this->findShip("Scharnhorst"));
-	
+	this->player->setShip(this->findShip("Krasnyj Kawkaz"));
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
 	backgroundMusic.setLoop(true);
@@ -47,12 +45,6 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen() && !endFlag)
 	{
-		std::cout << player->getShip()->hitbox[0].punkt1.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[0].punkt1.y - player->getShip()->shape.getPosition().y << std::endl;
-		std::cout << player->getShip()->hitbox[0].punkt2.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[0].punkt2.y - player->getShip()->shape.getPosition().y << std::endl;
-
-		std::cout << player->getShip()->hitbox[1].punkt1.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[1].punkt1.y - player->getShip()->shape.getPosition().y << std::endl;
-		std::cout << player->getShip()->hitbox[1].punkt2.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[1].punkt2.y - player->getShip()->shape.getPosition().y << std::endl << std::endl;
-		//std::cout << player->getShip()->hitbox[0].oa.a << std::endl;
 		if (connectionClock.getElapsedTime().asSeconds() > 15)
 		{
 			std::cout << "lost connection to server" << std::endl;
@@ -115,9 +107,10 @@ void LocalGame::gameLoop()
 			player->draw(*window);
 		}
 
+		auto cameraView = kamera.getViewBounds();
 		for (auto & bullet : bullets)
 		{
-			bullet.draw(*this->window);
+			if(cameraView.contains(bullet.getPosition()))bullet.draw(*this->window);
 		}
 		for (auto & shape : testShapes)
 		{
@@ -516,6 +509,7 @@ Bullet LocalGame::findBullet(std::string name)
 	{
 		if (bullet.first == name)return bullet.second;
 	}
+	std::cout << "cannot find bullet " << name << std::endl;
 	return bulletData.front().second;
 }
 Barrel LocalGame::findBarrel(std::string name)
@@ -524,6 +518,7 @@ Barrel LocalGame::findBarrel(std::string name)
 	{
 		if (barrel.first == name)return barrel.second;
 	}
+	std::cout << "cannot find barrel " << name << std::endl;
 	return barrelData.front().second;
 }
 Turret LocalGame::findTurret(std::string name)
@@ -532,6 +527,7 @@ Turret LocalGame::findTurret(std::string name)
 	{
 		if (turret.first == name)return turret.second;
 	}
+	std::cout << "cannot find turret " << name << std::endl;
 	return turretData.front().second;
 }
 Ship LocalGame::findShip(std::string name)
@@ -540,6 +536,7 @@ Ship LocalGame::findShip(std::string name)
 	{
 		if (ship.first == name)return ship.second;
 	}
+	std::cout << "cannot find ship " << name << std::endl;
 	return shipData.front().second;
 }
 std::shared_ptr<sf::SoundBuffer> LocalGame::findSoundBuffer(int caliber)
