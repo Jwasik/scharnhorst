@@ -47,7 +47,7 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen() && !endFlag)
 	{
-
+		//std::cout << player->getShip()->hitbox[0].oa.a << std::endl;
 		if (connectionClock.getElapsedTime().asSeconds() > 15)
 		{
 			std::cout << "lost connection to server" << std::endl;
