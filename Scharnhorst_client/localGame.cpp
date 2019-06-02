@@ -47,6 +47,11 @@ void LocalGame::gameLoop()
 	double deltaTime;
 	while (window->isOpen() && !endFlag)
 	{
+		std::cout << player->getShip()->hitbox[0].punkt1.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[0].punkt1.y - player->getShip()->shape.getPosition().y << std::endl;
+		std::cout << player->getShip()->hitbox[0].punkt2.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[0].punkt2.y - player->getShip()->shape.getPosition().y << std::endl;
+
+		std::cout << player->getShip()->hitbox[1].punkt1.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[1].punkt1.y - player->getShip()->shape.getPosition().y << std::endl;
+		std::cout << player->getShip()->hitbox[1].punkt2.x - player->getShip()->shape.getPosition().x << " " << player->getShip()->hitbox[1].punkt2.y - player->getShip()->shape.getPosition().y << std::endl << std::endl;
 		//std::cout << player->getShip()->hitbox[0].oa.a << std::endl;
 		if (connectionClock.getElapsedTime().asSeconds() > 15)
 		{

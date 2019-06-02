@@ -88,9 +88,7 @@ Ship::Ship(const Ship &newShip)
 	this->hitbox[0] = newShip.hitbox[0];
 	this->hitbox[1] = newShip.hitbox[1];
 
-	/*hitboxes[0].setFillColor(sf::Color::Red);
-	hitboxes[0].setSize(sf::Vector2f(260, 30));
-	hitboxes[0].setOrigin(sf::Vector2f(130, 15));*/
+
 
 	this->shape = newShip.shape;
 	this->width = newShip.width;
@@ -235,8 +233,6 @@ void Ship::draw(sf::RenderWindow& window)
 	{
 		turret->draw(window);
 	}
-	/*this->hitboxes[0].setPosition(this->shape.getPosition());
-	this->hitboxes[0].setRotation(this->shape.getRotation());*/
 	window.draw(hitbox[0].line);
 	window.draw(hitbox[1].line);///do testów(usuñ)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -257,30 +253,35 @@ void Ship::createBodyprojection()
 	pointCount = shape.getPointCount();
 	for (int i = 0; i < pointCount; i++)
 	{
-		if (this->shape.getPoint(i).y <= hitbox[0].punkt1.y)
+		if (this->shape.getPoint(i).y < hitbox[0].punkt1.y)
 		{
 			hitbox[0].punkt1 = shape.getPoint(i);
 			continue;
 		}
-		if (this->shape.getPoint(i).x >= hitbox[1].punkt1.x)
+		if (this->shape.getPoint(i).x > hitbox[1].punkt1.x)
 		{
 			hitbox[1].punkt1 = shape.getPoint(i);
 
 			continue;
 		}
-		if (this->shape.getPoint(i).y >= this->hitbox[0].punkt2.y)
+		if (this->shape.getPoint(i).y > this->hitbox[0].punkt2.y)
 		{
 			hitbox[0].punkt2 = shape.getPoint(i);
 
 			continue;
 		}
-		if (this->shape.getPoint(i).x <= hitbox[1].punkt2.x)
+		if (this->shape.getPoint(i).x < this->hitbox[1].punkt2.x)
 		{
-			hitbox[1].punkt2 = shape.getPoint(i);
+
+			this->hitbox[1].punkt2 = this->shape.getPoint(i);
+
+
 
 			continue;
 		}
 	}
+	
+
 
 	/*for (int i = 0; i < pointCount; i++)
 	{
