@@ -5,7 +5,7 @@
 class nemovable : public movable 
 {
 private:
-	Hitbox body;
+	//Hitbox body;
 
 public:
 	std::vector<std::shared_ptr<sf::Vector2f>> points;

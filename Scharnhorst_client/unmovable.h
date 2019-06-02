@@ -4,7 +4,7 @@
 class unmovable : public physical
 {
 private:
-	Hitbox hitbox;
+//	Hitbox hitbox;
 public:
 	unmovable();
 	virtual ~unmovable();

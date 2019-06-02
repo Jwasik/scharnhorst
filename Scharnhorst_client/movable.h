@@ -14,7 +14,7 @@ public:
 	void move(sf::Vector2f);
 	void rotate(float);
 
-	Hitbox::punktNaOkregu zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkregu);
+	punktNaOkregu zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkregu);
 	~movable();
 };
 

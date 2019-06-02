@@ -256,7 +256,7 @@ void Turret::addBarrel(Barrel barrel, sf::Vector2f barrelPositionFromTurret)
 
 void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
 {
-	Hitbox::punktNaOkregu temp= zamienNaPunktNaOkregu(turretPositionFromShip, sf::Vector2f(0,0));
+	punktNaOkregu temp= zamienNaPunktNaOkregu(turretPositionFromShip, sf::Vector2f(0,0));
 	angleFromShipOrigin = temp.a;
 	distanceFromShipOrigin = temp.r;
 	/*

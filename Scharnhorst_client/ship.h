@@ -14,7 +14,7 @@ private:
 public:
 	//sf::RectangleShape hitboxes[2];
 	sf::ConvexShape bodyProjection;
-	Hitbox body;
+	//Hitbox body;
 
 	float width; // [m]
 	float length; // [m]

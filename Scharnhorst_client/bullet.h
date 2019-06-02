@@ -14,7 +14,7 @@ protected:
 	sf::Vector2f movementVector;//przechowuje wektor przesuniêcia z altualn¹ prêdkoœci¹ i k¹tem w czasie 1 sekundy
 
 public:
-	Hitbox::odcinek tracer;
+	odcinek tracer;
 
 	Bullet();
 	Bullet(const Bullet&);

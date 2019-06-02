@@ -66,6 +66,8 @@ void odcinek::setOrgin(sf::Vector2f norgin)
 
 odcinek::odcinek()
 {
+	orgin = sf::Vector2f(0, 0);
+	line = sf::VertexArray(sf::LineStrip, 2);
 }
 
 void odcinek::updateVisual()

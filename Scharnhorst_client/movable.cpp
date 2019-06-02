@@ -65,9 +65,9 @@ void movable::rotate(float alpha)
 	physical::setRotation(changeAngle(alpha, physical::getRotation()));
 }
 
-Hitbox::punktNaOkregu movable::zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkregu)
+punktNaOkregu movable::zamienNaPunktNaOkregu(sf::Vector2f punkt, sf::Vector2f srodekOkregu)
 {
-	Hitbox::punktNaOkregu tem;
+	punktNaOkregu tem;
 	tem.r = sqrt(pow(punkt.x, 2) + pow(punkt.y, 2));//d³ugoœæ tego promienia
 
 	tem.a = (atan(punkt.y / punkt.x) / M_PI * 180);//k¹t pomiêdzi pionowym promieniem a promieniem do punktu temx, temy

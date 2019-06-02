@@ -34,5 +34,5 @@ void nemovable::updateShape()
 		changePoint(counter, point);
 		counter++;
 	}
-	body = Hitbox(this->shape);
+	//body = Hitbox(this->shape);
 }
