@@ -31,7 +31,8 @@ LocalGame::LocalGame()
 
 void LocalGame::gameLoop()
 {
-	this->player->setShip(this->findShip("Krasnyj Kawkaz"));
+	this->player->setShip(this->findShip("Scharnhorst"));
+
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
 	backgroundMusic.setLoop(true);
@@ -43,6 +44,30 @@ void LocalGame::gameLoop()
 
 	this->connectionClock.restart();
 	double deltaTime;
+
+	//GUI
+	sf::Font guiFont;
+	guiFont.loadFromFile("gamedata/fonts/PressStart2P.ttf");
+	sf::View guiView = window->getView();
+	sf::RenderTexture guiTexture;
+	guiTexture.create(unsigned int(this->window->getSize().x), unsigned int(this->window->getSize().y));
+
+	std::vector<sf::Text> guiContent;
+
+	guiContent.resize(12);
+	guiContent[0]=sf::Text("HP",guiFont);
+	guiContent[1]=sf::Text("SPEED",guiFont);
+	guiContent[1].setPosition(sf::Vector2f(0,30));
+	guiContent[2]=sf::Text("GEAR", guiFont);
+	guiContent[2].setPosition(sf::Vector2f(0, 60));
+
+	for (unsigned int i = 3; i < 12; i++)
+	{
+		guiContent[i].setFont(guiFont);
+		guiContent[i].setCharacterSize(15);
+		guiContent[i].setPosition(sf::Vector2f((i-3)*100,guiView.getSize().y - 40));
+	}
+
 	while (window->isOpen() && !endFlag)
 	{
 		if (connectionClock.getElapsedTime().asSeconds() > 15)
@@ -84,9 +109,9 @@ void LocalGame::gameLoop()
 			bullet.fly(deltaTime);
 		}
 
-		kamera.Camera::setCenter(player->getShip()->getPosition());
-		kamera.Camera::calculateView(*window, 8);
-		kamera.Camera::setView(*window);
+		kamera.setCenter(player->getShip()->getPosition());
+		kamera.calculateView(*window, 8);
+		kamera.setView(*window);
 
 		window->clear();
 		auto view = kamera.getViewBounds();
@@ -116,6 +141,19 @@ void LocalGame::gameLoop()
 		{
 			window->draw(shape);
 		}
+		//TEST
+
+		guiTexture.clear(sf::Color::Transparent);
+		this->player->updateGui(guiContent, guiView);
+		for (auto & content : guiContent)
+		{
+			guiTexture.draw(content);
+		}
+		guiTexture.display();
+		sf::Sprite gui(guiTexture.getTexture());
+
+		window->setView(guiView);
+		window->draw(gui);
 
 		window->display();
 	}  
@@ -295,19 +333,22 @@ bool LocalGame::loadBarrels()
 	if (!in.good())	return 0;
 
 	std::string name, mainBulletType, endWord;
-	unsigned int point_count,bulletSize;
+	unsigned int point_count, caliber;
 	while (!in.eof())
 	{
 		std::shared_ptr<Barrel> newBarrel;
 
 		unsigned int pointCount = 0;
 		float x, y;
+		float reloadTime;
 		sf::ConvexShape barrelShape;
 		barrelShape.setFillColor(sf::Color::Blue);
 
 		std::getline(in, name);//nazwa
 		std::getline(in, mainBulletType);//nazwa pocisku
-		in >> bulletSize;//kaliber
+		in >> caliber;//kaliber
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> reloadTime;//kaliber
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		in >> pointCount;//ilość punktów
@@ -332,7 +373,7 @@ bool LocalGame::loadBarrels()
 
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
-		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), bulletSize)));
+		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), caliber,reloadTime)));
 		barrelData.back().second.length = maxy;
 	}
 	in.close();
@@ -671,8 +712,8 @@ void LocalGame::loadMap()
 		c2 = 0;
 		for (auto & shape : vector)
 		{
-			shape.setSize(sf::Vector2f(1024, 1024));
-			shape.setPosition(c1 * 1024, c2 * 1024);
+			shape.setSize(sf::Vector2f(360, 360));
+			shape.setPosition(c1 * 360, c2 * 360);
 			shape.setTexture(&textures["water1"]);
 			c2++;
 		}

@@ -123,6 +123,18 @@ void Player::setAngleOfView(float angle)
 	this->angleOfView = angle;
 }
 
+void Player::updateGui(std::vector<sf::Text>& content, sf::View &view)
+{
+	content[0] .setString("HP: "+ std::to_string(int(this->HP)) + " / " + std::to_string(int(this->maxHP)));
+	content[1].setString("SPEED: " + std::to_string(int(this->getShip()->actualSpeed)));
+	content[2].setString("GEAR: " + std::to_string(int(this->getShip()->gear)));
+	for (unsigned int i = 3; i < 12; i++)
+	{
+		if (i-3 == this->getShip()->turrets.size())return;
+		this->getShip()->turrets[i-3]->updateHudTurret(content,i);
+	}
+}
+
 
 
 Player::~Player()

@@ -32,6 +32,7 @@ public:
 	void shoot();
 	void setShip(Ship);
 	void setAngleOfView(float);
+	void updateGui(std::vector<sf::Text>&, sf::View&);
 
 	std::shared_ptr<Ship>& getShip();
 	Player();

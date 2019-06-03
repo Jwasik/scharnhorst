@@ -13,16 +13,17 @@ public:
 	punktNaOkregu punkt;
 	Barrel();
 	Barrel(std::string name, sf::Vector2f point);
-	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape, Bullet, unsigned int);
+	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape, Bullet, unsigned int,float);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
+	float reloadTime;
 };
 
 class Turret : public movable
 {
 protected:
+	sf::Clock timeFromShoot;
 
-	std::string type;
-	std::string name;
+	
 
 	sf::Vector2f shipOrigin;
 	sf::Vector2f position;
@@ -38,8 +39,12 @@ protected:
 	bool turretCanDo360;
 	int middleOfLockedArea;
 
+	unsigned int getLoadPercent();
+
 
 public:
+	std::string type;
+	std::string name;
 	Turret();
 	Turret(const Turret & Turret);
 	Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels);
@@ -60,5 +65,6 @@ public:
 	void setTurretPosition(sf::Vector2f);
 	void setRestrictedArea(float[2]);
 	void setRotation(float);
+	void updateHudTurret(std::vector<sf::Text>&,unsigned int);
 };
 

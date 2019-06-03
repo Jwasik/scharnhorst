@@ -8,6 +8,13 @@ void Turret::setRestrictedArea(float angles[2])
 	this->restrictedArea[1] = angles[1];
 }
 
+unsigned int Turret::getLoadPercent()
+{
+	auto time = this->timeFromShoot.getElapsedTime().asSeconds();
+	if (time > this->barrels.front()->reloadTime)return 100;
+	return unsigned int((time/ this->barrels.front()->reloadTime)*100);
+}
+
 Turret::Turret()
 {
 	shape.setPointCount(3);
@@ -177,7 +184,7 @@ Barrel::Barrel(std::string nname, sf::Vector2f npunkt) :name(nname)
 	this->punkt = zamienNaPunktNaOkregu(npunkt, sf::Vector2f(0, 0));
 }
 
-Barrel::Barrel(std::string name, sf::Vector2f punkt, sf::ConvexShape shape, Bullet mainBulletType, unsigned int barrelSize):name(name),barrelSize(barrelSize)
+Barrel::Barrel(std::string name, sf::Vector2f punkt, sf::ConvexShape shape, Bullet mainBulletType, unsigned int barrelSize, float reloadTime):name(name),barrelSize(barrelSize),reloadTime(reloadTime)
 {
 	this->mainBulletType = std::make_shared<Bullet>(mainBulletType);
 	this->shape = shape;
@@ -237,10 +244,12 @@ std::vector<std::shared_ptr<sf::Vector2f>> Turret::getBarrelsPositionsByWater()
 
 void Turret::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> shootedBullets,float &shipAngle)
 {
+	if (timeFromShoot.getElapsedTime().asSeconds() < barrels.front()->reloadTime)return;
 	for (auto & barrel : barrels)
 	{
 		(*shootedBullets).push_back(jw::bulletInfo{barrel->mainBulletType->getType(), barrel->getPosition(), float(fmod(this->turretAngle+shipAngle,360)), 0 });
 	}
+	timeFromShoot.restart();
 }
 
 void Turret::addPoint(int number, sf::Vector2f point)
@@ -285,4 +294,9 @@ void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
 void Turret::setRotation(float angle)
 {
 	this->turretAngle = angle;
+}
+
+void Turret::updateHudTurret(std::vector<sf::Text>& content, unsigned int i)
+{
+	content[i].setString(std::to_string(this->barrels.front()->barrelSize) + "mm\n" + std::to_string(this->getLoadPercent()) + '%');
 }

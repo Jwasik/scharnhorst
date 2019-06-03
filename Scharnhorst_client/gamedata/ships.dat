@@ -163,34 +163,59 @@ Scharnhorst
 128 1872
 132 1872
 125 936
-6
+11
 scharnhorst main turret
-1 -461
+1 -460
 250
 110
 0
 scharnhorst main turret
-1 -336
+1 -333
 250
 110
 0
 scharnhorst main turret
-1 451
+1 553
 70
 290
 180
 scharnhorst double 150 turret
-50 50
+-72 313
 10
 170
 90
-scharnhorst single 150 turret
--50 50
+scharnhorst double 150 turret
+72 313
 170
 10
 270
-scharnhorst double 105 turret
--50 120
+scharnhorst double 150 turret
+-72 -107
+170
+10
+270
+scharnhorst double 150 turret
+72 -107
+170
+10
+270
+scharnhorst single 150 turret
+-105 97
+170
+10
+270
+scharnhorst single 150 turret
+105 97
+170
+10
+270
+scharnhorst single 150 turret
+-105 8
+170
+10
+270
+scharnhorst single 150 turret
+105 8
 170
 10
 270

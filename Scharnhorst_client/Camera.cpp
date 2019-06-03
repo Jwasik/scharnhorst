@@ -100,13 +100,18 @@ void Camera::calculateView(sf::RenderWindow &window, float howLean)
 	this->calculateAngle();
 	this->leanToMice(howLean);
 	this->calculateMicePosition();
-
 }
 
 void Camera::setView(sf::RenderWindow &window)
 {
 	this->changePosition();
 	this->set(&window);
+}
+
+std::shared_ptr<sf::View> Camera::getView()
+{
+	std::shared_ptr<sf::View> ptr = std::make_shared<sf::View>(this->view);
+	return ptr;
 }
 
 sf::FloatRect Camera::getViewBounds()

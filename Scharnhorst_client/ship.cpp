@@ -247,6 +247,7 @@ void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurr
 	}
 }
 
+
 void Ship::createBodyprojection()
 {
 	int pointCount;

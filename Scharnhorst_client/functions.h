@@ -17,6 +17,7 @@ namespace jw
 		unsigned int ownerId;
 		unsigned int bulletId;
 	};
+
 }
 
 template <typename T>

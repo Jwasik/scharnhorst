@@ -37,6 +37,7 @@ public:
 	void calculateAngle();
 	void calculateView(sf::RenderWindow &window, float howLean);
 	void setView(sf::RenderWindow &window);
+	std::shared_ptr<sf::View> getView();
 	sf::FloatRect getViewBounds();
 
 };
