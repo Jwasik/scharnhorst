@@ -55,7 +55,7 @@ public:
 	void setName(std::string);
 	std::string getName();
 	Ship();
-	Ship(std::string&,float[6],sf::ConvexShape);
+	Ship(std::string,float[6],sf::ConvexShape);
 	Ship(const Ship &);
 	~Ship();
 };

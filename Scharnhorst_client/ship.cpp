@@ -41,7 +41,7 @@ Ship::Ship()
 	shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 }
 
-Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
+Ship::Ship(std::string name, float parameters[6], sf::ConvexShape shape)
 {
 	this->shape = shape;
 
@@ -60,8 +60,8 @@ Ship::Ship(std::string &name, float parameters[6], sf::ConvexShape shape)
 
 	this->type = name;
 	this->gear = 0;
-	this->maxTurnAcceleration = 55;//parameters[0];
-	this->enginePower = 1000000;//parameters[1];
+	this->maxTurnAcceleration = parameters[0];
+	this->enginePower = parameters[1];
 	this->width = parameters[2];
 	this->length = parameters[3];
 	this->maxSpeed = parameters[4]*8;
@@ -233,9 +233,6 @@ void Ship::draw(sf::RenderWindow& window)
 	{
 		turret->draw(window);
 	}
-	window.draw(hitbox[0].line);
-	window.draw(hitbox[1].line);///do testów(usuñ)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 }
 
 void Ship::shoot(std::shared_ptr<std::vector<jw::bulletInfo>> bulletsGotFromTurret)

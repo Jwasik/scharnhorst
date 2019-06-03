@@ -66,12 +66,16 @@ private:
 
 	sf::Clock connectionClock;//Przechowuje czas od ostatniej interakcji z serwerem
 
+	std::string shipType;
+
+	void eraseBullet(unsigned int);
 public:
 	bool connectToServer(const std::string&);
 	bool isWClicked=0;
 	bool isSClicked=0;
 
 	LocalGame();
+	LocalGame(std::string,std::string);
 	~LocalGame();
 	void gameLoop();
 	void playerEvent(const double&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp

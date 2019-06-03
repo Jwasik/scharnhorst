@@ -20,14 +20,19 @@ LocalGame::LocalGame()
 	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10,10)));
 
 	if (!this->loadGameFiles())throw 'E';
-	
-	this->playerName = "Karl";
+
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
-	this->player->getShip()->setName("KMS Scharnhorst");
 	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
+}
+
+LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
+{
+	this->playerName = playerName;
+	this->player->setShip(this->findShip(shipType));
+	this->shipType = shipType;
 }
 
 void LocalGame::gameLoop()
@@ -45,7 +50,8 @@ void LocalGame::gameLoop()
 	std::cout << "te" << std::endl;
 
 	//test sideeeeeeeeeeeeeeeeeeeeeeeee
-	this->player->setShip(this->findShip("Scharnhorst"));
+	//this->player->setShip(this->findShip("Scharnhorst"));
+	this->player->setShip(this->findShip(this->shipType));
 
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
@@ -81,6 +87,11 @@ void LocalGame::gameLoop()
 		guiContent[i].setCharacterSize(15);
 		guiContent[i].setPosition(sf::Vector2f((i-3)*100,guiView.getSize().y - 40));
 	}
+	for (auto & player : otherPlayers)
+	{
+		player->calculateHPindicator();
+	}
+
 
 	while (window->isOpen() && !endFlag)
 	{
@@ -108,7 +119,7 @@ void LocalGame::gameLoop()
 			if (event.type == sf::Event::Closed)window->close();
 		}
 
-		this->playerEvent(deltaTime);
+		if(window->hasFocus())this->playerEvent(deltaTime);
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
 		this->receiveTCP();//odbiera rozkazy TCP
 		this->recieveUDP(); //odbiera wiadomo�ci TCP
@@ -233,12 +244,12 @@ void LocalGame::playerEvent(const double &deltaTime)
 
 std::shared_ptr<Player> LocalGame::getPlayerById(unsigned int searchedId)
 {
-	auto x =
-		std::find_if(otherPlayers.begin(), otherPlayers.end(), [&searchedId](std::shared_ptr<Player> &player) {return player->getPlayerId() == searchedId; });
+	auto x =std::find_if(otherPlayers.begin(), otherPlayers.end(), [&searchedId](std::shared_ptr<Player> &player) {return player->getPlayerId() == searchedId; });
 	if (x != otherPlayers.end())
 	{
 		return *x;
 	}
+	else if (this->player->getPlayerId() == searchedId)return this->player;
 	else return nullptr;
 }
 
@@ -562,7 +573,7 @@ bool LocalGame::loadShips()
 			in >> startingAngle;
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::shared_ptr<Turret> newTurret = std::make_shared<Turret>(this->findTurret(turretName));
-			newTurret->setRestrictedArea(parameters);
+			newTurret->setRestrictedArea(turretRestrictedArea);
 			newTurret->setRotation(startingAngle);
 			newShip->addTurret(newTurret,sf::Vector2f(x,y));
 		}
@@ -621,6 +632,13 @@ std::shared_ptr<sf::SoundBuffer> LocalGame::findSoundBuffer(int caliber)
 	}
 	std::shared_ptr<sf::SoundBuffer> newSound = std::make_shared<sf::SoundBuffer>();
 	return newSound;
+}
+void LocalGame::eraseBullet(unsigned int id)
+{
+	for (auto it = bullets.begin(); it != bullets.end(); it++)
+	{
+		if (it->getId() == id)bullets.erase(it);
+	}
 }
 bool LocalGame::connectToServer(const std::string &adress)
 {
@@ -854,6 +872,7 @@ void LocalGame::receiveTCP()
 				player->setShip(this->findShip(playerShip));
 				player->getShip()->setPosition(sf::Vector2f(100, 100));
 				player->setShipName(playerShipName);
+				player->calculateHPindicator();
 				otherPlayers.push_back(player);
 			}
 			else if (message == "BUL")
@@ -880,13 +899,11 @@ void LocalGame::receiveTCP()
 				float damage;
 				double preyHPleft;
 				receivedPacket >> preyId >> bulletId >> predatorId >> damage >> preyHPleft;
-				/*TO POTEM WYWALIĆ*/
-				sf::Vector2f test;
-				receivedPacket >> test.x >> test.y;
-				sf::CircleShape temp(20);
-				temp.setFillColor(sf::Color::Red);
-				temp.setPosition(test);
-				this->testShapes.push_back(temp);
+				auto prey = this->getPlayerById(preyId);
+				//prey->subtractHP(damage);
+				prey->setHP(preyHPleft);
+				prey->calculateHPindicator();
+				this->eraseBullet(bulletId);
 			}
 			else if (message == "EXT")
 			{
