@@ -9,6 +9,7 @@ class Player
 private:
 	double HP;
 	double maxHP;
+	unsigned int killCount;
 	std::string playerName;
 	unsigned int playerId;
 	float angleOfView;
@@ -17,6 +18,7 @@ private:
 	std::shared_ptr<Ship> playerShip;
 	sf::Text playerNameText;
 	sf::Text playerShipNameText;
+	sf::Text playerHPtext;
 	sf::Font playerNameFont;
 
 	unsigned int actualBulletId;
@@ -33,6 +35,11 @@ public:
 	void setShip(Ship);
 	void setAngleOfView(float);
 	void updateGui(std::vector<sf::Text>&, sf::View&);
+	void calculateHPindicator();
+
+	void subtractHP(float);
+	void setHP(float);
+	double getPlayerHP();
 
 	std::shared_ptr<Ship>& getShip();
 	Player();

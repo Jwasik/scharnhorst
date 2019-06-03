@@ -8,4 +8,3 @@ float speed
 float damage
 float caliber
 END_BULLET
-END_FILE

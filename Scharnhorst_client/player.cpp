@@ -8,7 +8,7 @@ unsigned int Player::getPlayerId()
 
 void Player::setShipName(std::string name)
 {
-	this->playerShipNameText.setString(name);
+	//this->playerShipNameText.setString(name);
 	this->getShip()->setName(name);
 }
 
@@ -26,6 +26,7 @@ void Player::doStuff(double &deltaTime)
 		playerShip->swim(deltaTime);
 		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));//Nazwa gracza
 		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));//Nazwa statku
+		this->playerHPtext.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-140));//HP
 		this->getShip()->setTurrets(this->angleOfView, deltaTime);
 	}
 }
@@ -70,6 +71,7 @@ void Player::draw(sf::RenderWindow &window)
 	this->playerShip->draw(window);
 	window.draw(playerNameText);
 	window.draw(playerShipNameText);
+	window.draw(playerHPtext);
 }
 
 
@@ -80,6 +82,7 @@ std::shared_ptr<Ship> & Player::getShip()
 
 Player::Player()
 {
+	this->killCount = 0;
 	playerShip = std::make_shared<Ship>();
 	this->newBullets = std::make_shared<std::vector<jw::bulletInfo>>();
 	angleOfView = 0;
@@ -87,12 +90,16 @@ Player::Player()
 	this->playerNameFont.loadFromFile("PressStart2P.ttf");
 	this->playerNameText.setFont(this->playerNameFont);
 	this->playerShipNameText.setFont(this->playerNameFont);
+	this->playerHPtext.setFont(this->playerNameFont);
+	this->playerHPtext.setCharacterSize(10);
 
 	this->playerNameText.setFillColor(sf::Color::Blue);
-
+	this->playerHPtext.setFillColor(sf::Color::White);
 	this->playerShipNameText.setFillColor(sf::Color::Red);
-	playerShipNameText.setCharacterSize(20);
 
+	this->playerShipNameText.setCharacterSize(20);
+	
+	this->killCount = 0;
 	this->actualBulletId = 1;
 }
 
@@ -112,10 +119,10 @@ void Player::shoot()
 
 void Player::setShip(Ship newShip)
 {
-	this->setShipName(newShip.getType());
 	*(this->playerShip) = newShip;
 	this->maxHP = newShip.width * newShip.length * 16;
 	this->HP = maxHP;
+	this->playerShipNameText.setString(this->getShip()->getType());
 }
 
 void Player::setAngleOfView(float angle)
@@ -125,7 +132,7 @@ void Player::setAngleOfView(float angle)
 
 void Player::updateGui(std::vector<sf::Text>& content, sf::View &view)
 {
-	content[0] .setString("HP: "+ std::to_string(int(this->HP)) + " / " + std::to_string(int(this->maxHP)));
+	content[0].setString("HP: "+ std::to_string(int(this->HP)) + " / " + std::to_string(int(this->maxHP)));
 	content[1].setString("SPEED: " + std::to_string(int(this->getShip()->actualSpeed)));
 	content[2].setString("GEAR: " + std::to_string(int(this->getShip()->gear)));
 	for (unsigned int i = 3; i < 12; i++)
@@ -135,8 +142,28 @@ void Player::updateGui(std::vector<sf::Text>& content, sf::View &view)
 	}
 }
 
-
+void Player::calculateHPindicator()
+{
+	this->playerHPtext.setString(std::to_string(int(this->HP)) + " / " + std::to_string(int(this->maxHP)));
+	if (this->HP <= (this->maxHP*0.2))this->playerHPtext.setFillColor(sf::Color::Red);
+	else this->playerHPtext.setFillColor(sf::Color::White);
+}
 
 Player::~Player()
 {
+}
+
+void Player::subtractHP(float damage)
+{
+	this->HP -= damage;
+}
+
+void Player::setHP(float HP)
+{
+	this->HP = HP;
+}
+
+double Player::getPlayerHP()
+{
+	return this->HP;
 }

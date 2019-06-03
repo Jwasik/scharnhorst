@@ -10,7 +10,6 @@ unsigned int liczba_punktów
 {
 punkt x y
 }
-origin x y
 
 unsigned int liczba_wie¿
 {

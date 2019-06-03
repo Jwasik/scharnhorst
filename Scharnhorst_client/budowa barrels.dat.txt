@@ -1,6 +1,7 @@
 string nazwa
 string nazwa_pocisku_podstawowego
 unsigned int kaliber
+float czas przeładowania
 
 unsigned int point_count
 for()
