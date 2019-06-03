@@ -212,8 +212,8 @@ void Ship::swim(double deltaTime)
 	this->hitbox[0].setPosition(shape.getPosition());
 	this->hitbox[1].setPosition(shape.getPosition());
 
-	this->hitbox[0].updateVisual();
-	this->hitbox[1].updateVisual();
+	//this->hitbox[0].updateVisual();
+	//this->hitbox[1].updateVisual();
 
 }
 

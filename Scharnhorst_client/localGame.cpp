@@ -2,6 +2,7 @@
 #include "localGame.h"
 #include <windows.h>
 
+#include "shallow.h"// test objecttttttttttttttttttttttttttttttttttt
 
 
 LocalGame::LocalGame()
@@ -31,6 +32,19 @@ LocalGame::LocalGame()
 
 void LocalGame::gameLoop()
 {
+	shallow test = shallow();
+	std::cout << "te" << std::endl;
+	test.setPosition(sf::Vector2f(1000, 1000));
+	test.body.updateVisual();
+
+	for (auto odcin : test.body.odcinki)
+	{
+		std::cout << odcin.punkt1 << odcin.punkt2 << std::endl;
+
+	}
+	std::cout << "te" << std::endl;
+
+	//test sideeeeeeeeeeeeeeeeeeeeeeeee
 	this->player->setShip(this->findShip("Scharnhorst"));
 
 	sf::Music backgroundMusic;
@@ -70,6 +84,9 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
+		
+
+
 		if (connectionClock.getElapsedTime().asSeconds() > 15)
 		{
 			std::cout << "lost connection to server" << std::endl;
@@ -126,6 +143,7 @@ void LocalGame::gameLoop()
 				}
 			}
 		}
+
 		player->draw(*window);
 		for (const auto & player : otherPlayers)
 		{
@@ -149,6 +167,18 @@ void LocalGame::gameLoop()
 		{
 			guiTexture.draw(content);
 		}
+
+		test.draw(*window);
+		for (auto odcinek : test.body.odcinki)
+		{
+			window->draw(odcinek.line);
+		}
+		if (test.touching(&(player->getShip()->hitbox[0])) || test.touching(&(player->getShip()->hitbox[1])))
+		{
+			std::cout << "xd" << std::endl; // do testóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóów
+		}
+
+		//test sideeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		guiTexture.display();
 		sf::Sprite gui(guiTexture.getTexture());
 

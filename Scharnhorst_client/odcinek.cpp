@@ -7,6 +7,8 @@ odcinek::odcinek(sf::Vector2f a, sf::Vector2f b) : punkt1(a), punkt2(b)
 	oa.a = 0;
 	ob.a = 0;
 
+
+
 	line = sf::VertexArray(sf::LineStrip, 2);
 	line[0].position = a;
 	line[1].position = b;
@@ -72,6 +74,7 @@ odcinek::odcinek()
 
 void odcinek::updateVisual()
 {
+
 	line[0].position = punkt1;
 	line[1].position = punkt2;
 }
