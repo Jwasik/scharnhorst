@@ -40,8 +40,11 @@ public:
 	void subtractHP(float);
 	void setHP(float);
 	double getPlayerHP();
+	double getMaxPlayerHP();
 
 	std::shared_ptr<Ship>& getShip();
+	std::string getPlayerName();
+
 	Player();
 	//Player(unsigned int, std::string);
 	Player(unsigned int, std::string, std::string = "Scharnhorst");

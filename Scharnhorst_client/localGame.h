@@ -69,6 +69,7 @@ private:
 	std::string shipType;
 
 	void eraseBullet(unsigned int);
+	void calculatePlayerList(std::vector<sf::Text>&);
 public:
 	bool connectToServer(const std::string&);
 	bool isWClicked=0;

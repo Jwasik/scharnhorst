@@ -7,8 +7,7 @@ void Turret::setRestrictedArea(float angles[2])
 	this->restrictedArea[0] = angles[0];
 	this->restrictedArea[1] = angles[1];
 	std::cout << angles[0] <<  " " << angles[1] << std::endl;
-	restrictedArea[0] = 100;
-	restrictedArea[1] = 260;
+
 
 
 		if (restrictedArea[0] > restrictedArea[1])
@@ -97,8 +96,7 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	deleteOrigin();
 	turretAngle = 0;
 	rotationSpeed = 10;
-	restrictedArea[0] = 100;
-	restrictedArea[1] = 260;
+
 
 		if (restrictedArea[0] > restrictedArea[1])
 		{
@@ -182,8 +180,8 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 		{
 			if ((howManyDegreeToTurret - howManyDegreeToMouse) < rotationSpeed*dTime)
 			{
-				//nic nie robi bo jeden tik obrotu przekroczy³ by porz¹dan¹ pozycjê
-				//to musisz przeskoczyæ do tej pozycji
+				//nic nie robi bo jeden tik obrotu przekroczyï¿½ by porzï¿½danï¿½ pozycjï¿½
+				//to musisz przeskoczyï¿½ do tej pozycji
 			}
 			else
 			{
@@ -301,7 +299,7 @@ void Turret::setTurretPosition(sf::Vector2f turretPositionFromShip)
 
 	angleFromShipOrigin =  (atan(turretPositionFromShip.y / turretPositionFromShip.x) / M_PI * 180);
 
-	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ¿e k¹t 0 stopni jest skierowany w górê
+	if (turretPositionFromShip.x >= 0 && turretPositionFromShip.y < 0)//ustala ï¿½e kï¿½t 0 stopni jest skierowany w gï¿½rï¿½
 	{
 		angleFromShipOrigin += 90;
 	}
