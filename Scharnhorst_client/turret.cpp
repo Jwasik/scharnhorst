@@ -2,10 +2,22 @@
 #include "turret.h"
 
 
-void Turret::setRestrictedArea(float angles[2])
+void Turret::setRestrictedArea(float restrictedArea[2])
 {
-	this->restrictedArea[0] = angles[0];
-	this->restrictedArea[1] = angles[1];
+	this->restrictedArea[0] = restrictedArea[0];
+	this->restrictedArea[1] = restrictedArea[1];
+	
+	if (restrictedArea[0] != restrictedArea[1])
+		if (restrictedArea[0] > restrictedArea[1])
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
+			middleOfLockedArea = middleOfLockedArea % 360;
+		}
+		else
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
+		}
+	else middleOfLockedArea = 0;
 }
 
 unsigned int Turret::getLoadPercent()

@@ -33,12 +33,13 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 	this->playerName = playerName;
 	this->player->setShip(this->findShip(shipType));
 	this->shipType = shipType;
+	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 }
 
 void LocalGame::gameLoop()
 {
 	shallow test = shallow();
-	std::cout << "te" << std::endl;
+
 	test.setPosition(sf::Vector2f(1000, 1000));
 	test.body.updateVisual();
 
@@ -47,16 +48,13 @@ void LocalGame::gameLoop()
 		std::cout << odcin.punkt1 << odcin.punkt2 << std::endl;
 
 	}
-	std::cout << "te" << std::endl;
 
-	//test sideeeeeeeeeeeeeeeeeeeeeeeee
-	//this->player->setShip(this->findShip("Scharnhorst"));
 	this->player->setShip(this->findShip(this->shipType));
 
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
 	backgroundMusic.setLoop(true);
-	backgroundMusic.setVolume(100);
+	backgroundMusic.setVolume(50);
 	backgroundMusic.play();
 
 	sf::Clock time;
@@ -74,14 +72,14 @@ void LocalGame::gameLoop()
 
 	std::vector<sf::Text> guiContent;
 
-	guiContent.resize(12);
+	guiContent.resize(25);
 	guiContent[0]=sf::Text("HP",guiFont);
 	guiContent[1]=sf::Text("SPEED",guiFont);
 	guiContent[1].setPosition(sf::Vector2f(0,30));
 	guiContent[2]=sf::Text("GEAR", guiFont);
 	guiContent[2].setPosition(sf::Vector2f(0, 60));
 
-	for (unsigned int i = 3; i < 12; i++)
+	for (unsigned int i = 3; i < 25; i++)
 	{
 		guiContent[i].setFont(guiFont);
 		guiContent[i].setCharacterSize(15);
@@ -95,10 +93,7 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
-		
-
-
-		if (connectionClock.getElapsedTime().asSeconds() > 15)
+		if (connectionClock.getElapsedTime().asSeconds() > unsigned int(unsigned int(0)-unsigned int(1)))
 		{
 			std::cout << "lost connection to server" << std::endl;
 			return;
@@ -170,10 +165,11 @@ void LocalGame::gameLoop()
 		{
 			window->draw(shape);
 		}
-		//TEST
+		//GUI
 
 		guiTexture.clear(sf::Color::Transparent);
 		this->player->updateGui(guiContent, guiView);
+		this->calculatePlayerList(guiContent);
 		for (auto & content : guiContent)
 		{
 			guiTexture.draw(content);
@@ -560,7 +556,7 @@ bool LocalGame::loadShips()
 		float turretRestrictedArea[2];
 		float startingAngle=69;
 		
-		for (unsigned int i = 0; i < turretCount; i++)
+		for (unsigned int i = 0; i < turretCount; i++)//turrety
 		{
 			std::getline(in,turretName);
 			in >> x;
@@ -638,6 +634,21 @@ void LocalGame::eraseBullet(unsigned int id)
 	for (auto it = bullets.begin(); it != bullets.end(); it++)
 	{
 		if (it->getId() == id)bullets.erase(it);
+	}
+}
+void LocalGame::calculatePlayerList(std::vector<sf::Text> &guiContent)
+{
+	unsigned int i = 0;
+	for (auto & player : otherPlayers)
+	{
+		guiContent[i + 12].setString(player->getPlayerName() + " " + std::to_string(int(100*(player->getPlayerHP()/ (player->getMaxPlayerHP())))) + "%");
+		guiContent[i + 12].setPosition(sf::Vector2f(10,100+i*30));
+		if (player->getPlayerHP() / player->getMaxPlayerHP() < 0.2)
+		{
+			guiContent[i + 12].setFillColor(sf::Color(255, 0, 0, 180));
+		}
+		else guiContent[i + 12].setFillColor(sf::Color(255,255,255,127));
+		i++;
 	}
 }
 bool LocalGame::connectToServer(const std::string &adress)

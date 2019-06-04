@@ -80,6 +80,11 @@ std::shared_ptr<Ship> & Player::getShip()
 	return this->playerShip;
 }
 
+std::string Player::getPlayerName()
+{
+	return this->playerName;
+}
+
 Player::Player()
 {
 	this->killCount = 0;
@@ -166,4 +171,9 @@ void Player::setHP(float HP)
 double Player::getPlayerHP()
 {
 	return this->HP;
+}
+
+double Player::getMaxPlayerHP()
+{
+	return this->maxHP;
 }

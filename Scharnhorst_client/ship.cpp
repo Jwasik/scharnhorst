@@ -64,10 +64,10 @@ Ship::Ship(std::string name, float parameters[6], sf::ConvexShape shape)
 	this->enginePower = parameters[1];
 	this->width = parameters[2];
 	this->length = parameters[3];
-	this->maxSpeed = parameters[4]*8;
+	this->maxSpeed = parameters[4]*16;
 	this->mass = parameters[5];
 	this->actualSpeed = 0;
-	this->acceleration = (enginePower / mass)*20;
+	this->acceleration = (enginePower / mass)*100;
 
 	this->shipStaticPressure = acceleration / (maxSpeed*maxSpeed);
 	//this->bodyProjection.setPointCount(4);
@@ -93,7 +93,7 @@ Ship::Ship(const Ship &newShip)
 	this->shape = newShip.shape;
 	this->width = newShip.width;
 	this->length = newShip.length;
-	this->maxSpeed = newShip.length;
+	this->maxSpeed = newShip.maxSpeed;
 	this->maxTurnAcceleration = newShip.maxTurnAcceleration;
 	this->turnAcceleration = newShip.turnAcceleration;
 	this->mass = newShip.mass;
@@ -122,7 +122,6 @@ float Ship::calculateAcceleration()
 void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 {
 	calculateAcceleration();
-
 	if (actualSpeed > 0)
 	{
 		actualSpeed -= waterRezistance * deltaTime;
@@ -131,14 +130,11 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 	{
 		actualSpeed += waterRezistance * deltaTime;
 	}
-
 	if (gear != 0)
 	{
 		actualSpeed += acceleration * gear*0.25 * deltaTime;
 
 	}
-
-	//std::cout << actualSpeed << std::endl;
 }
 
 
@@ -146,7 +142,7 @@ void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 
 void Ship::spin(bool direction, double dtime)
 {
-	turnAcceleration = maxTurnAcceleration * sin(PI*0.6*(actualSpeed / maxSpeed));
+	turnAcceleration = maxTurnAcceleration * sin(     PI*0.6*(actualSpeed / maxSpeed)     );
 	if (direction == 1)
 	{
 		this->rotate(dtime*turnAcceleration);
@@ -207,14 +203,10 @@ void Ship::addTurret(std::shared_ptr<Turret> turret,sf::Vector2f positionFromShi
 void Ship::swim(double deltaTime)
 {
 	this->accelerate(deltaTime);
-	float distance = actualSpeed * deltaTime;//tutaj ta delta czasu klatki [s // poproszê w sekundach]
+	float distance = actualSpeed * deltaTime;
 	this->move(sf::Vector2f(distance * sin(this->getRotation()*PI / 180), -distance * cos(this->getRotation()*PI / 180)));
 	this->hitbox[0].setPosition(shape.getPosition());
 	this->hitbox[1].setPosition(shape.getPosition());
-
-	//this->hitbox[0].updateVisual();
-	//this->hitbox[1].updateVisual();
-
 }
 
 void Ship::setTurrets(float &mouseAngle, double &dTime)
