@@ -6,6 +6,22 @@ void Turret::setRestrictedArea(float angles[2])
 {
 	this->restrictedArea[0] = angles[0];
 	this->restrictedArea[1] = angles[1];
+	std::cout << angles[0] <<  " " << angles[1] << std::endl;
+	restrictedArea[0] = 100;
+	restrictedArea[1] = 260;
+
+
+		if (restrictedArea[0] > restrictedArea[1])
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
+			middleOfLockedArea = middleOfLockedArea % 360;
+		}
+		else
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
+		}
+
+
 }
 
 unsigned int Turret::getLoadPercent()
@@ -26,7 +42,20 @@ Turret::Turret()
 	distanceFromShipOrigin = 40;
 	angleFromShipOrigin = 0;
 	restrictedArea[0] = 0;
-	restrictedArea[1] = 0;
+	restrictedArea[1] = 10;
+
+
+		if (restrictedArea[0] > restrictedArea[1])
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
+			middleOfLockedArea = middleOfLockedArea % 360;
+		}
+		else
+		{
+			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
+		}
+
+
 }
 
 Turret::Turret(const Turret & turret)
@@ -71,7 +100,6 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 	restrictedArea[0] = 100;
 	restrictedArea[1] = 260;
 
-	if (restrictedArea[0] != restrictedArea[1])
 		if (restrictedArea[0] > restrictedArea[1])
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
@@ -79,9 +107,10 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 		}
 		else
 		{
+
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
 		}
-	else middleOfLockedArea = 0;
+
 }
 
 Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]) : type(ntype), name(nname)
@@ -97,9 +126,7 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 	this->restrictedArea[1] = parameters[2];
 
 
-	if (restrictedArea[0] != restrictedArea[1])
-	{
-		turretCanDo360 = 0;
+
 		if (restrictedArea[0] > restrictedArea[1])
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1] + 360) / 2);
@@ -109,15 +136,16 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
 		}
-	}	
-	else turretCanDo360 = 1;
+
+
 
 }
 
 void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nshipOrigin, float dTime)
 {
-	if (turretCanDo360 = 1)
+	if (restrictedArea[0] == restrictedArea[1])
 	{
+		std::cout << "123" << std::endl;
 		middleOfLockedArea = turretAngle + 180;
 		middleOfLockedArea = middleOfLockedArea % 360;
 	}
@@ -143,7 +171,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			else
 			{
 				turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
-				if(turretCanDo360 == 0)
+				if(restrictedArea[0] != restrictedArea[1])
 				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
 					turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
@@ -160,7 +188,7 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			else
 			{
 				turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
-				if (turretCanDo360 == 0)
+				if (restrictedArea[0] != restrictedArea[1])
 				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
 				{
 					turretAngle = movable::changeAngle(this->turretAngle, rotationSpeed * dTime);

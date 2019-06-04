@@ -38,16 +38,10 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 void LocalGame::gameLoop()
 {
 	shallow test = shallow();
-	std::cout << "te" << std::endl;
+	
 	test.setPosition(sf::Vector2f(1000, 1000));
 	test.body.updateVisual();
 
-	for (auto odcin : test.body.odcinki)
-	{
-		std::cout << odcin.punkt1 << odcin.punkt2 << std::endl;
-
-	}
-	std::cout << "te" << std::endl;
 
 	//test sideeeeeeeeeeeeeeeeeeeeeeeee
 	//this->player->setShip(this->findShip("Scharnhorst"));
@@ -95,10 +89,9 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
-		
 
 
-		if (connectionClock.getElapsedTime().asSeconds() > 15)
+		if (connectionClock.getElapsedTime().asSeconds() > 150)
 		{
 			std::cout << "lost connection to server" << std::endl;
 			return;
@@ -458,6 +451,8 @@ bool LocalGame::loadTurrets()
 		in >> parameters[0];
 		in >> parameters[1];
 		in >> parameters[2];
+		parameters[0] = 40;//testtttttttttttttttttttttttttttttttttt
+
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		newTurret = std::make_shared<Turret>(name, name, turretShape, parameters);
