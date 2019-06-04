@@ -173,16 +173,12 @@ void LocalGame::gameLoop()
 		}
 
 		test.draw(*window);
+		//wyspa
 		for (auto odcinek : test.body.odcinki)
 		{
 			window->draw(odcinek.line);
 		}
-		if (test.touching(&(player->getShip()->hitbox[0])) || test.touching(&(player->getShip()->hitbox[1])))
-		{
-			std::cout << "xd" << std::endl; // do testóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóóów
-		}
 
-		//test sideeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 		guiTexture.display();
 		sf::Sprite gui(guiTexture.getTexture());
 
@@ -451,7 +447,6 @@ bool LocalGame::loadTurrets()
 		in >> parameters[0];
 		in >> parameters[1];
 		in >> parameters[2];
-		parameters[0] = 40;//testtttttttttttttttttttttttttttttttttt
 
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
