@@ -248,12 +248,12 @@ bool LocalGame::joinServer()
 	std::cout << "type server IP and port" << std::endl;
 	std::cin >> IP;
 	if (IP == "single")return 1;
-	TCPsocket.setBlocking(false);
+	TCPsocket.setBlocking(true);
 
 	if (connectToServer(IP) == false)return 0;
 
 	sf::Packet newPlayerPacket;
-	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->player->getShip()->getType() << this->player->getShip()->getName();
+	newPlayerPacket << "PLA" << unsigned int(0) << this->playerName << this->shipType << this->player->getShip()->getName();
 
 	TCPsocket.send(newPlayerPacket);
 	newPlayerPacket.clear();
@@ -676,22 +676,7 @@ bool LocalGame::connectToServer(const std::string &adress)
 		std::cout << "port number must be between 1024 and 65535" << std::endl;
 		return 0;
 	}
-
-	sf::Clock connectionClock;
-	connectionClock.restart();
-
-
-
-	sf::Socket::Status status;
-	do
-	{
-		status = TCPsocket.connect(sf::IpAddress(IP), portNum);
-		if (connectionClock.getElapsedTime().asMilliseconds() > 3000)
-		{
-			std::cout << "max time elapsed" << std::endl;
-			return 0;
-		}
-	} while (status == sf::TcpSocket::Status::Error);
+	TCPsocket.connect(sf::IpAddress(IP), portNum, sf::seconds(3));
 
 
 	//-----------------------------------------------------------
@@ -703,26 +688,20 @@ bool LocalGame::connectToServer(const std::string &adress)
 	TCPsocket.send(helloPacket);
 	helloPacket.clear();
 
-	connectionClock.restart();
 
-	while (1)
+	TCPsocket.receive(helloPacket);
+	std::string message;
+	helloPacket >> message;
+	if (message == "HI_")
 	{
-		if (connectionClock.getElapsedTime().asSeconds() > 2)return false;
-		if (TCPsocket.receive(helloPacket) == sf::Socket::Done)
-		{
-			std::string message;
-			helloPacket >> message;
-			if (message == "HI_")
-			{
-				this->serverInfo.serverAddress = TCPsocket.getRemoteAddress();
-				helloPacket >> serverInfo.serverUdpPort;
-				std::cout << "server responded with \"HI\" and port " << serverInfo.serverUdpPort << std::endl;
-				this->serverInfo.serverAddress = IP;
-				return true;
-			}
-		}
-
+		this->serverInfo.serverAddress = TCPsocket.getRemoteAddress();
+		helloPacket >> serverInfo.serverUdpPort;
+		std::cout << "server responded with \"HI\" and port " << serverInfo.serverUdpPort << std::endl;
+		this->serverInfo.serverAddress = IP;
+		TCPsocket.setBlocking(false);
+		return true;
 	}
+	TCPsocket.setBlocking(false);
 	return false;
 
 }
@@ -750,7 +729,7 @@ bool LocalGame::loadGameFiles()
 void LocalGame::loadMap()
 {
 	sf::Texture waterTexture;
-	waterTexture.loadFromFile("water.jpg");
+	waterTexture.loadFromFile("gamedata/textures/water.jpg");
 	this->textures.insert(std::pair<std::string,sf::Texture>("water1", waterTexture));
 
 	this->backgroundMap.resize(128);
@@ -780,48 +759,50 @@ void LocalGame::receivePlayersPositions()
 	receivedPacket.clear();
 	sf::IpAddress IP;
 	unsigned short port;
-	if (this->inSocket.receive(receivedPacket, IP, port) != sf::Socket::Done)return;
+	sf::Clock connectionClock;
+	connectionClock.restart();
 
-	//std::cout << receivedPacket.getDataSize() << std::endl;
-
-	std::string message="NULL";
-	if (receivedPacket >> message)
+	this->inSocket.receive(receivedPacket, IP, port);
+	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
 	{
-		//std::cout << message << std::endl;
-
-		if (message == "PPS")
+		std::string message = "NULL";
+		if (receivedPacket >> message)
 		{
-			//std::cout << "received PPS" << std::endl;
-			unsigned int playerId;
-			float x, y, shipAngle, cannonAngle;
+			//std::cout << message << std::endl;
 
-			unsigned int iterator;
-			receivedPacket >> iterator;
-			for (unsigned int i = 0; i < iterator; i++)
+			if (message == "PPS")
 			{
-				receivedPacket >> playerId;
-				receivedPacket >> x;
-				receivedPacket >> y;
-				receivedPacket >> shipAngle;
-				receivedPacket >> cannonAngle;
+				//std::cout << "received PPS" << std::endl;
+				unsigned int playerId;
+				float x, y, shipAngle, cannonAngle;
 
-				auto player = this->getPlayerById(playerId);
-				if (player == nullptr)
+				unsigned int iterator;
+				receivedPacket >> iterator;
+				for (unsigned int i = 0; i < iterator; i++)
 				{
-					receivedPacket.clear();
-					return;
-				}
-				else
-				{
-					player->getShip()->setPosition(sf::Vector2f(x, y));
-					player->getShip()->setRotation(shipAngle);
-					player->getShip()->setCannonRotation(cannonAngle);
-					receivedPacket.clear();
+					receivedPacket >> playerId;
+					receivedPacket >> x;
+					receivedPacket >> y;
+					receivedPacket >> shipAngle;
+					receivedPacket >> cannonAngle;
+
+					auto player = this->getPlayerById(playerId);
+					if (player == nullptr)
+					{
+						receivedPacket.clear();
+						return;
+					}
+					else
+					{
+						player->getShip()->setPosition(sf::Vector2f(x, y));
+						player->getShip()->setRotation(shipAngle);
+						player->getShip()->setCannonRotation(cannonAngle);
+						receivedPacket.clear();
+					}
 				}
 			}
-		}
-		if (message == "POS")
-		{
+			if (message == "POS")
+			{
 				unsigned int id;
 				sf::Vector2f position;
 				float angle;
@@ -829,19 +810,22 @@ void LocalGame::receivePlayersPositions()
 				receivedPacket >> id;
 				auto player = this->getPlayerById(id);
 				if (player == nullptr)return;
-				if(player->getPlayerId() == this->player->getPlayerId())return;
+				if (player->getPlayerId() == this->player->getPlayerId())return;
 				receivedPacket >> position.x;
 				receivedPacket >> position.y;
 				receivedPacket >> angle;
 				receivedPacket >> cannonAngle;
 
-				
 				player->getShip()->setPosition(position);
 				player->getShip()->setRotation(angle);
 				player->setAngleOfView(cannonAngle);
+
+			}
 		}
 	}
-	else return;
+	inSocket.setBlocking(false);
+	return;
+		
 }
 
 void LocalGame::receiveTCP()
@@ -878,6 +862,7 @@ void LocalGame::receiveTCP()
 				player->getShip()->setPosition(sf::Vector2f(100, 100));
 				player->setShipName(playerShipName);
 				player->calculateHPindicator();
+				std::cout << "received PLA " << playerId <<"/" <<playerName <<"/" <<playerShip <<std::endl;
 				otherPlayers.push_back(player);
 			}
 			else if (message == "BUL")
@@ -909,6 +894,7 @@ void LocalGame::receiveTCP()
 				prey->setHP(preyHPleft);
 				prey->calculateHPindicator();
 				this->eraseBullet(bulletId);
+				std::cout << "received HIT " << preyId << ' ' << damage << std::endl;
 			}
 			else if (message == "EXT")
 			{
@@ -933,19 +919,15 @@ void LocalGame::receiveTCP()
 				afkPacket << "AFK";
 				this->sendTCP(afkPacket);
 			}
+			receivedPacket.clear();
 		}
-		else return;
+		else continue;
 	}
 }
 
 void LocalGame::recieveUDP()
 {
-	sf::Clock connectionClock;
-	connectionClock.restart();
-	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
-	{
-		receivePlayersPositions();
-	}
+	this->receivePlayersPositions();
 }
 
 void LocalGame::sendTCP(sf::Packet messagePacket)
