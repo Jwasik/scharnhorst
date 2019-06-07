@@ -11,14 +11,14 @@
 
 class LocalGame
 {
+private:
 	bool endFlag = false;
-
-	std::vector<sf::CircleShape> testShapes;
 
 	Camera kamera;
 	std::string playerName;
 	float stalaCzasowa = 1;
-private:
+
+
 	struct serverInformation
 	{
 		unsigned short serverUdpPort=0;
@@ -37,6 +37,7 @@ private:
 
 	std::shared_ptr<Player> player;
 	std::vector<std::shared_ptr<Player>> otherPlayers;
+	std::vector<std::shared_ptr<Ship>> wreckages;
 	std::vector<Bullet> bullets;//œwiadomie zrobi³em bez wskaŸnika, zapytaj siê potem dlaczego
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
 
@@ -70,6 +71,8 @@ private:
 
 	void eraseBullet(unsigned int);
 	void calculatePlayerList(std::vector<sf::Text>&);
+	void generateWreckage(std::shared_ptr<Player>);
+
 public:
 	bool connectToServer(const std::string&);
 	bool isWClicked=0;

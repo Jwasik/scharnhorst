@@ -154,6 +154,17 @@ void Player::calculateHPindicator()
 	else this->playerHPtext.setFillColor(sf::Color::White);
 }
 
+void Player::respawn(sf::Vector2f mapSize)
+{
+	this->HP = this->maxHP;
+	unsigned int x, y;//Wylosowane wspó³rzêdne
+	x = std::rand();
+	y = std::rand();
+	x %= unsigned int(mapSize.x);
+	y %= unsigned int(mapSize.y);
+	this->playerShip->setPosition(sf::Vector2f(x,y));
+}
+
 Player::~Player()
 {
 }
@@ -176,4 +187,19 @@ double Player::getPlayerHP()
 double Player::getMaxPlayerHP()
 {
 	return this->maxHP;
+}
+
+unsigned int Player::getScore()
+{
+	return this->killCount;
+}
+
+void Player::setScore(unsigned int score)
+{
+	this->killCount = score;
+}
+
+void Player::increaseScore()
+{
+	this->killCount++;
 }
