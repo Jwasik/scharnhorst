@@ -34,7 +34,7 @@ public:
 	float angleFromShipOrigin;
 	float shipAngle;
 	float restrictedArea[2];//k¹towy obszar w którym Turret nie mo¿e przebywaæ (mniejszy k¹t, wiêkszy k¹t) 
-	float arestrictedArea[2];
+	//float arestrictedArea[2];
 	float turretAngle;
 	int middleOfLockedArea;
 
@@ -50,7 +50,7 @@ public:
 	Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody, float parameters[3]);
 	~Turret();
 
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderWindow& window); 
 	void updatePosition(float nshipAngle, float nTurretAngle, sf::Vector2f nshipOrigin, float dTime);
 	
 	std::vector<std::shared_ptr<sf::Vector2f>> getBarrelsPositionsByWater();

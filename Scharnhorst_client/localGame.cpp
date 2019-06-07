@@ -564,7 +564,7 @@ bool LocalGame::loadShips()
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 			std::shared_ptr<Turret> newTurret = std::make_shared<Turret>(this->findTurret(turretName));
 			newTurret->setRestrictedArea(turretRestrictedArea);
-			newTurret->setRotation(startingAngle);
+			//newTurret->setRotation(startingAngle); // to nie jest potrzebne bo ustawia się automatycznie w setRestrictedArea (bo zrąbałeś kąt początkowy w pliku xd a mój obrut cału czas działał dobrze)
 			newShip->addTurret(newTurret,sf::Vector2f(x,y));
 		}
 		

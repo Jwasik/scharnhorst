@@ -16,6 +16,11 @@ void Turret::setRestrictedArea(float restrictedArea[2])
 		{
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
 		}
+
+
+		this->turretAngle = changeAngle(middleOfLockedArea, 180);
+		//std::cout << turretAngle << std::endl;
+
 }
 
 unsigned int Turret::getLoadPercent()
@@ -23,6 +28,7 @@ unsigned int Turret::getLoadPercent()
 	auto time = this->timeFromShoot.getElapsedTime().asSeconds();
 	if (time > this->barrels.front()->reloadTime)return 100;
 	return unsigned int((time/ this->barrels.front()->reloadTime)*100);
+	
 }
 
 Turret::Turret()
@@ -68,10 +74,12 @@ Turret::Turret(const Turret & turret)
 	this->shipAngle = turret.shipAngle;
 	this->restrictedArea[0] = turret.restrictedArea[0];
 	this->restrictedArea[1] = turret.restrictedArea[1];
-	this->arestrictedArea[0] = turret.arestrictedArea[0];
-	this->arestrictedArea[1] = turret.arestrictedArea[1];
+	//this->arestrictedArea[0] = turret.arestrictedArea[0];
+	//this->arestrictedArea[1] = turret.arestrictedArea[1];
 	this->turretAngle = turret.turretAngle;
 	this->middleOfLockedArea = turret.middleOfLockedArea;
+
+
 }
 
 Turret::Turret(std::string ntype, float ndistanceFromShipOrigin, float nangleFromShipOrigin, std::vector<std::shared_ptr<Barrel>> nbarrels) : type(ntype), distanceFromShipOrigin(ndistanceFromShipOrigin),
@@ -99,6 +107,7 @@ angleFromShipOrigin(nangleFromShipOrigin), barrels(nbarrels)
 
 			middleOfLockedArea = ((restrictedArea[0] + restrictedArea[1]) / 2);
 		}
+
 
 }
 
@@ -128,17 +137,19 @@ Turret::Turret(std::string ntype, std::string nname, sf::ConvexShape turretBody,
 
 
 
+
 }
 
 void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nshipOrigin, float dTime)
 {
-	if (/*restrictedArea[0] == restrictedArea[1]*/1)
+	if (restrictedArea[0] == restrictedArea[1])
 	{
 		middleOfLockedArea = turretAngle + 180;
 		middleOfLockedArea = middleOfLockedArea % 360;
 	}
-	arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);
-	arestrictedArea[1] = changeAngle(restrictedArea[1], shipAngle);
+	//arestrictedArea[0] = changeAngle(restrictedArea[0], shipAngle);
+	//arestrictedArea[1] = changeAngle(restrictedArea[1], shipAngle);
+	//std::cout << restrictedArea[0] << ' ' << restrictedArea[1] << ' ' << changeAngle(turretAngle, shipAngle);
 	
 	float howManyDegreeToTurret = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), changeAngle(turretAngle, shipAngle));
 	float howManyDegreeToMouse = howManyDegreeFrom(changeAngle(middleOfLockedArea, shipAngle), mouseAngle);
@@ -160,10 +171,10 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			{
 
 				turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
-				if(/*restrictedArea[0] != restrictedArea[1]*/ 0)
-				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
+				if(restrictedArea[0] != restrictedArea[1])
+				if (howManyDegreeFrom(restrictedArea[0], restrictedArea[1]) >= howManyDegreeFrom(restrictedArea[0], turretAngle))
 				{
-					std::cout << 1;
+					//std::cout << ' ' << 1;
 					turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
 				}
 			}
@@ -178,15 +189,16 @@ void Turret::updatePosition(float nshipAngle, float mouseAngle, sf::Vector2f nsh
 			else
 			{
 				turretAngle = movable::changeAngle(turretAngle, -1 * rotationSpeed * dTime);
-				if (/*restrictedArea[0] != restrictedArea[1]*/ 0)
-				if (howManyDegreeFrom(arestrictedArea[0], arestrictedArea[1]) > howManyDegreeFrom(arestrictedArea[0], changeAngle(turretAngle, shipAngle)))
+				if (restrictedArea[0] != restrictedArea[1])
+				if (howManyDegreeFrom(restrictedArea[0], restrictedArea[1]) >= howManyDegreeFrom(restrictedArea[0], turretAngle))
 				{
-					std::cout << 2;
+					//std::cout << ' ' << 2;
 
-					turretAngle = movable::changeAngle(this->turretAngle, rotationSpeed * dTime-1);
+					turretAngle = movable::changeAngle(turretAngle, rotationSpeed * dTime);
 				}
 			}
 		}
+		//std::cout << std::endl;
 	shape.setRotation(changeAngle(turretAngle, shipAngle));
 	
 	for (auto &barrel : barrels)
