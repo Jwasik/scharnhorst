@@ -36,11 +36,16 @@ public:
 	void setAngleOfView(float);
 	void updateGui(std::vector<sf::Text>&, sf::View&);
 	void calculateHPindicator();
+	void respawn(sf::Vector2f);
 
 	void subtractHP(float);
 	void setHP(float);
 	double getPlayerHP();
 	double getMaxPlayerHP();
+
+	unsigned int getScore();
+	void setScore(unsigned int);
+	void increaseScore();
 
 	std::shared_ptr<Ship>& getShip();
 	std::string getPlayerName();
