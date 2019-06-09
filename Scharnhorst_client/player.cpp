@@ -201,7 +201,9 @@ void Player::respawn(sf::Vector2f mapSize)
 	x = std::rand();
 	y = std::rand();
 	x %= unsigned int(mapSize.x);
+	x *= 128;
 	y %= unsigned int(mapSize.y);
+	y *= 128;
 	this->playerShip->setPosition(sf::Vector2f(x,y));
 }
 

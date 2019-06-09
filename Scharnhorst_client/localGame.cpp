@@ -22,6 +22,7 @@ LocalGame::LocalGame()
 	if (!this->loadGameFiles())throw 'E';
 
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	this->window->setFramerateLimit(65);
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	
 	inSocket.bind(sf::Socket::AnyPort);
