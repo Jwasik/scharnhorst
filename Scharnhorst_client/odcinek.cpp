@@ -9,9 +9,13 @@ odcinek::odcinek(sf::Vector2f a, sf::Vector2f b) : punkt1(a), punkt2(b)
 
 
 
+
 	line = sf::VertexArray(sf::LineStrip, 2);
 	line[0].position = a;
 	line[1].position = b;
+
+
+
 };
 
 sf::Vector2f punktNaOkregu::zamienNaPunkt(sf::Vector2f orgin)
@@ -24,18 +28,18 @@ float sNR(float s)
 	return (s / 180.0) * M_PI;
 }
 
-void odcinek::rotate(float angle) 
+void odcinek::rotate(float aangle) 
 {
 	oa = zamienNaPunktNaOkregu(punkt1 - orgin, orgin);
 	ob = zamienNaPunktNaOkregu(punkt2 - orgin, orgin);
 
-	this->oa.a += angle;
-
+	this->oa.a = this->oa.a + aangle;
 	if (this->oa.a > 360)
 	{
 		this->oa.a -= 360;
 	}
-	this->ob.a = this->ob.a + angle;
+
+	this->ob.a = this->ob.a + aangle;
 	if (this->ob.a > 360)
 	{
 		this->oa.a -= 360; 
@@ -44,21 +48,15 @@ void odcinek::rotate(float angle)
 
 	punkt1 = oa.zamienNaPunkt(orgin);
 	punkt2 = ob.zamienNaPunkt(orgin);
+
+
 }
-void odcinek::setRotation(float angle) // nie dzi³a
+
+void odcinek::setRotation(float aangle) // nie dzi³a
 {
-	oa = zamienNaPunktNaOkregu(punkt1, orgin);
-	ob = zamienNaPunktNaOkregu(punkt2, orgin);
 
 
-
-	this->oa.a = angle;
-	this->ob.a = angle;
-
-
-
-	punkt1 = oa.zamienNaPunkt(orgin);
-	punkt2 = ob.zamienNaPunkt(orgin);
+	
 }
 
 void odcinek::setOrgin(sf::Vector2f norgin)

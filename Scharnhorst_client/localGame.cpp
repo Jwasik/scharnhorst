@@ -38,10 +38,6 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 
 void LocalGame::gameLoop()
 {
-	//shallow test = shallow();
-	
-	//test.setPosition(sf::Vector2f(1000, 1000));
-	//test.body.updateVisual();
 
 	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tpoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 
@@ -52,10 +48,10 @@ void LocalGame::gameLoop()
 	this->maps.push_back(std::make_shared<map>());
 	this->actualMap = maps[0];
 	this->actualMap->addIsland(std::make_shared<shallow> (tpoints));
-	this->actualMap->islands[0]->updateShape();
 	this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
 	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));
-
+	
+	
 
 	this->player->setShip(this->findShip(this->shipType));
 
@@ -107,7 +103,12 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
-
+		/*if ((this->actualMap->islands[0]->touch(&(this->player->getShip()->hitbox[0]))) || (this->actualMap->islands[0]->touch(&(this->player->getShip()->hitbox[1]))))
+		{
+			std::cout << "xd" << std::endl;
+		}*/
+		
+		
 
 		if (connectionClock.getElapsedTime().asSeconds() > 100)
 		{
@@ -137,7 +138,7 @@ void LocalGame::gameLoop()
 		this->player->sendBullets(this->TCPsocket);//wysyła dane o bulletach które stworzył gracz
 
 		player->setAngleOfView(kamera.angle);
-		this->player->doStuff(deltaTime);
+		this->player->mainPlayerDoStuff(deltaTime, this->actualMap);
 
 		for (auto & player : otherPlayers)
 		{
@@ -167,10 +168,7 @@ void LocalGame::gameLoop()
 			}
 		}
 
-		/*for (auto odcinek : test.body.odcinki)
-		{
-			window->draw(odcinek.line);
-		}*/
+		
 
 
 		for (auto & wreckage : wreckages)
@@ -201,16 +199,19 @@ void LocalGame::gameLoop()
 		guiTexture.draw(messageText);
 
 
-		this->actualMap->draw(*window);
+		
 		//test.draw(*window);
+		//this->actualMap->draw(*window);
+	
 		//wyspa
-
+		this->actualMap->islands[0]->drawHitbox(*window);
 
 		guiTexture.display();
 		sf::Sprite gui(guiTexture.getTexture());
 
 		window->setView(guiView);
 		window->draw(gui);
+		
 
 		window->display();
 	}  
@@ -978,4 +979,5 @@ void LocalGame::sendTCP(sf::Packet messagePacket)
 {
 	this->TCPsocket.send(messagePacket);
 }
+
 

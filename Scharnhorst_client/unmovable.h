@@ -16,7 +16,8 @@ public:
 	void setPointCount(int count);//phusical
 	void changePoint(int count, std::shared_ptr<sf::Vector2f > position);//phusical//po co to wogle?
 	virtual void updateShape();
-	virtual void action() = 0;
+	virtual bool touch(odcinek *line) = 0;
+	virtual void drawHitbox(sf::RenderWindow &window) = 0;
 
 
 

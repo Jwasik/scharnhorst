@@ -10,13 +10,11 @@ public:
 
 
 public:
-	bool touching(odcinek *line);
 	shallow();
 	shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> points);
 	void setPosition(sf::Vector2f position);
 	void updateHitbox();
 	void updateShape();
-	void action()
-
-
+	bool touch(odcinek *line);
+	void drawHitbox(sf::RenderWindow &window);
 };

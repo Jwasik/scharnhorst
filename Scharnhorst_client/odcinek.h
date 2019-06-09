@@ -22,7 +22,6 @@ class odcinek
 {
 public:
 	sf::Vector2f orgin;//zmieniaj aby przemieœciæ przy rotate() siê aktualizuje
-
 	punktNaOkregu oa, ob; //i tak musz¹ byæ u¿ywane przy ka¿dej rotacji wiêc niech s¹ dostêpne tu ca³y czas 
 	sf::Vector2f punkt1, punkt2; //punkty
 	sf::VertexArray line; //wizualizacja

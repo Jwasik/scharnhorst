@@ -21,11 +21,6 @@ shallow::shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> po
 	this->body = hitbox(&shape);
 }
 
-bool shallow::touching(odcinek *line)
-{
-	std::cout << "xd" << std::endl;
-	return this->body.intersects(line);
-}
 
 void shallow::setPosition(sf::Vector2f nposition)
 {
@@ -45,7 +40,19 @@ void shallow::updateShape()
 
 }
 
-void shallow::action(odcinek *line)
+bool shallow::touch(odcinek *line)
 {
-	this->touching(line);
+	return this -> body.intersects(line);
+}
+
+
+
+void shallow::drawHitbox(sf::RenderWindow &window)
+{
+	this->draw(window);
+	this->body.updateVisual();
+	for (auto odcinek : this->body.odcinki)
+	{
+		window.draw(odcinek.line);
+	}
 }

@@ -4,6 +4,7 @@
 #include "ship.h"
 #include "bullet.h"
 #include <fstream>
+#include "map.h"
 class Player
 {
 private:
@@ -13,6 +14,8 @@ private:
 	std::string playerName;
 	unsigned int playerId;
 	float angleOfView;
+	sf::Vector2f previousPosition;
+	float previousRotation;
 
 	std::shared_ptr<std::vector<jw::bulletInfo>> newBullets;
 	std::shared_ptr<Ship> playerShip;
@@ -28,6 +31,7 @@ public:
 	void setShipName(std::string);
 	void setId(unsigned int);
 	void doStuff(double&);
+	void mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map);
 	void sendPlayerPosition(sf::UdpSocket&, sf::IpAddress, unsigned short);
 	void sendBullets(sf::TcpSocket&);
 	void draw(sf::RenderWindow&);

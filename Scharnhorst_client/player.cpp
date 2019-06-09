@@ -23,12 +23,52 @@ void Player::doStuff(double &deltaTime)
 {
 	if (this->playerShip != nullptr)
 	{
-		playerShip->swim(deltaTime);
+		this->playerShip->swim(deltaTime);
 		this->playerNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-200));//Nazwa gracza
 		this->playerShipNameText.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-170));//Nazwa statku
 		this->playerHPtext.setPosition(this->getShip()->getPosition()+sf::Vector2f(-100,-140));//HP
 		this->getShip()->setTurrets(this->angleOfView, deltaTime);
 	}
+}
+
+void Player::mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map)
+{
+	
+
+	
+
+	if (this->playerShip != nullptr)
+	{
+		this->playerShip->swim(deltaTime);
+		this->playerNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -200));//Nazwa gracza
+		this->playerShipNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -170));//Nazwa statku
+		this->playerHPtext.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -140));//HP
+		this->getShip()->setTurrets(this->angleOfView, deltaTime);
+
+		if ((map->islands[0]->touch(&(this->playerShip->hitbox[0]))) || (map->islands[0]->touch(&(this->playerShip->hitbox[1]))))
+		{
+			std::cout << "xd" << std::endl;
+			this->playerShip->setPosition(previousPosition);
+			this->playerShip->hitbox[0].rotate(-(this->playerShip->getRotation() - previousRotation));
+			this->playerShip->hitbox[1].rotate(-(this->playerShip->getRotation() - previousRotation));
+			this->playerShip->setRotation(previousRotation);
+			this->playerShip->hitbox[0].setPosition(previousPosition);
+			this->playerShip->hitbox[1].setPosition(previousPosition);
+			
+
+
+
+
+
+		}
+		else
+		{
+			previousPosition = this->playerShip->getPosition();
+			previousRotation = this->playerShip->getRotation();
+			
+		}
+	}
+
 }
 
 void Player::sendPlayerPosition(sf::UdpSocket &socket, sf::IpAddress address, unsigned short port)
