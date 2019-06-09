@@ -38,10 +38,23 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 
 void LocalGame::gameLoop()
 {
-	shallow test = shallow();
+	//shallow test = shallow();
 	
-	test.setPosition(sf::Vector2f(1000, 1000));
-	test.body.updateVisual();
+	//test.setPosition(sf::Vector2f(1000, 1000));
+	//test.body.updateVisual();
+
+	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tpoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+
+	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, -300)));
+	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(300, -300)));
+	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(300, 300)));
+	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, 300)));
+	this->maps.push_back(std::make_shared<map>());
+	this->actualMap = maps[0];
+	this->actualMap->addIsland(std::make_shared<shallow> (tpoints));
+	this->actualMap->islands[0]->updateShape();
+	this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
+	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));
 
 
 	this->player->setShip(this->findShip(this->shipType));
@@ -96,7 +109,7 @@ void LocalGame::gameLoop()
 	{
 
 
-		if (connectionClock.getElapsedTime().asSeconds() > 10)
+		if (connectionClock.getElapsedTime().asSeconds() > 100)
 		{
 			std::cout << "lost connection to server" << std::endl;
 			return;
@@ -154,10 +167,11 @@ void LocalGame::gameLoop()
 			}
 		}
 
-		for (auto odcinek : test.body.odcinki)
+		/*for (auto odcinek : test.body.odcinki)
 		{
 			window->draw(odcinek.line);
-		}
+		}*/
+
 
 		for (auto & wreckage : wreckages)
 		{
@@ -186,7 +200,9 @@ void LocalGame::gameLoop()
 		}
 		guiTexture.draw(messageText);
 
-		test.draw(*window);
+
+		this->actualMap->draw(*window);
+		//test.draw(*window);
 		//wyspa
 
 

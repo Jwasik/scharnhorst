@@ -15,6 +15,10 @@ public:
 	void setFillColor(sf::Color color);//phusical
 	void setPointCount(int count);//phusical
 	void changePoint(int count, std::shared_ptr<sf::Vector2f > position);//phusical//po co to wogle?
-	void updateShape();
+	virtual void updateShape();
+	virtual void action() = 0;
+
+
+
 };
 

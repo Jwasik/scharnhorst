@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <SFML/Audio.hpp>
+#include "map.h"
 
 
 class LocalGame
@@ -40,6 +41,9 @@ private:
 	std::vector<std::shared_ptr<Ship>> wreckages;
 	std::vector<Bullet> bullets;//œwiadomie zrobi³em bez wskaŸnika, zapytaj siê potem dlaczego
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
+	std::vector<std::shared_ptr<map>> maps;
+	std::shared_ptr<map> actualMap;
+
 
 	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers;
 	std::vector<std::shared_ptr<sf::Sound>> sounds;
@@ -89,6 +93,7 @@ public:
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void loadMap();
 	bool loadGameFiles();
+	void displayIslands();
 
 	void receiveTCP(); //odbiera pakiety TCP
 	void recieveUDP(); //obs³uguje odbieranie wiadomoœci UDP

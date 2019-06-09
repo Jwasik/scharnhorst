@@ -166,6 +166,7 @@
     <ClInclude Include="Hitbox.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="localGame.h" />
+    <ClInclude Include="map.h" />
     <ClInclude Include="shallow.h" />
     <ClInclude Include="movable.h" />
     <ClInclude Include="nemovable.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="functions.cpp" />
     <ClCompile Include="Hitbox.cpp" />
     <ClCompile Include="localGame.cpp" />
+    <ClCompile Include="map.cpp" />
     <ClCompile Include="shallow.cpp" />
     <ClCompile Include="movable.cpp" />
     <ClCompile Include="object.cpp" />

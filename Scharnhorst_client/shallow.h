@@ -14,5 +14,9 @@ public:
 	shallow();
 	shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> points);
 	void setPosition(sf::Vector2f position);
+	void updateHitbox();
+	void updateShape();
+	void action()
+
 
 };

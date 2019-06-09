@@ -7,7 +7,7 @@ unmovable::unmovable()
 
 unmovable::unmovable(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> npoints) : points(*npoints)
 {
-	updateShape();
+	this->unmovable::updateShape();
 }
 
 void unmovable::setFillColor(sf::Color color)
@@ -28,11 +28,10 @@ void unmovable::changePoint(int count, std::shared_ptr<sf::Vector2f> position)
 void unmovable::updateShape()
 {
 	unsigned int counter = 0;
-	setPointCount(points.size());
+	this->setPointCount(points.size());
 	for (auto point : points)
 	{
-		changePoint(counter, point);
+		this->changePoint(counter, point);
 		counter++;
 	}
-	//body = Hitbox(this->shape);
 }
