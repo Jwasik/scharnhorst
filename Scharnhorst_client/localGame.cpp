@@ -10,6 +10,7 @@ LocalGame::LocalGame()
 	kamera = Camera(sf::Vector2f(1024, 768));
 
 	this->loadMap();
+	this->loadMaps();
 
 	sf::ConvexShape defaultShape;
 	defaultShape.setPointCount(3);
@@ -40,7 +41,7 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 void LocalGame::gameLoop()
 {
 
-	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tpoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+	/*std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tpoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 
 	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, -300)));
 	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(300, -300)));
@@ -50,8 +51,9 @@ void LocalGame::gameLoop()
 	this->actualMap = maps[0];
 	this->actualMap->addIsland(std::make_shared<shallow> (tpoints, 0, &textures));
 	//this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
-	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));
-	
+	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));*/
+	this->actualMap = maps[0];
+
 	
 
 	this->player->setShip(this->findShip(this->shipType));
@@ -160,6 +162,7 @@ void LocalGame::gameLoop()
 		//DRAWING
 
 		auto view = kamera.getViewBounds();
+		
 		for (const auto & vector : backgroundMap)
 		{
 			for (const auto & shape : vector)
@@ -171,6 +174,8 @@ void LocalGame::gameLoop()
 				}
 			}
 		}
+
+		this->actualMap->draw(*window);
 
 		
 
@@ -205,7 +210,7 @@ void LocalGame::gameLoop()
 
 		
 		//test.draw(*window);
-		this->actualMap->draw(*window);
+		
 	
 		//wyspa
 		//this->actualMap->islands[0]->drawHitbox(*window);
@@ -609,6 +614,81 @@ bool LocalGame::loadShips()
 	in.close();
 	return 1;
 }
+
+bool LocalGame::loadMaps()
+{
+	std::fstream in("gamedata/maps.dat");
+	if (!in.good())return 0;
+
+	bool stopsBullets = 0;
+	std::string type;
+	unsigned int pointCount = 0;
+	float x, y;
+	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tempoints;
+
+
+	maps.push_back(std::make_shared<map>());
+	while (true)
+	{
+
+
+		std::getline(in, type);//nazwa
+		std::cout << "type: " <<  type << std::endl;
+		if (type == "END")
+		{
+			maps.push_back(std::make_shared<map>());
+		}
+
+		if (type == "ENDofFILE")
+		{
+			break;
+		}
+
+		if (type == "island")
+		{
+			stopsBullets = 1;
+		}
+
+		if (type == "shallow")
+		{
+			stopsBullets = 0;
+		}
+		in >> pointCount;//ilość punktów
+		std::cout <<"pcount: " << pointCount << std::endl;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+		for (int i = 0; i < pointCount; i++)
+		{
+
+			in >> x;
+			in >> y;
+			std::cout << x << ' ' << y << std::endl;
+
+			tempoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(x, y)));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		}
+		pointCount = 0;
+		maps[maps.size()-1]->addIsland(std::make_shared<shallow>(tempoints, stopsBullets, &(this->textures)));
+
+
+		in >> x;
+		in >> y;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "p: " << x << ' ' << y << std::endl;
+
+
+		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
+
+
+
+		
+	}
+	in.close();
+	return 1;
+}
+
 Bullet LocalGame::findBullet(std::string name)
 {
 	for (auto &bullet : bulletData)
@@ -989,5 +1069,3 @@ void LocalGame::sendTCP(sf::Packet messagePacket)
 {
 	this->TCPsocket.send(messagePacket);
 }
-
-

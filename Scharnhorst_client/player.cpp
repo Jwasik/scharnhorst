@@ -33,41 +33,57 @@ void Player::doStuff(double &deltaTime)
 
 void Player::mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map)
 {
-	
+	bool is = 0;
 
 	for (auto isle : map->islands)
 	{
-		if (this->playerShip != nullptr)
+		if ((isle->touch(&(this->playerShip->hitbox[0]))) || (isle->touch(&(this->playerShip->hitbox[1]))))
 		{
-			this->playerShip->swim(deltaTime);
-			this->playerNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -200));//Nazwa gracza
-			this->playerShipNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -170));//Nazwa statku
-			this->playerHPtext.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -140));//HP
-			this->getShip()->setTurrets(this->angleOfView, deltaTime);
+			is = 1;
+			break;
+		}
+	}
 
-			if ((isle->touch(&(this->playerShip->hitbox[0]))) || (isle->touch(&(this->playerShip->hitbox[1]))))
+	if (this->playerShip != nullptr)
+	{
+		this->playerShip->swim(deltaTime);
+		this->playerNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -200));//Nazwa gracza
+		this->playerShipNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -170));//Nazwa statku
+		this->playerHPtext.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -140));//HP
+		this->getShip()->setTurrets(this->angleOfView, deltaTime);
+
+		if (is)
+		{
+			if (this->playerShip->actualSpeed < 0)
 			{
-				//std::cout << "xd" << std::endl;
-				this->playerShip->actualSpeed = 0;
-				this->playerShip->setPosition(previousPosition);
-				this->playerShip->hitbox[0].rotate(-(this->playerShip->getRotation() - previousRotation));
-				this->playerShip->hitbox[1].rotate(-(this->playerShip->getRotation() - previousRotation));
-				this->playerShip->setRotation(previousRotation);
-				this->playerShip->hitbox[0].setPosition(previousPosition);
-				this->playerShip->hitbox[1].setPosition(previousPosition);
-
-
-
-
-
+				this->playerShip->actualSpeed = this->playerShip->actualSpeed / 10;
 
 			}
 			else
 			{
-				previousPosition = this->playerShip->getPosition();
-				previousRotation = this->playerShip->getRotation();
-
+			this->playerShip->actualSpeed = this->playerShip->actualSpeed/10;
+			this->playerShip->setPosition(previousPosition);
+			//this->playerShip->hitbox[0].rotate(-(this->playerShip->getRotation() - previousRotation));
+			//this->playerShip->hitbox[1].rotate(-(this->playerShip->getRotation() - previousRotation));
+			//his->playerShip->setRotation(previousRotation);
+			this->playerShip->hitbox[0].setPosition(previousPosition);
+			this->playerShip->hitbox[1].setPosition(previousPosition);
 			}
+			
+
+
+
+
+
+
+
+
+		}
+		else
+		{
+			previousPosition = this->playerShip->getPosition();
+			previousRotation = this->playerShip->getRotation();
+
 		}
 	}
 

@@ -62,6 +62,7 @@ private:
 	bool loadTurrets();
 	bool loadSounds();
 	bool loadShips();
+	bool loadMaps();
 
 	Bullet findBullet(std::string);
 	Barrel findBarrel(std::string);
@@ -93,7 +94,6 @@ public:
 	void sendPlayerPosition(); //wysy³a pozycje i dane gracza
 	void loadMap();
 	bool loadGameFiles();
-	void displayIslands();
 	//void swimButBewereOfIslands(std::shared_ptr<Player> player, std::shared_ptr<map> map );
 
 	void receiveTCP(); //odbiera pakiety TCP
