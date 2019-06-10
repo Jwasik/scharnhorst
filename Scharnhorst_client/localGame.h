@@ -79,7 +79,7 @@ private:
 
 public:
 	bool connectToServer(const std::string&);
-	bool isWClicked=0;
+	bool isWClicked=0; 
 	bool isSClicked=0;
 
 	LocalGame();
@@ -94,7 +94,7 @@ public:
 	void loadMap();
 	bool loadGameFiles();
 	void displayIslands();
-	void swimButBewereOfIslands(std::shared_ptr<Player> player, std::shared_ptr<map> map );
+	//void swimButBewereOfIslands(std::shared_ptr<Player> player, std::shared_ptr<map> map );
 
 	void receiveTCP(); //odbiera pakiety TCP
 	void recieveUDP(); //obs³uguje odbieranie wiadomoœci UDP

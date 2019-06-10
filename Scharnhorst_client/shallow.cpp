@@ -16,9 +16,20 @@ shallow::shallow()
 	this->setFillColor(sf::Color( 200, 0, 200));*/
 }
 
-shallow::shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> points) : unmovable(points)
+shallow::shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> points, bool stopsBullets, std::map<std::string, sf::Texture>* textures) : unmovable(points)
 {
 	this->body = hitbox(&shape);
+	if (stopsBullets == 1)
+	{
+	}
+	else
+	{
+		//shape.setFillColor(sf::Color(0, 0, 100));
+		
+		shape.setTexture(&(*textures)["shallow1"]);
+
+	}
+
 }
 
 

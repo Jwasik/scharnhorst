@@ -48,8 +48,8 @@ void LocalGame::gameLoop()
 	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, 300)));
 	this->maps.push_back(std::make_shared<map>());
 	this->actualMap = maps[0];
-	this->actualMap->addIsland(std::make_shared<shallow> (tpoints));
-	this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
+	this->actualMap->addIsland(std::make_shared<shallow> (tpoints, 0, &textures));
+	//this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
 	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));
 	
 	
@@ -150,12 +150,15 @@ void LocalGame::gameLoop()
 			bullet.fly(deltaTime);
 		}
 
+
+
 		kamera.setCenter(player->getShip()->getPosition());
 		kamera.calculateView(*window, 8);
 		kamera.setView(*window);
 
 		window->clear();
 		//DRAWING
+
 		auto view = kamera.getViewBounds();
 		for (const auto & vector : backgroundMap)
 		{
@@ -202,10 +205,12 @@ void LocalGame::gameLoop()
 
 		
 		//test.draw(*window);
-		//this->actualMap->draw(*window);
+		this->actualMap->draw(*window);
 	
 		//wyspa
-		this->actualMap->islands[0]->drawHitbox(*window);
+		//this->actualMap->islands[0]->drawHitbox(*window);
+		
+
 
 		guiTexture.display();
 		sf::Sprite gui(guiTexture.getTexture());
@@ -766,9 +771,13 @@ void LocalGame::loadMap()
 {
 	sf::Texture waterTexture;
 	waterTexture.loadFromFile("gamedata/textures/water.jpg");
-	this->textures.insert(std::pair<std::string,sf::Texture>("water1", waterTexture));
+	this->textures.insert(std::pair<std::string, sf::Texture>("water1", waterTexture));
 
-	this->backgroundMap.resize(128);
+	sf::Texture shallowTexture;
+	shallowTexture.loadFromFile("gamedata/textures/shallow.png");
+	this->textures.insert(std::pair<std::string,sf::Texture>("shallow1", shallowTexture));
+
+	this->backgroundMap.resize(128); 
 	for (auto & vector : backgroundMap)
 	{
 		vector.resize(128);
