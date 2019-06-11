@@ -227,11 +227,11 @@ void Ship::draw(sf::RenderWindow& window)
 	{
 		turret->draw(window);
 	}
-	this->hitbox[0].updateVisual();
+	/*this->hitbox[0].updateVisual();
 	this->hitbox[1].updateVisual();
 
 	window.draw(this->hitbox[0].line);
-	window.draw(this->hitbox[1].line);
+	window.draw(this->hitbox[1].line);*/
 
 
 }

@@ -23,7 +23,7 @@ LocalGame::LocalGame()
 	if (!this->loadGameFiles())throw 'E';
 
 	sf::ContextSettings settings;
-	settings.antialiasingLevel = 32;
+	settings.antialiasingLevel = 4;
 
 	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst", sf::Style::Fullscreen, settings);
 	this->window->setFramerateLimit(65);
