@@ -23,6 +23,17 @@ void unmovable::setPointCount(int count)
 void unmovable::changePoint(int count, std::shared_ptr<sf::Vector2f> position)
 {
 	this->shape.setPoint(count, *position);
+	//this->points.push_back(position);
+
+
+}
+
+void unmovable::addPoint(std::shared_ptr<sf::Vector2f> position)
+{
+	this->points.push_back(position);
+	setPointCount(this->shape.getPointCount() + 1);
+	this->unmovable::updateShape();
+
 }
 
 void unmovable::updateShape()

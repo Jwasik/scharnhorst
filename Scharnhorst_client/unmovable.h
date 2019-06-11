@@ -6,8 +6,9 @@ class unmovable : public movable
 {
 private:
 
-
 public:
+	std::string type;
+
 	std::vector<std::shared_ptr<sf::Vector2f>> points; //wszystkie punkty convexshapeu
 
 	unmovable();
@@ -18,7 +19,8 @@ public:
 	virtual void updateShape();
 	virtual bool touch(odcinek *line) = 0;
 	virtual void drawHitbox(sf::RenderWindow &window) = 0;
-
+	virtual std::string returnType() = 0;
+	void addPoint(std::shared_ptr<sf::Vector2f> position);
 
 
 };

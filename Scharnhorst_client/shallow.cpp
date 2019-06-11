@@ -27,6 +27,7 @@ shallow::shallow(std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> po
 		//shape.setFillColor(sf::Color(0, 0, 100));
 		
 		shape.setTexture(&(*textures)["shallow1"]);
+		this->type = "shallow";
 
 	}
 
@@ -67,3 +68,9 @@ void shallow::drawHitbox(sf::RenderWindow &window)
 		window.draw(odcinek.line);
 	}
 }
+
+std::string shallow::returnType()
+{
+	return type;
+}
+

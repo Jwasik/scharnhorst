@@ -18,4 +18,5 @@ public:
 	void updateShape();
 	bool touch(odcinek *line);
 	void drawHitbox(sf::RenderWindow &window);
+	std::string returnType();
 };

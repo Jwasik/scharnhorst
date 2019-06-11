@@ -7,11 +7,34 @@
 
 LocalGame::LocalGame()
 {
+	resetButton = 0;
 	kamera = Camera(sf::Vector2f(1024, 768));
 
 	this->loadMap();
 	this->loadMaps();
 	this->actualMap = maps[0];
+
+	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+
+	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-30, -30)));
+
+	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(30, -30)));
+
+	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(30, 30)));
+
+	//newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, 300)));
+	this->actualMap->addIsland(std::make_shared<shallow>(newIslandPoints, 0, &(this->textures)));
+	this->actualMap->islands[this->actualMap->islands.size()-1]->setPosition(sf::Vector2f(3000, 3000));
+	
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f> (-30, 30));
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f>(-30, 30));
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
+	this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+
+	this->saveMap();
 
 
 	sf::ConvexShape defaultShape;
@@ -27,7 +50,7 @@ LocalGame::LocalGame()
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 4;
 
-	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst", sf::Style::Fullscreen, settings);
+	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst", sf::Style::Default, settings);
 	this->window->setFramerateLimit(65);
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	
@@ -159,7 +182,7 @@ void LocalGame::gameLoop()
 		}
 
 		this->actualMap->draw(*window);
-
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->drawHitbox(*window);
 		
 
 
@@ -209,6 +232,7 @@ void LocalGame::gameLoop()
 
 		window->display();
 	}  
+
 }
 
 void LocalGame::playerEvent(const double &deltaTime)
@@ -249,6 +273,24 @@ void LocalGame::playerEvent(const double &deltaTime)
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		player->shoot();
+	}
+
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && (resetButton == 0))
+	{
+		resetButton = 1;
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f> (this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition()));
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+	{
+		resetButton = 0;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
+	{
+		this->saveMap();
 	}
 
 }
@@ -306,15 +348,20 @@ bool LocalGame::joinServer()
 				player->getShip()->setPosition(sf::Vector2f(x, y));
 
 				//tutaj
-				for (auto it = this->actualMap->islands.begin(); it != this->actualMap->islands.end(); it++)
+				for (auto isle : this->actualMap->islands)
+				{
+					if ((isle->touch(&(player->getShip()->hitbox[0]))) || (isle->touch(&(player->getShip()->hitbox[1]))))
+					{
+						//player->respawn();
+					}
+				}
+				/*for (auto it = this->actualMap->islands.begin(); it != this->actualMap->islands.end(); it++)
 				{
 					if (((*it)->touch(&(player->getShip()->hitbox[0]))) || ((*it)->touch(&(player->getShip()->hitbox[1]))))
 					{
-						x = std::rand() % (128 * 360);
-						y = std::rand() % (128 * 360);
-						it = this->actualMap->islands.begin();
+						
 					}
-				}
+				}*/
 				
 
 
@@ -1067,4 +1114,52 @@ void LocalGame::recieveUDP()
 void LocalGame::sendTCP(sf::Packet messagePacket)
 {
 	this->TCPsocket.send(messagePacket);
+}
+
+void LocalGame::saveMap()
+{
+	std::cout << "Saving map..." << "\n";
+	std::fstream out("gamedata/mapsave.dat");
+	if (!out.good()) { std::cout << "00" << std::endl; }
+
+	
+	unsigned int pointCount = 0;
+	unsigned int islandsCount = this->actualMap->islands.size();
+
+	float x, y;
+	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tempoints;
+
+
+	for (int i = 0; i < islandsCount; i++)
+	{
+
+
+		out << this->actualMap->islands[i]->returnType() << "\n";
+		std::cout << "type: " << this->actualMap->islands[i]->returnType() << "\n";
+
+
+		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>> (this->actualMap->islands[i]->points);
+		out << (*tempoints).size() << "\n";
+
+	
+		for (auto point : (*tempoints))
+		{
+			std::cout << "hey boss" << "\n";
+			out << point->x << " " << point->y << "\n";
+			std::cout << point->x << " " << point->y << "\n" << std::endl;
+
+		}
+
+		out << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
+
+		std::cout << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
+
+
+
+
+
+
+	}
+	out << "END" << "\n";
+	out.close();
 }

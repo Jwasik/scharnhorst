@@ -19,6 +19,7 @@ private:
 	std::string playerName;
 	float stalaCzasowa = 1;
 
+	bool resetButton;
 
 	struct serverInformation
 	{
@@ -55,7 +56,7 @@ private:
 
 	std::map<std::string,sf::Texture> textures;
 	sf::TcpSocket TCPsocket;
-	sf::UdpSocket inSocket, outSocket;
+	sf::UdpSocket inSocket, outSocket; 
 
 	bool loadBullets();
 	bool loadBarrels();
@@ -105,5 +106,7 @@ public:
 
 	bool joinServer();
 	void printAdresses();
+
+	void saveMap();
 
 };
