@@ -11,6 +11,8 @@ LocalGame::LocalGame()
 
 	this->loadMap();
 	this->loadMaps();
+	this->actualMap = maps[0];
+
 
 	sf::ConvexShape defaultShape;
 	defaultShape.setPointCount(3);
@@ -43,7 +45,6 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 
 void LocalGame::gameLoop()
 {
-	this->actualMap = maps[0];
 
 	this->player->setShip(this->findShip(this->shipType));
 
@@ -289,6 +290,7 @@ bool LocalGame::joinServer()
 		{
 			if (receivedMessage == "PLJ")
 			{
+			
 				std::string newPlayerName = "error";
 				unsigned int id = 0;
 				float x, y, angle = 0;
@@ -303,7 +305,18 @@ bool LocalGame::joinServer()
 
 				player->getShip()->setPosition(sf::Vector2f(x, y));
 
-				//TUTAJ!
+				//tutaj
+				for (auto it = this->actualMap->islands.begin(); it != this->actualMap->islands.end(); it++)
+				{
+					if (((*it)->touch(&(player->getShip()->hitbox[0]))) || ((*it)->touch(&(player->getShip()->hitbox[1]))))
+					{
+						x = std::rand() % (128 * 360);
+						y = std::rand() % (128 * 360);
+						it = this->actualMap->islands.begin();
+					}
+				}
+				
+
 
 				player->getShip()->setRotation(angle);
 				std::cout << "joined game succesfully" << std::endl;
