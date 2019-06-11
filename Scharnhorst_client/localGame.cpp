@@ -22,7 +22,10 @@ LocalGame::LocalGame()
 
 	if (!this->loadGameFiles())throw 'E';
 
-	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst");
+	sf::ContextSettings settings;
+	settings.antialiasingLevel = 32;
+
+	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst", sf::Style::Fullscreen, settings);
 	this->window->setFramerateLimit(65);
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	
@@ -40,21 +43,7 @@ LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
 
 void LocalGame::gameLoop()
 {
-
-	/*std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tpoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
-
-	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, -300)));
-	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(300, -300)));
-	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(300, 300)));
-	tpoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, 300)));
-	this->maps.push_back(std::make_shared<map>());
 	this->actualMap = maps[0];
-	this->actualMap->addIsland(std::make_shared<shallow> (tpoints, 0, &textures));
-	//this->actualMap->islands[0]->setFillColor(sf::Color(200, 0, 200));
-	this->actualMap->islands[0]->setPosition(sf::Vector2f(1000, 1000));*/
-	this->actualMap = maps[0];
-
-	
 
 	this->player->setShip(this->findShip(this->shipType));
 
@@ -106,13 +95,6 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
-		/*if ((this->actualMap->islands[0]->touch(&(this->player->getShip()->hitbox[0]))) || (this->actualMap->islands[0]->touch(&(this->player->getShip()->hitbox[1]))))
-		{
-			std::cout << "xd" << std::endl;
-		}*/
-		
-		
-
 		if (connectionClock.getElapsedTime().asSeconds() > 100)
 		{
 			std::cout << "lost connection to server" << std::endl;
@@ -320,6 +302,9 @@ bool LocalGame::joinServer()
 				std::cout << "receiving player position : " << x << ' ' << y << std::endl;
 
 				player->getShip()->setPosition(sf::Vector2f(x, y));
+
+				//TUTAJ!
+
 				player->getShip()->setRotation(angle);
 				std::cout << "joined game succesfully" << std::endl;
 				return 1;
@@ -1027,6 +1012,7 @@ void LocalGame::receiveTCP()
 				receivedPacket >> preyId;
 				receivedPacket >> predatorId;
 				this->generateWreckage(getPlayerById(preyId));
+				this->wreckages.back()->changeToWreckage();
 				this->getPlayerById(preyId)->getShip()->setPosition(sf::Vector2f(-32000, -32000));
 				this->getPlayerById(predatorId)->increaseScore();
 				this->getPlayerById(preyId)->respawn(sf::Vector2f(backgroundMap.size(),backgroundMap[0].size()));

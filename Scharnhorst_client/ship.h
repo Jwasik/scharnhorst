@@ -32,6 +32,7 @@ public:
 	std::string type;
 	std::string name;
 	float calculateAcceleration();
+
 	std::vector<std::shared_ptr<Turret>> turrets;
 
 
@@ -50,6 +51,7 @@ public:
 	void addTurret(std::shared_ptr<Turret>,sf::Vector2f);
 	void shoot(std::shared_ptr<std::vector<jw::bulletInfo>>);
 	void setTexture(std::shared_ptr<sf::Texture>);
+	void changeToWreckage();
 
 	std::string getType();
 	void setName(std::string);

@@ -56,6 +56,8 @@ Ship::Ship(std::string name, float parameters[6], sf::ConvexShape shape)
 	this->shape.move(shape.getOrigin());
 	this->shape.move(sf::Vector2f(128, 512));
 	this->shape.setFillColor(sf::Color(50, 50, 50));
+	this->shape.setOutlineThickness(1);
+	this->shape.setOutlineColor(sf::Color::Black);
 	this->deleteOrigin();
 
 	this->type = name;
@@ -287,5 +289,8 @@ void Ship::createBodyprojection()
 
 }
 
-
+void Ship::changeToWreckage()
+{
+	this->shape.setFillColor(sf::Color(50, 50, 50,50));
+}
 
