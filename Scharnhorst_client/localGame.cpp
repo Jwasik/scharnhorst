@@ -308,7 +308,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
 	{
-		this->actualMap = maps[0];
+		this->loadWorkMap();
 	}
 
 }
@@ -1202,11 +1202,7 @@ bool LocalGame::loadWorkMap()
 
 		std::getline(in, type);//nazwa
 		std::cout << "type: " << type << std::endl;
-		if (type == "END")
-		{
-			maps.push_back(std::make_shared<map>());
-			std::getline(in, type);
-		}
+
 
 		if (type == "ENDofFILE")
 		{
@@ -1238,7 +1234,7 @@ bool LocalGame::loadWorkMap()
 
 		}
 		pointCount = 0;
-		maps[maps.size() - 1]->addIsland(std::make_shared<shallow>(tempoints, stopsBullets, &(this->textures)));
+		this->actualMap->addIsland(std::make_shared<shallow>(tempoints, stopsBullets, &(this->textures)));
 
 
 		in >> x;
@@ -1248,7 +1244,7 @@ bool LocalGame::loadWorkMap()
 		std::cout << "p: " << x << ' ' << y << std::endl;
 
 
-		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
 
 
 
