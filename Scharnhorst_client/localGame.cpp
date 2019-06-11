@@ -119,7 +119,7 @@ void LocalGame::gameLoop()
 
 	while (window->isOpen() && !endFlag)
 	{
-		if (connectionClock.getElapsedTime().asSeconds() > 100)
+		if (connectionClock.getElapsedTime().asSeconds() > 1000)
 		{
 			std::cout << "lost connection to server" << std::endl;
 			return;
@@ -291,6 +291,24 @@ void LocalGame::playerEvent(const double &deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
 	{
 		this->saveMap();
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (resetButton == 0))
+	{
+		resetButton = 1;
+
+		std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+
+		this->actualMap->addIsland(std::make_shared<shallow>(newIslandPoints, 0, &(this->textures)));
+		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
+	{
+		this->actualMap = maps[0];
 	}
 
 }
@@ -682,6 +700,7 @@ bool LocalGame::loadMaps()
 		if (type == "END")
 		{
 			maps.push_back(std::make_shared<map>());
+			std::getline(in, type);
 		}
 
 		if (type == "ENDofFILE")
@@ -1160,6 +1179,81 @@ void LocalGame::saveMap()
 
 
 	}
-	out << "END" << "\n";
+	out << "ENDofFILE" << "\n";
 	out.close();
+}
+
+bool LocalGame::loadWorkMap()
+{
+	std::fstream in("gamedata/mapsave.dat");
+	if (!in.good())return 0;
+
+	bool stopsBullets = 0;
+	std::string type;
+	unsigned int pointCount = 0;
+	float x, y;
+	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> tempoints;
+
+
+	this->actualMap = std::make_shared<map>();
+	while (true)
+	{
+
+
+		std::getline(in, type);//nazwa
+		std::cout << "type: " << type << std::endl;
+		if (type == "END")
+		{
+			maps.push_back(std::make_shared<map>());
+			std::getline(in, type);
+		}
+
+		if (type == "ENDofFILE")
+		{
+			break;
+		}
+
+		if (type == "island")
+		{
+			stopsBullets = 1;
+		}
+
+		if (type == "shallow")
+		{
+			stopsBullets = 0;
+		}
+		in >> pointCount;//ilość punktów
+		std::cout << "pcount: " << pointCount << std::endl;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+		for (int i = 0; i < pointCount; i++)
+		{
+
+			in >> x;
+			in >> y;
+			std::cout << x << ' ' << y << std::endl;
+
+			tempoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(x, y)));
+			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		}
+		pointCount = 0;
+		maps[maps.size() - 1]->addIsland(std::make_shared<shallow>(tempoints, stopsBullets, &(this->textures)));
+
+
+		in >> x;
+		in >> y;
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+		std::cout << "p: " << x << ' ' << y << std::endl;
+
+
+		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
+
+
+
+
+	}
+	in.close();
+	return 1;
 }

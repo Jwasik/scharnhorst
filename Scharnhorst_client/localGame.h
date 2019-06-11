@@ -108,5 +108,6 @@ public:
 	void printAdresses();
 
 	void saveMap();
+	bool loadWorkMap();
 
 };
