@@ -51,9 +51,11 @@ void LocalGame::gameLoop()
 
 	this->player->setShip(this->findShip(this->shipType));
 	std::cout << shipType << std::endl;
-	this->player->getShip()->shape.setFillColor(sf::Color(255,255,255));
-	if(shipType == "Scharnhorst")
-	this->player->getShip()->shape.setTexture(&this->textures["scharnhorst1"]);
+	if (shipType == "Scharnhorst")
+	{
+		this->player->getShip()->shape.setFillColor(sf::Color(255, 255, 255));
+		this->player->getShip()->shape.setTexture(&this->textures["scharnhorst1"]);
+	}
 
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/s1.flac");
@@ -506,7 +508,7 @@ bool LocalGame::loadBullets()
 		std::getline(in, endWord);
 		
 		if (endWord != "END_BULLET")break;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber, /*test*/ 1000))); // tutaj musi być podany zasięg pocisku ?PLUM?
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber /*test ,1000*/))); // tutaj musi być podany zasięg pocisku ?PLUM?
 	}
 	in.close();
 	return 1;
