@@ -333,14 +333,12 @@ void LocalGame::playerEvent(const double &deltaTime)
 		}
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
+	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
 	{
 		this->player->getShip()->acceleration = this->player->getShip()->acceleration*9;
 		this->player->getShip()->maxSpeed = 5000;
 		this->player->getShip()->maxTurnAcceleration = 100;
-
-
-	}
+	}*/
 
 
 }
@@ -970,7 +968,7 @@ void LocalGame::receivePlayersPositions()
 	connectionClock.restart();
 
 	this->inSocket.receive(receivedPacket, IP, port);
-	while (connectionClock.getElapsedTime().asMilliseconds() < 30)
+	while (connectionClock.getElapsedTime().asMilliseconds() < 60)
 	{
 		std::string message = "NULL";
 		if (receivedPacket >> message)
