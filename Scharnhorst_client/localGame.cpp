@@ -472,7 +472,7 @@ bool LocalGame::loadBarrels()
 
 		unsigned int pointCount = 0;
 		float x, y;
-		float reloadTime;
+		float reloadTime,range;
 		sf::ConvexShape barrelShape;
 		barrelShape.setFillColor(sf::Color::Blue);
 
@@ -480,7 +480,9 @@ bool LocalGame::loadBarrels()
 		std::getline(in, mainBulletType);//nazwa pocisku
 		in >> caliber;//kaliber
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		in >> reloadTime;//kaliber
+		in >> reloadTime;//czas przeładowania
+		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		in >> range;//zasięg
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 		in >> pointCount;//ilość punktów
@@ -505,7 +507,7 @@ bool LocalGame::loadBarrels()
 
 		std::getline(in, endWord);//2 razy bo musi przeskoczyć do następnej lini
 		if (endWord != "END_BARREL")return 0;
-		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), caliber,reloadTime)));
+		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), caliber,reloadTime, range)));
 		barrelData.back().second.length = maxy;
 	}
 	in.close();
