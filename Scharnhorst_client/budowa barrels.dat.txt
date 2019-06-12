@@ -2,6 +2,7 @@ string nazwa
 string nazwa_pocisku_podstawowego
 unsigned int kaliber
 float czas przeładowania
+float zasięg strzału
 
 unsigned int point_count
 for()

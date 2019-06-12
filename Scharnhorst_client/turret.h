@@ -8,12 +8,13 @@ struct Barrel : public movable
 public:
 	unsigned int barrelSize;
 	float length;//D³ugoœæ lufy
+	float range;//zasiêg strza³u
 	std::shared_ptr<Bullet> mainBulletType;
 	std::string name;
 	punktNaOkregu punkt;
 	Barrel();
 	Barrel(std::string name, sf::Vector2f point);
-	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape, Bullet, unsigned int,float);
+	Barrel(std::string name, sf::Vector2f point, sf::ConvexShape shape, Bullet, unsigned int,float,float);
 	void updatePosition(float TurretAngle, sf::Vector2f TurretOrigin);
 	float reloadTime;
 };
