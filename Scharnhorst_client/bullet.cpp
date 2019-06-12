@@ -11,21 +11,12 @@ bool Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime*8;
 	distanceToEnd -= distance;
-	if (distanceToEnd < 0)
-	{
-		return 0;
-		std::cout << "PLUM" << std::endl;
-	}
 
 	this->shape.setPosition(this->shape.getPosition() + sf::Vector2f(distance * movementVector.x, -distance * movementVector.y));
 
 	this->tracer.punkt1 = this->tracer.punkt2;
 	this->tracer.punkt2 = this->shape.getPosition();
 	tracer.updateVisual();
-	//tracer.line[0] = tracer.punkt1;
-	//tracer.line[1] = tracer.punkt2;
-	return 1;
-
 }
 
 void Bullet::draw(sf::RenderWindow& window)
@@ -88,14 +79,12 @@ Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage
 	this->shape.setRotation(angle);
 	this->shape.setPosition(tracer.punkt2);
 	this->calculateMovementVector();
-	this->movementVector = sf::Vector2f(10, 10);//dla testów
 }
 
-Bullet::Bullet(std::string type,sf::ConvexShape body, float speed, float damage, int caliber, float ndistanceToEnd) : type(type), speed(speed), damage(damage), caliber(caliber), distanceToEnd(ndistanceToEnd)
+Bullet::Bullet(std::string type,sf::ConvexShape body, float speed, float damage, int caliber) : type(type), speed(speed), damage(damage), caliber(caliber)
 {
 	this->shape = body;
 	this->calculateMovementVector();
-	this->movementVector = sf::Vector2f(10, 10);//dla testów
 }
 
 Bullet::Bullet()
@@ -114,7 +103,19 @@ Bullet::Bullet(const Bullet &origin)
 	this->calculateMovementVector();
 }
 
+void Bullet::setRange(float range)
+{
+	this->range = range*8;
+	this->distanceToEnd = range*8;
+}
+
+bool Bullet::done()
+{
+	if (distanceToEnd <= 0)return true;
+	return false;
+}
 
 Bullet::~Bullet()
 {
 }
+
