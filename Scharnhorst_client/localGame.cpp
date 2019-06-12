@@ -51,7 +51,11 @@ void LocalGame::gameLoop()
 
 	this->player->setShip(this->findShip(this->shipType));
 	std::cout << shipType << std::endl;
+	if (shipType == "Scharnhorst")
+	{
 		this->player->getShip()->shape.setFillColor(sf::Color::White);
+		this->player->getShip()->shape.setTexture(&this->textures["scharnhorst1"]);
+	}
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/s2.flac");
 	backgroundMusic.setLoop(true);
