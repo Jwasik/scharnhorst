@@ -72,7 +72,7 @@ std::string Bullet::getType()
 	return this->type;
 }
 
-Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber ,sf::Vector2f punkt, float ndistanceToEnd) : type(type), speed(speed), damage(damage), angle(angle), caliber(caliber), distanceToEnd(ndistanceToEnd)
+Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber ,sf::Vector2f punkt/*, float ndistanceToEnd*/) : type(type), speed(speed), damage(damage), angle(angle), caliber(caliber)/*, distanceToEnd(ndistanceToEnd)*/
 {
 	this->shape = body;
 	this->tracer.punkt2 = punkt;
