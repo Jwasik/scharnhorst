@@ -29,6 +29,7 @@ private:
 public:
 	unsigned int getPlayerId();
 	void setShipName(std::string);
+	void setPlayerName(std::string);
 	void setId(unsigned int);
 	void doStuff(double&);
 	void mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map);

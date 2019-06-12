@@ -19,6 +19,8 @@ public:
 	void setActive();
 	void setText(std::string);
 	void setUnActive();
+	void setMarked();
+	void setUnMarked();
 	sf::FloatRect getGlobalBounds();
 };
 

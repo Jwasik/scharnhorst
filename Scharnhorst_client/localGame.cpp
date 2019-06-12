@@ -47,20 +47,17 @@ LocalGame::LocalGame()
 
 	if (!this->loadGameFiles())throw 'E';
 
-	
-	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
+	this->player = std::make_shared<Player>(1, "testName", "testShip");
 	
 	inSocket.bind(sf::Socket::AnyPort);
 	inSocket.setBlocking(false);
 }
 
-LocalGame::LocalGame(std::string playerName, std::string shipType) : LocalGame()
+LocalGame::LocalGame(std::shared_ptr<sf::RenderWindow> window):LocalGame()
 {
-	this->playerName = playerName;
-	this->player->setShip(this->findShip(shipType));
-	this->shipType = shipType;
-	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
+	this->window = window;
 }
+
 
 void LocalGame::gameLoop()
 {
@@ -82,7 +79,8 @@ void LocalGame::gameLoop()
 	//GUI
 	sf::Font guiFont;
 	guiFont.loadFromFile("gamedata/fonts/PressStart2P.ttf");
-	sf::View guiView = window->getView();
+	sf::View guiView; 
+	guiView = window->getView();
 	sf::RenderTexture guiTexture;
 	guiTexture.create(unsigned int(this->window->getSize().x), unsigned int(this->window->getSize().y));
 
@@ -347,11 +345,8 @@ std::shared_ptr<Player> LocalGame::getPlayerById(unsigned int searchedId)
 	else return nullptr;
 }
 
-bool LocalGame::joinServer()
+bool LocalGame::joinServer(std::string IP)
 {
-	std::string IP;
-	std::cout << "type server IP and port" << std::endl;
-	std::cin >> IP;
 	if (IP == "single")return 1;
 	TCPsocket.setBlocking(true);
 
@@ -718,10 +713,7 @@ bool LocalGame::loadMaps()
 	maps.push_back(std::make_shared<map>());
 	while (true)
 	{
-
-
 		std::getline(in, type);//nazwa
-		std::cout << "type: " <<  type << std::endl;
 		if (type == "END")
 		{
 			maps.push_back(std::make_shared<map>());
@@ -743,7 +735,6 @@ bool LocalGame::loadMaps()
 			stopsBullets = 0;
 		}
 		in >> pointCount;//ilość punktów
-		std::cout <<"pcount: " << pointCount << std::endl;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 		for (int i = 0; i < pointCount; i++)
@@ -751,8 +742,6 @@ bool LocalGame::loadMaps()
 
 			in >> x;
 			in >> y;
-			std::cout << x << ' ' << y << std::endl;
-
 			tempoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(x, y)));
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -765,14 +754,7 @@ bool LocalGame::loadMaps()
 		in >> y;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		std::cout << "p: " << x << ' ' << y << std::endl;
-
-
-		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
-
-
-
-		
+		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));	
 	}
 	in.close();
 	return 1;
@@ -1042,6 +1024,18 @@ void LocalGame::receivePlayersPositions()
 		
 }
 
+void LocalGame::setPlayerName(std::string name)
+{
+	this->playerName = name;
+	this->player->setPlayerName(name);
+}
+
+void LocalGame::setPlayerShip(std::string shipType)
+{
+	this->player->setShip(this->findShip(shipType));
+	this->shipType = shipType;
+}
+
 void LocalGame::receiveTCP()
 {
 	sf::Packet receivedPacket;
@@ -1162,10 +1156,7 @@ void LocalGame::sendTCP(sf::Packet messagePacket)
 
 void LocalGame::saveMap()
 {
-	std::cout << "Saving map..." << "\n";
-	std::fstream out("gamedata/mapsave.dat");
-	if (!out.good()) { std::cout << "00" << std::endl; }
-
+	std::ofstream out("gamedata/mapsave.dat");
 	
 	unsigned int pointCount = 0;
 	unsigned int islandsCount = this->actualMap->islands.size();
@@ -1176,33 +1167,17 @@ void LocalGame::saveMap()
 
 	for (int i = 0; i < islandsCount; i++)
 	{
-
-
 		out << this->actualMap->islands[i]->returnType() << "\n";
-		std::cout << "type: " << this->actualMap->islands[i]->returnType() << "\n";
-
-
 		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>> (this->actualMap->islands[i]->points);
 		out << (*tempoints).size() << "\n";
 
 	
 		for (auto point : (*tempoints))
 		{
-			std::cout << "hey boss" << "\n";
 			out << point->x << " " << point->y << "\n";
-			std::cout << point->x << " " << point->y << "\n" << std::endl;
-
 		}
 
 		out << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
-
-		std::cout << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
-
-
-
-
-
-
 	}
 	out << "ENDofFILE" << "\n";
 	out.close();

@@ -82,7 +82,7 @@ public:
 	bool isSClicked=0;
 
 	LocalGame();
-	LocalGame(std::string,std::string);
+	LocalGame(std::shared_ptr<sf::RenderWindow>);
 	~LocalGame();
 	void gameLoop();
 	void playerEvent(const double&); // funkcja przechwytuje stworzenie pocisku, zmiany kursu itp
@@ -97,11 +97,12 @@ public:
 	void receiveTCP(); //odbiera pakiety TCP
 	void recieveUDP(); //obs³uguje odbieranie wiadomoœci UDP
 	void sendTCP(sf::Packet);
-	//receiveMessage wywo³uje receivePlayersPositions
 	void receivePlayersPositions(); //odbiera pozycje graczy od serwera
+	void setPlayerName(std::string);
+	void setPlayerShip(std::string);
 
 
-	bool joinServer();
+	bool joinServer(std::string);
 	void printAdresses();
 
 	void saveMap();

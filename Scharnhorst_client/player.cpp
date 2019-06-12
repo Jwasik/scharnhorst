@@ -12,12 +12,16 @@ void Player::setShipName(std::string name)
 	this->getShip()->setName(name);
 }
 
+void Player::setPlayerName(std::string name)
+{
+	this->playerNameText.setString(name);
+	this->playerName = name;
+}
+
 void Player::setId(unsigned int newId)
 {
 	this->playerId = newId;
 }
-
-
 
 void Player::doStuff(double &deltaTime)
 {

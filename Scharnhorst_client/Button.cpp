@@ -22,8 +22,8 @@ Button::Button(std::string text, std::shared_ptr<sf::Font> font) : font(font)
 	this->text.setFillColor(sf::Color::Red);
 
 	this->text.setCharacterSize(20);
-	this->shape.setSize(sf::Vector2f(400,100));
-	this->shape.setOrigin(200,50);
+	this->shape.setSize(sf::Vector2f(450,100));
+	this->shape.setOrigin(225,50);
 	this->shape.setFillColor(sf::Color(49, 27, 17));
 	this->shape.setOutlineThickness(1);
 	this->shape.setOutlineColor(sf::Color(22, 27, 17));
@@ -56,6 +56,7 @@ void Button::draw(sf::RenderWindow &window)
 
 void Button::setActive()
 {
+	if (this->shape.getFillColor() == sf::Color(255, 215, 0))return;
 	this->text.setFillColor(sf::Color::White);
 	this->shape.setFillColor(sf::Color(70, 70, 70));
 	this->shape.setOutlineThickness(1);
@@ -63,10 +64,26 @@ void Button::setActive()
 
 void Button::setText(std::string text)
 {
+	if (this->shape.getFillColor() == sf::Color(255, 215, 0))return;
 	this->text.setString(text);
 }
 
 void Button::setUnActive()
+{
+	if (this->shape.getFillColor() == sf::Color(255, 215, 0))return;
+	this->text.setFillColor(sf::Color::Red);
+	this->shape.setFillColor(sf::Color(40, 40, 40));
+	this->shape.setOutlineThickness(1);
+}
+
+void Button::setMarked()
+{
+	this->text.setFillColor(sf::Color::Black);
+	this->shape.setFillColor(sf::Color(255, 215, 0));
+	this->shape.setOutlineThickness(1);
+}
+
+void Button::setUnMarked()
 {
 	this->text.setFillColor(sf::Color::Red);
 	this->shape.setFillColor(sf::Color(40, 40, 40));
