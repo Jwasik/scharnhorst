@@ -8,6 +8,8 @@
 #include <fstream>
 #include <SFML/Audio.hpp>
 #include "map.h"
+#include <stdlib.h>
+#include <time.h> 
 
 
 class LocalGame
@@ -112,5 +114,6 @@ public:
 
 	void saveMap();
 	bool loadWorkMap();
+	void spawnPoints();
 
 };

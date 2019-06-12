@@ -7,6 +7,7 @@
 
 LocalGame::LocalGame()
 {
+	srand(time(NULL));
 	this->spinD = -1;
 	isColliding = 0;
 	this->developerMode = 0;
@@ -49,7 +50,6 @@ void LocalGame::gameLoop()
 {
 
 	this->player->setShip(this->findShip(this->shipType));
-
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
 	backgroundMusic.setLoop(true);
@@ -61,6 +61,7 @@ void LocalGame::gameLoop()
 
 	this->connectionClock.restart();
 	double deltaTime;
+	this->spawnPoints();
 
 	//GUI
 	sf::Font guiFont;
@@ -243,11 +244,13 @@ void LocalGame::playerEvent(const double &deltaTime)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 	{
+		if (this->isColliding == 0)
 		this->spinD = 0;
 		player->getShip()->spin(0, deltaTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 	{
+		if(this->isColliding == 0)
 		this->spinD = 1;
 
 		player->getShip()->spin(1, deltaTime);
@@ -343,6 +346,16 @@ void LocalGame::playerEvent(const double &deltaTime)
 			this->player->getShip()->acceleration = this->player->getShip()->acceleration*9;
 			this->player->getShip()->maxSpeed = 5000;
 			this->player->getShip()->maxTurnAcceleration = 100;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::P))
+		{
+			std::cout << this->player->getShip()->shape.getPosition().x << " " << this->player->getShip()->shape.getPosition().y << std::endl;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::H))
+		{
+			this->player->respawn();
 		}
 	}
 	
@@ -1129,7 +1142,7 @@ void LocalGame::receiveTCP()
 				this->wreckages.back()->changeToWreckage();
 				this->getPlayerById(preyId)->getShip()->setPosition(sf::Vector2f(-32000, -32000));
 				this->getPlayerById(predatorId)->increaseScore();
-				this->getPlayerById(preyId)->respawn(sf::Vector2f(backgroundMap.size(),backgroundMap[0].size()));
+				this->getPlayerById(preyId)->respawn(/*sf::Vector2f(backgroundMap.size(),backgroundMap[0].size())*/);
 			}
 			else if (message == "EXT")
 			{
@@ -1295,12 +1308,30 @@ void LocalGame::colision(float deltaTime)
 			{
 				this->spinD = 1;
 			}
-			this->player->getShip()->spin(this->spinD, deltaTime);
+			this->player->getShip()->spin(this->spinD, deltaTime*2);
+
 
 		}
-		this->player->getShip()->actualSpeed = 0;
+		//this->player->getShip()->actualSpeed = this->player->getShip()->actualSpeed/2;
 
 	}
 
+
+}
+
+void LocalGame::spawnPoints()
+{
+	int cas = rand()%5;
+	std::cout << cas << std::endl;
+	if(cas == 0)
+		this->player->getShip()->setPosition(sf::Vector2f(12000, 10000));
+	if (cas == 1)
+		this->player->getShip()->setPosition(sf::Vector2f(15000, 36000));
+	if (cas == 2)
+		this->player->getShip()->setPosition(sf::Vector2f(31000, 18000));
+	if (cas == 3)
+		this->player->getShip()->setPosition(sf::Vector2f(31000, 5000));
+	if (cas == 4)
+		this->player->getShip()->setPosition(sf::Vector2f(36000, 34000));
 
 }

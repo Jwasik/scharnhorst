@@ -41,7 +41,7 @@ public:
 	void setAngleOfView(float);
 	void updateGui(std::vector<sf::Text>&, sf::View&);
 	void calculateHPindicator();
-	void respawn(sf::Vector2f);
+	void respawn();
 
 	void subtractHP(float);
 	void setHP(float);

@@ -223,17 +223,30 @@ void Player::calculateHPindicator()
 	else this->playerHPtext.setFillColor(sf::Color::White);
 }
 
-void Player::respawn(sf::Vector2f mapSize)
+void Player::respawn()
 {
 	this->HP = this->maxHP;
-	unsigned int x, y;//Wylosowane wspó³rzêdne
-	x = std::rand();
+	//unsigned int x, y;//Wylosowane wspó³rzêdne
+	/*x = std::rand();
 	y = std::rand();
 	x %= unsigned int(mapSize.x); 
 	x *= 128;
 	y %= unsigned int(mapSize.y);
 	y *= 128;
-	this->playerShip->setPosition(sf::Vector2f(x,y));
+	this->playerShip->setPosition(sf::Vector2f(x,y));*/
+	int cas = rand() % 5;
+	std::cout << cas << std::endl;
+	if (cas == 0)
+		this->playerShip->setPosition(sf::Vector2f(12000, 10000));
+	if (cas == 1)
+		this->playerShip->setPosition(sf::Vector2f(15000, 36000));
+	if (cas == 2)
+		this->playerShip->setPosition(sf::Vector2f(31000, 18000));
+	if (cas == 3)
+		this->playerShip->setPosition(sf::Vector2f(31000, 5000));
+	if (cas == 4)
+		this->playerShip->setPosition(sf::Vector2f(36000, 34000));
+
 }
 
 Player::~Player()
