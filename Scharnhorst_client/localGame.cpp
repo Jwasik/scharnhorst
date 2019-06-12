@@ -50,6 +50,11 @@ void LocalGame::gameLoop()
 {
 
 	this->player->setShip(this->findShip(this->shipType));
+	std::cout << shipType << std::endl;
+	this->player->getShip()->shape.setFillColor(sf::Color(255,255,255));
+	if(shipType == "Scharnhorst")
+	this->player->getShip()->shape.setTexture(&this->textures["scharnhorst1"]);
+
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/background1.flac");
 	backgroundMusic.setLoop(true);
@@ -501,7 +506,7 @@ bool LocalGame::loadBullets()
 		std::getline(in, endWord);
 		
 		if (endWord != "END_BULLET")break;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber))); // tutaj musi być podany zasięg pocisku ?PLUM?
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber, /*test*/ 1000))); // tutaj musi być podany zasięg pocisku ?PLUM?
 	}
 	in.close();
 	return 1;
@@ -957,6 +962,10 @@ void LocalGame::loadMap()
 	shallowTexture.loadFromFile("gamedata/textures/shallow.png");
 	this->textures.insert(std::pair<std::string,sf::Texture>("shallow1", shallowTexture));
 
+	sf::Texture scharnhorstTexture;
+	scharnhorstTexture.loadFromFile("gamedata/textures/scharnhorst1.png");
+	this->textures.insert(std::pair<std::string, sf::Texture>("scharnhorst1", scharnhorstTexture));
+	
 	this->backgroundMap.resize(128); 
 	for (auto & vector : backgroundMap)
 	{

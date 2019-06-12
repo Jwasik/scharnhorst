@@ -7,13 +7,13 @@ void Bullet::calculateMovementVector()
 	movementVector.y = cos(stopnieNaRadiany(this->angle));
 }
 
-void Bullet::fly(double deltaTime)
+bool Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime*8;
 	distanceToEnd -= distance;
 	if (distanceToEnd < 0)
 	{
-		//tutaj pocisk siê niszczy ?PLUM?
+		return 0;
 		std::cout << "PLUM" << std::endl;
 	}
 
@@ -24,7 +24,7 @@ void Bullet::fly(double deltaTime)
 	tracer.updateVisual();
 	//tracer.line[0] = tracer.punkt1;
 	//tracer.line[1] = tracer.punkt2;
-
+	return 1;
 
 }
 

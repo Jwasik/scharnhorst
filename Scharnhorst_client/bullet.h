@@ -23,7 +23,7 @@ public:
 	Bullet(std::string,sf::ConvexShape, float, float, int, float ndistanceToEnd);
 
 	void calculateMovementVector();
-	void fly(double deltaTime);	
+	bool fly(double deltaTime);	
 	void draw(sf::RenderWindow&);
 	void setBulletInfo(const jw::bulletInfo&);
 	int getCaliber();
