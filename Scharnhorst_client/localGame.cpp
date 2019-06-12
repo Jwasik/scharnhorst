@@ -183,6 +183,8 @@ void LocalGame::gameLoop()
 
 		this->actualMap->draw(*window);
 		this->actualMap->islands[this->actualMap->islands.size() - 1]->drawHitbox(*window);
+		window->draw(this->delitingLine.line);
+
 		
 
 
@@ -310,6 +312,41 @@ void LocalGame::playerEvent(const double &deltaTime)
 	{
 		this->loadWorkMap();
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
+	{
+
+		int counter = -1;
+		this->delitingLine.punkt1 = this->kamera.MicePosition;
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
+		{
+			;
+		}
+
+		kamera.calculateMiceFromMiddle(&(*(this->window)));
+		kamera.calculateMicePosition();
+		this->delitingLine.punkt2 = this->kamera.MicePosition;
+		this->delitingLine.updateVisual();
+		for (auto isle : this->actualMap->islands)
+		{
+			counter++;
+
+			if (isle->touch(&(this->delitingLine)))
+			{
+				
+				std::cout << counter << " island deleted" << std::endl;
+				break;
+
+			}
+
+
+		}
+		if (counter != -1)
+		{
+			this->actualMap->islands.erase(this->actualMap->islands.begin() + counter);
+		}
+	}
+
 
 }
 

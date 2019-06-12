@@ -59,6 +59,8 @@ bool shallow::touch(odcinek *line)
 
 
 
+
+
 void shallow::drawHitbox(sf::RenderWindow &window)
 {
 	this->draw(window);

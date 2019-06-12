@@ -24,7 +24,7 @@ public:
 
 	Camera();
 	Camera(sf::Vector2f);
-	void calculateMiceFromMiddle(sf::RenderWindow*);
+	void calculateMiceFromMiddle(sf::RenderWindow*); 
 	void setCenter(sf::Vector2f);
 	void changePosition();
 	void leanToMice(float);
