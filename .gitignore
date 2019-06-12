@@ -28,3 +28,9 @@
 *.exe
 
 *.lastbuildstate
+
+\.vs/Scharnhorst_client/v15/
+
+Release/
+
+*.ipdb
