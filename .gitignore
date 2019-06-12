@@ -26,3 +26,5 @@
 *.tlog
 *.ipch
 *.exe
+
+*.lastbuildstate
