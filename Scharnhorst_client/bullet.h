@@ -11,15 +11,16 @@ protected:
 	float damage;
 	float angle;
 	float caliber;
+	float distanceToEnd;
 	sf::Vector2f movementVector;//przechowuje wektor przesuniêcia z altualn¹ prêdkoœci¹ i k¹tem w czasie 1 sekundy
 
 public:
 	odcinek tracer;
 
-	Bullet();
+	Bullet(); 
 	Bullet(const Bullet&);
-	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle,int caliber ,sf::Vector2f punkt);
-	Bullet(std::string,sf::ConvexShape, float, float, int);
+	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle,int caliber ,sf::Vector2f punkt, float ndistanceToEnd);
+	Bullet(std::string,sf::ConvexShape, float, float, int, float ndistanceToEnd);
 
 	void calculateMovementVector();
 	void fly(double deltaTime);	

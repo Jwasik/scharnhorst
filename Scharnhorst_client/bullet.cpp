@@ -10,6 +10,13 @@ void Bullet::calculateMovementVector()
 void Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime*8;
+	distanceToEnd -= distance;
+	if (distanceToEnd < 0)
+	{
+		//tutaj pocisk siê niszczy ?PLUM?
+		std::cout << "PLUM" << std::endl;
+	}
+
 	this->shape.setPosition(this->shape.getPosition() + sf::Vector2f(distance * movementVector.x, -distance * movementVector.y));
 
 	this->tracer.punkt1 = this->tracer.punkt2;
@@ -74,7 +81,7 @@ std::string Bullet::getType()
 	return this->type;
 }
 
-Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber ,sf::Vector2f punkt) : type(type), speed(speed), damage(damage), angle(angle), caliber(caliber)
+Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber ,sf::Vector2f punkt, float ndistanceToEnd) : type(type), speed(speed), damage(damage), angle(angle), caliber(caliber), distanceToEnd(ndistanceToEnd)
 {
 	this->shape = body;
 	this->tracer.punkt2 = punkt;
@@ -84,7 +91,7 @@ Bullet::Bullet(std::string type, sf::ConvexShape body, float speed, float damage
 	this->movementVector = sf::Vector2f(10, 10);//dla testów
 }
 
-Bullet::Bullet(std::string type,sf::ConvexShape body, float speed, float damage, int caliber) : type(type), speed(speed), damage(damage), caliber(caliber)
+Bullet::Bullet(std::string type,sf::ConvexShape body, float speed, float damage, int caliber, float ndistanceToEnd) : type(type), speed(speed), damage(damage), caliber(caliber), distanceToEnd(ndistanceToEnd)
 {
 	this->shape = body;
 	this->calculateMovementVector();

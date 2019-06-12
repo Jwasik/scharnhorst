@@ -30,7 +30,7 @@ LocalGame::LocalGame()
 	defaultShape.setPoint(1, sf::Vector2f(30,30));
 	defaultShape.setPoint(2, sf::Vector2f(0,30));
 
-	bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10,10)));
+	//bulletData.push_back(std::pair<std::string, Bullet>("test", Bullet("test", defaultShape, 10, 10,10)));
 
 	if (!this->loadGameFiles())throw 'E';
 
@@ -501,7 +501,7 @@ bool LocalGame::loadBullets()
 		std::getline(in, endWord);
 		
 		if (endWord != "END_BULLET")break;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber)));
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber))); // tutaj musi być podany zasięg pocisku ?PLUM?
 	}
 	in.close();
 	return 1;
