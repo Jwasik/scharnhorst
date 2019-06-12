@@ -7,7 +7,7 @@ void Bullet::calculateMovementVector()
 	movementVector.y = cos(stopnieNaRadiany(this->angle));
 }
 
-bool Bullet::fly(double deltaTime)
+void Bullet::fly(double deltaTime)
 {
 	float distance = speed * deltaTime*8;
 	distanceToEnd -= distance;
