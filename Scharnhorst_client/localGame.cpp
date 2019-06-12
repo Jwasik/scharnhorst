@@ -51,7 +51,7 @@ void LocalGame::gameLoop()
 
 	this->player->setShip(this->findShip(this->shipType));
 	sf::Music backgroundMusic;
-	backgroundMusic.openFromFile("gamedata/music/background1.flac");
+	backgroundMusic.openFromFile("gamedata/music/s1.flac");
 	backgroundMusic.setLoop(true);
 	backgroundMusic.setVolume(50);
 	backgroundMusic.play();
