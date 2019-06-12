@@ -27,11 +27,7 @@ private:
 		sf::IpAddress serverAddress;
 		unsigned short playerCount = 0;
 	}serverInfo;
-	struct gameInformation
-	{
-		sf::VideoMode resolution = sf::VideoMode(1024,768); // jak zmieniasz zmieñ równierz kamera w localGame.cpp
-
-	}gameInfo;
+	
 
 	bool inView(sf::Vector2f);
 
