@@ -60,11 +60,13 @@ void LocalGame::gameLoop()
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/s1.flac");
 	backgroundMusic.setLoop(true);
-	backgroundMusic.setVolume(50);
+	backgroundMusic.setVolume(30);
 	backgroundMusic.play();
 
 	sf::Clock time;
+	sf::Clock bulletClock;
 	time.restart();
+	bulletClock.restart();
 
 	this->connectionClock.restart();
 	double deltaTime;
@@ -146,8 +148,20 @@ void LocalGame::gameLoop()
 		{
 			bullet.fly(deltaTime);
 		}
+		if (bulletClock.getElapsedTime().asSeconds() >= 1)
+		{
+			for (auto it = bullets.begin(); it != bullets.end(); it++)
+			{
+				if (it->done())
+				{
+					it = bullets.erase(it);
 
-
+				}
+				if (it == bullets.end())break;
+			}
+			bulletClock.restart();
+		}
+		
 
 		kamera.setCenter(player->getShip()->getPosition());
 		kamera.calculateView(*window, 8);
@@ -178,10 +192,6 @@ void LocalGame::gameLoop()
 			window->draw(this->delitingLine.line);
 
 		}
-
-		
-
-
 		for (auto & wreckage : wreckages)
 		{
 			wreckage->draw(*window);
@@ -508,7 +518,7 @@ bool LocalGame::loadBullets()
 		std::getline(in, endWord);
 		
 		if (endWord != "END_BULLET")break;
-		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber /*test ,1000*/))); // tutaj musi być podany zasięg pocisku ?PLUM?
+		bulletData.push_back(std::pair<std::string,Bullet>(name,Bullet(name,bulletShape, speed, damage,caliber)));
 	}
 	in.close();
 	return 1;
@@ -526,7 +536,7 @@ bool LocalGame::loadBarrels()
 
 		unsigned int pointCount = 0;
 		float x, y;
-		float reloadTime,range;
+		float reloadTime,range=10000;
 		sf::ConvexShape barrelShape;
 		barrelShape.setFillColor(sf::Color::Blue);
 
@@ -563,6 +573,8 @@ bool LocalGame::loadBarrels()
 		if (endWord != "END_BARREL")return 0;
 		barrelData.push_back(std::pair<std::string,Barrel>(name, Barrel(name, sf::Vector2f(0, 0), barrelShape, findBullet(mainBulletType), caliber,reloadTime, range)));
 		barrelData.back().second.length = maxy;
+		findBullet(mainBulletType).setRange(range);
+
 	}
 	in.close();
 	return 1;
