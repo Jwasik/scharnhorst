@@ -20,7 +20,7 @@ public:
 
 	Bullet();
 	Bullet(const Bullet&);
-	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber, sf::Vector2f punkt);
+	Bullet(std::string type, sf::ConvexShape body, float speed, float damage, float angle, int caliber, sf::Vector2f punkt/*, float ndistanceToEnd*/);
 	Bullet(std::string, sf::ConvexShape, float, float, int);
 
 	void calculateMovementVector();
