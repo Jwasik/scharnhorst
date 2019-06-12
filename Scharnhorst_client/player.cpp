@@ -50,7 +50,12 @@ void Player::mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map)
 
 	if (this->playerShip != nullptr)
 	{
-		this->playerShip->swim(deltaTime);
+
+		
+
+		
+
+		/*this->playerShip->swim(deltaTime);
 		this->playerNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -200));//Nazwa gracza
 		this->playerShipNameText.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -170));//Nazwa statku
 		this->playerHPtext.setPosition(this->getShip()->getPosition() + sf::Vector2f(-100, -140));//HP
@@ -88,7 +93,7 @@ void Player::mainPlayerDoStuff(double &deltaTime, std::shared_ptr<map> map)
 			previousPosition = this->playerShip->getPosition();
 			previousRotation = this->playerShip->getRotation();
 
-		}
+		}*/
 	}
 
 	

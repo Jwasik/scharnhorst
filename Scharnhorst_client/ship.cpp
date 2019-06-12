@@ -123,6 +123,10 @@ float Ship::calculateAcceleration()
 
 void Ship::accelerate(double deltaTime) //{-1, 0, 1}
 {
+	if (deltaTime < 0)
+	{
+		deltaTime = -deltaTime;
+	}
 	calculateAcceleration();
 	if (actualSpeed > 0)
 	{

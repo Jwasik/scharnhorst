@@ -13,6 +13,11 @@
 class LocalGame
 {
 private:
+	void colision(float deltatime);
+
+	int spinD;
+	bool isColliding;
+	bool developerMode;
 	bool endFlag = false;
 
 	Camera kamera;

@@ -7,6 +7,9 @@
 
 LocalGame::LocalGame()
 {
+	this->spinD = -1;
+	isColliding = 0;
+	this->developerMode = 0;
 	resetButton = 0;
 	kamera = Camera(sf::Vector2f(1024, 768));
 
@@ -16,23 +19,6 @@ LocalGame::LocalGame()
 
 	std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 
-	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-30, -30)));
-
-	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(30, -30)));
-
-	newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(30, 30)));
-
-	//newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(-300, 300)));
-	this->actualMap->addIsland(std::make_shared<shallow>(newIslandPoints, 0, &(this->textures)));
-	this->actualMap->islands[this->actualMap->islands.size()-1]->setPosition(sf::Vector2f(3000, 3000));
-	
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f> (-30, 30));
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
-
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f>(-30, 30));
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
-	this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
 
 	this->saveMap();
 
@@ -135,13 +121,14 @@ void LocalGame::gameLoop()
 		}
 
 		if(window->hasFocus())this->playerEvent(deltaTime);
+		this->colision(deltaTime);
 		this->sendPlayerPosition(); //wysy�a pozycje i dane gracza
 		this->receiveTCP();//odbiera rozkazy TCP
 		this->recieveUDP(); //odbiera wiadomo�ci TCP
 		this->player->sendBullets(this->TCPsocket);//wysyła dane o bulletach które stworzył gracz
 
 		player->setAngleOfView(kamera.angle);
-		this->player->mainPlayerDoStuff(deltaTime, this->actualMap);
+		this->player->doStuff(deltaTime);
 
 		for (auto & player : otherPlayers)
 		{
@@ -176,8 +163,13 @@ void LocalGame::gameLoop()
 		}
 
 		this->actualMap->draw(*window);
-		this->actualMap->islands[this->actualMap->islands.size() - 1]->drawHitbox(*window);
-		window->draw(this->delitingLine.line);
+		if (this->developerMode == 1)
+		{
+			this->actualMap->islands[this->actualMap->islands.size() - 1]->drawHitbox(*window);
+
+			window->draw(this->delitingLine.line);
+
+		}
 
 		
 
@@ -223,6 +215,7 @@ void LocalGame::gameLoop()
 
 void LocalGame::playerEvent(const double &deltaTime)
 {
+	this->spinD = -1;
 	if (player == nullptr)return;
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
 	{
@@ -250,95 +243,109 @@ void LocalGame::playerEvent(const double &deltaTime)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A))
 	{
+		this->spinD = 0;
 		player->getShip()->spin(0, deltaTime);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D))
 	{
+		this->spinD = 1;
+
 		player->getShip()->spin(1, deltaTime);
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		player->shoot();
 	}
-
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) /*&& (resetButton == 0)*/)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::RControl) && sf::Keyboard::isKeyPressed(sf::Keyboard::F12))
 	{
-		resetButton = 0;
-		this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f> (this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition()));
-		this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
-		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+		std::cout << "DEVELOPER MODE ON" << std::endl;
+		developerMode = 1;
+
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
+
+	if (developerMode == 1)
 	{
-		resetButton = 0;
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
-	{
-		this->saveMap();
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (resetButton == 0))
-	{
-		resetButton = 1;
-		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) { ; }
-		std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
-		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
-		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
-		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
-
-		this->actualMap->addIsland(std::make_shared<shallow>(newIslandPoints, 0, &(this->textures)));
-		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
-	{
-		this->loadWorkMap();
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
-	{
-
-		int counter = -1;
-		int flag = 0;
-		this->delitingLine.punkt1 = this->kamera.MicePosition;
-		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right) /*&& (resetButton == 0)*/)
 		{
-			;
+			resetButton = 0;
+			this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f>(this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition()));
+			this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
+			this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
 		}
 
-		kamera.calculateMiceFromMiddle(&(*(this->window)));
-		kamera.calculateMicePosition();
-		this->delitingLine.punkt2 = this->kamera.MicePosition;
-		this->delitingLine.updateVisual();
-		for (auto isle : this->actualMap->islands)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
 		{
-			counter++;
+			resetButton = 0;
+		}
 
-			if (isle->touch(&(this->delitingLine)))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::M))
+		{
+			this->saveMap();
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (resetButton == 0))
+		{
+			resetButton = 1;
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) { ; }
+			std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
+			newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+			newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+			newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
+
+			this->actualMap->addIsland(std::make_shared<shallow>(newIslandPoints, 0, &(this->textures)));
+			this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L))
+		{
+			this->loadWorkMap();
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
+		{
+
+			int counter = -1;
+			int flag = 0;
+			this->delitingLine.punkt1 = this->kamera.MicePosition;
+			while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
 			{
-				
-				std::cout << counter << " island deleted" << std::endl;
-				flag = 27;
-				break;
-				
+				;
 			}
 
+			kamera.calculateMiceFromMiddle(&(*(this->window)));
+			kamera.calculateMicePosition();
+			this->delitingLine.punkt2 = this->kamera.MicePosition;
+			this->delitingLine.updateVisual();
+			for (auto isle : this->actualMap->islands)
+			{
+				counter++;
 
+				if (isle->touch(&(this->delitingLine)))
+				{
+
+					std::cout << counter << " island deleted" << std::endl;
+					flag = 27;
+					break;
+
+				}
+
+
+			}
+			if (flag != 0)
+			{
+				this->actualMap->islands.erase(this->actualMap->islands.begin() + counter);
+			}
 		}
-		if (flag != 0)
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
 		{
-			this->actualMap->islands.erase(this->actualMap->islands.begin() + counter);
+			this->player->getShip()->acceleration = this->player->getShip()->acceleration*9;
+			this->player->getShip()->maxSpeed = 5000;
+			this->player->getShip()->maxTurnAcceleration = 100;
 		}
 	}
-
-	/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
-	{
-		this->player->getShip()->acceleration = this->player->getShip()->acceleration*9;
-		this->player->getShip()->maxSpeed = 5000;
-		this->player->getShip()->maxTurnAcceleration = 100;
-	}*/
+	
 
 
 }
@@ -1261,4 +1268,39 @@ bool LocalGame::loadWorkMap()
 	}
 	in.close();
 	return 1;
+}
+
+void LocalGame::colision(float deltaTime)
+{
+	isColliding = 0;
+	for (auto isle : this->actualMap->islands)
+	{
+		if ((isle->touch(&(this->player->getShip()->hitbox[0]))) || (isle->touch(&(this->player->getShip()->hitbox[1]))))
+		{
+			this->isColliding = 1;
+			break;
+		}
+	}
+	if (isColliding)
+	{
+
+		this->player->getShip()->swim(-deltaTime);
+		if (this->spinD != -1)
+		{
+			if (this->spinD == 1)
+			{
+				this->spinD = 0;
+			}
+			else
+			{
+				this->spinD = 1;
+			}
+			this->player->getShip()->spin(this->spinD, deltaTime);
+
+		}
+		this->player->getShip()->actualSpeed = 0;
+
+	}
+
+
 }
