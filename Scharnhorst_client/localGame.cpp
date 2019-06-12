@@ -959,7 +959,7 @@ void LocalGame::loadMap()
 	this->textures.insert(std::pair<std::string, sf::Texture>("water1", waterTexture));
 
 	sf::Texture shallowTexture;
-	shallowTexture.loadFromFile("gamedata/textures/shallow.png");
+	shallowTexture.loadFromFile("gamedata/textures/shallow.jpg");
 	this->textures.insert(std::pair<std::string,sf::Texture>("shallow1", shallowTexture));
 
 	sf::Texture scharnhorstTexture;
