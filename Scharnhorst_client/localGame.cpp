@@ -47,11 +47,7 @@ LocalGame::LocalGame()
 
 	if (!this->loadGameFiles())throw 'E';
 
-	sf::ContextSettings settings;
-	settings.antialiasingLevel = 4;
-
-	this->window = std::make_shared<sf::RenderWindow>(gameInfo.resolution, "Scharnhorst", sf::Style::Default, settings);
-	this->window->setFramerateLimit(65);
+	
 	this->player = std::make_shared<Player>(1, playerName, "KMS Scharnhorst");
 	
 	inSocket.bind(sf::Socket::AnyPort);
@@ -212,16 +208,6 @@ void LocalGame::gameLoop()
 			guiTexture.draw(content);
 		}
 		guiTexture.draw(messageText);
-
-
-		
-		//test.draw(*window);
-		
-	
-		//wyspa
-		//this->actualMap->islands[0]->drawHitbox(*window);
-		
-
 
 		guiTexture.display();
 		sf::Sprite gui(guiTexture.getTexture());
