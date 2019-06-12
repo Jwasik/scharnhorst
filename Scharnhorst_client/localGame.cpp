@@ -57,6 +57,24 @@ void LocalGame::gameLoop()
 		this->player->getShip()->shape.setTexture(&this->textures["scharnhorst1"]);
 	}
 
+	if (shipType == "Oregon")
+	{
+		std::cout << shipType << std::endl;
+
+		this->player->getShip()->shape.setFillColor(sf::Color(255, 255, 255));
+		this->player->getShip()->shape.setTexture(&this->textures["oregon1"]);
+	}
+
+	if (shipType == "Krasnyj Kawkaz")
+	{
+		std::cout << shipType << std::endl;
+
+		this->player->getShip()->shape.setFillColor(sf::Color(255, 255, 255));
+		this->player->getShip()->shape.setTexture(&this->textures["krasnyjkawkaz1"]);
+	}
+
+
+
 	sf::Music backgroundMusic;
 	backgroundMusic.openFromFile("gamedata/music/s1.flac");
 	backgroundMusic.setLoop(true);
@@ -979,6 +997,14 @@ void LocalGame::loadMap()
 	sf::Texture scharnhorstTexture;
 	scharnhorstTexture.loadFromFile("gamedata/textures/scharnhorst1.png");
 	this->textures.insert(std::pair<std::string, sf::Texture>("scharnhorst1", scharnhorstTexture));
+
+	sf::Texture oregontTexture;
+	oregontTexture.loadFromFile("gamedata/textures/oregon1.png");
+	this->textures.insert(std::pair<std::string, sf::Texture>("oregon1", oregontTexture));
+
+	sf::Texture krasnyjkawkazTexture;
+	krasnyjkawkazTexture.loadFromFile("gamedata/textures/krasnyjkawkaz1.png");
+	this->textures.insert(std::pair<std::string, sf::Texture>("krasnyjkawkaz1", oregontTexture));
 	
 	this->backgroundMap.resize(128); 
 	for (auto & vector : backgroundMap)
