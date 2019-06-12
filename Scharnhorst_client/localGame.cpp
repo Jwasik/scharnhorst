@@ -277,9 +277,9 @@ void LocalGame::playerEvent(const double &deltaTime)
 		player->shoot();
 	}
 
-	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) && (resetButton == 0))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Right) /*&& (resetButton == 0)*/)
 	{
-		resetButton = 1;
+		resetButton = 0;
 		this->actualMap->islands[this->actualMap->islands.size() - 1]->addPoint(std::make_shared<sf::Vector2f> (this->kamera.MicePosition - this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition()));
 		this->actualMap->islands[this->actualMap->islands.size() - 1]->updateShape();
 		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(this->actualMap->islands[this->actualMap->islands.size() - 1]->shape.getPosition());
@@ -298,7 +298,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O) && (resetButton == 0))
 	{
 		resetButton = 1;
-
+		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::O)) { ; }
 		std::shared_ptr <std::vector<std::shared_ptr<sf::Vector2f>>> newIslandPoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
 		newIslandPoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(0, 0)));
@@ -317,6 +317,7 @@ void LocalGame::playerEvent(const double &deltaTime)
 	{
 
 		int counter = -1;
+		int flag = 0;
 		this->delitingLine.punkt1 = this->kamera.MicePosition;
 		while (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::X))
 		{
@@ -335,16 +336,26 @@ void LocalGame::playerEvent(const double &deltaTime)
 			{
 				
 				std::cout << counter << " island deleted" << std::endl;
+				flag = 27;
 				break;
-
+				
 			}
 
 
 		}
-		if (counter != -1)
+		if (flag != 0)
 		{
 			this->actualMap->islands.erase(this->actualMap->islands.begin() + counter);
 		}
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::K))
+	{
+		this->player->getShip()->acceleration = this->player->getShip()->acceleration*9;
+		this->player->getShip()->maxSpeed = 5000;
+		this->player->getShip()->maxTurnAcceleration = 100;
+
+
 	}
 
 
@@ -735,7 +746,7 @@ bool LocalGame::loadMaps()
 
 
 		std::getline(in, type);//nazwa
-		std::cout << "type: " <<  type << std::endl;
+		//std::cout << "type: " <<  type << std::endl;
 		if (type == "END")
 		{
 			maps.push_back(std::make_shared<map>());
@@ -757,7 +768,7 @@ bool LocalGame::loadMaps()
 			stopsBullets = 0;
 		}
 		in >> pointCount;//ilość punktów
-		std::cout <<"pcount: " << pointCount << std::endl;
+		//std::cout <<"pcount: " << pointCount << std::endl;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 		for (int i = 0; i < pointCount; i++)
@@ -765,7 +776,7 @@ bool LocalGame::loadMaps()
 
 			in >> x;
 			in >> y;
-			std::cout << x << ' ' << y << std::endl;
+			//std::cout << x << ' ' << y << std::endl;
 
 			tempoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(x, y)));
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -779,7 +790,7 @@ bool LocalGame::loadMaps()
 		in >> y;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		std::cout << "p: " << x << ' ' << y << std::endl;
+		//std::cout << "p: " << x << ' ' << y << std::endl;
 
 
 		maps[maps.size() - 1]->islands[maps[maps.size() - 1]->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
@@ -1193,7 +1204,7 @@ void LocalGame::saveMap()
 
 
 		out << this->actualMap->islands[i]->returnType() << "\n";
-		std::cout << "type: " << this->actualMap->islands[i]->returnType() << "\n";
+		//std::cout << "type: " << this->actualMap->islands[i]->returnType() << "\n";
 
 
 		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>> (this->actualMap->islands[i]->points);
@@ -1202,15 +1213,15 @@ void LocalGame::saveMap()
 	
 		for (auto point : (*tempoints))
 		{
-			std::cout << "hey boss" << "\n";
+			//std::cout << "hey boss" << "\n";
 			out << point->x << " " << point->y << "\n";
-			std::cout << point->x << " " << point->y << "\n" << std::endl;
+			//std::cout << point->x << " " << point->y << "\n" << std::endl;
 
 		}
 
 		out << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
 
-		std::cout << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
+		//std::cout << this->actualMap->islands[i]->shape.getPosition().x << " " << this->actualMap->islands[i]->shape.getPosition().y << "\n";
 
 
 
@@ -1240,7 +1251,7 @@ bool LocalGame::loadWorkMap()
 
 
 		std::getline(in, type);//nazwa
-		std::cout << "type: " << type << std::endl;
+		//std::cout << "type: " << type << std::endl;
 
 
 		if (type == "ENDofFILE")
@@ -1258,7 +1269,7 @@ bool LocalGame::loadWorkMap()
 			stopsBullets = 0;
 		}
 		in >> pointCount;//ilość punktów
-		std::cout << "pcount: " << pointCount << std::endl;
+		//std::cout << "pcount: " << pointCount << std::endl;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		tempoints = std::make_shared<std::vector<std::shared_ptr<sf::Vector2f>>>();
 		for (int i = 0; i < pointCount; i++)
@@ -1266,7 +1277,7 @@ bool LocalGame::loadWorkMap()
 
 			in >> x;
 			in >> y;
-			std::cout << x << ' ' << y << std::endl;
+			//std::cout << x << ' ' << y << std::endl;
 
 			tempoints->push_back(std::make_shared<sf::Vector2f>(sf::Vector2f(x, y)));
 			in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -1280,7 +1291,7 @@ bool LocalGame::loadWorkMap()
 		in >> y;
 		in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-		std::cout << "p: " << x << ' ' << y << std::endl;
+		//std::cout << "p: " << x << ' ' << y << std::endl;
 
 
 		this->actualMap->islands[this->actualMap->islands.size() - 1]->setPosition(sf::Vector2f(x, y));
