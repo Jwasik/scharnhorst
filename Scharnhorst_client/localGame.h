@@ -40,6 +40,7 @@ private:
 	std::vector<std::vector<sf::RectangleShape>> backgroundMap;
 	std::vector<std::shared_ptr<map>> maps;
 	std::shared_ptr<map> actualMap;
+	odcinek delitingLine;
 
 
 	std::map<std::string, std::shared_ptr<sf::SoundBuffer>> soundBuffers;

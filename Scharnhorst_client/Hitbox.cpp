@@ -26,10 +26,12 @@ bool hitbox::intersects(odcinek *line)
 			return 1;
 		}
 	}
-
+	
 	return 0;
 
 }
+
+
 
 void hitbox::setPosition(sf::Vector2f nposition)
 {
