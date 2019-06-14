@@ -1036,15 +1036,16 @@ void LocalGame::receivePlayersPositions()
 	sf::Clock connectionClock;
 	connectionClock.restart();
 
-	this->inSocket.receive(receivedPacket, IP, port);
-	while (connectionClock.getElapsedTime().asMilliseconds() < 60)
+	
+	while (connectionClock.getElapsedTime().asMilliseconds() < 20)
 	{
+		this->inSocket.receive(receivedPacket, IP, port);
 		std::string message = "NULL";
 		if (receivedPacket >> message)
 		{
 			//std::cout << message << std::endl;
 
-			if (message == "PPS")
+			/*if (message == "PPS")
 			{
 				//std::cout << "received PPS" << std::endl;
 				unsigned int playerId;
@@ -1074,7 +1075,7 @@ void LocalGame::receivePlayersPositions()
 						receivedPacket.clear();
 					}
 				}
-			}
+			}*/
 			if (message == "POS")
 			{
 				unsigned int id;
@@ -1180,7 +1181,6 @@ void LocalGame::receiveTCP()
 				prey->setHP(preyHPleft);
 				prey->calculateHPindicator();
 				this->eraseBullet(bulletId);
-				std::cout << "received HIT " << preyId << ' ' << damage << std::endl;
 			}
 			else if (message == "KIL")
 			{
